@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sudoku</title>
+
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    
+    <style type="text/css">
+        [class*="node"] {
+            float: left;
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+       [class*="options"] {
+            float: left;
+            width: 110px;
+            height: 50px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        .new {
+            clear: both;
+            text-align: center;
+        }
+
+        .grid {
+            min-width: 200px;
+            max-width: 200px;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .eligible {
+            min-width: 1100px;
+            max-width: 1100px;
+            width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .available {
+            clear: both;
+            text-align: center;
+        }
+        
+        input[type=text] {
+            font-size: 18;
+            width: 18px;
+        }
+
+        input:not([type=text]) {
+            font-size: 14;
+            width: 100px;
+        }
+
+        .red {
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <Br>
+
+    <!--Sudoko game board--> 
+    <div class="grid">
+        <div class="node"><input type="text" name="" id="node-111" value=""></div>
+        <div class="node"><input type="text" name="" id="node-121" value=""></div>
+        <div class="node"><input type="text" name="" id="node-131" value=""></div>
+        <div class="node"><input type="text" name="" id="node-142" value=""></div>
+        <div class="node"><input type="text" name="" id="node-152" value=""></div>
+        <div class="node"><input type="text" name="" id="node-162" value=""></div>
+        <div class="node"><input type="text" name="" id="node-173" value=""></div>
+        <div class="node"><input type="text" name="" id="node-183" value=""></div>
+        <div class="node"><input type="text" name="" id="node-193" value=""></div>
+
+        <div class="node"><input type="text" name="" id="node-211" value=""></div>
+        <div class="node"><input type="text" name="" id="node-221" value=""></div>
+        <div class="node"><input type="text" name="" id="node-231" value=""></div>
+        <div class="node"><input type="text" name="" id="node-242" value=""></div>
+        <div class="node"><input type="text" name="" id="node-252" value=""></div>
+        <div class="node"><input type="text" name="" id="node-262" value=""></div>
+        <div class="node"><input type="text" name="" id="node-273" value=""></div>
+        <div class="node"><input type="text" name="" id="node-283" value=""></div>
+        <div class="node"><input type="text" name="" id="node-293" value=""></div>
+
+        <div class="node"><input type="text" name="" id="node-311" value=""></div>
+        <div class="node"><input type="text" name="" id="node-321" value=""></div>
+        <div class="node"><input type="text" name="" id="node-331" value=""></div>
+        <div class="node"><input type="text" name="" id="node-342" value=""></div>
+        <div class="node"><input type="text" name="" id="node-352" value=""></div>
+        <div class="node"><input type="text" name="" id="node-362" value=""></div>
+        <div class="node"><input type="text" name="" id="node-373" value=""></div>
+        <div class="node"><input type="text" name="" id="node-383" value=""></div>
+        <div class="node"><input type="text" name="" id="node-393" value=""></div>
+
+        <div class="node"><input type="text" name="" id="node-414" value=""></div>
+        <div class="node"><input type="text" name="" id="node-424" value=""></div>
+        <div class="node"><input type="text" name="" id="node-434" value=""></div>
+        <div class="node"><input type="text" name="" id="node-445" value=""></div>
+        <div class="node"><input type="text" name="" id="node-455" value=""></div>
+        <div class="node"><input type="text" name="" id="node-465" value=""></div>
+        <div class="node"><input type="text" name="" id="node-476" value=""></div>
+        <div class="node"><input type="text" name="" id="node-486" value=""></div>
+        <div class="node"><input type="text" name="" id="node-496" value=""></div>
+
+        <div class="node"><input type="text" name="" id="node-514" value=""></div>
+        <div class="node"><input type="text" name="" id="node-524" value=""></div>
+        <div class="node"><input type="text" name="" id="node-534" value=""></div>
+        <div class="node"><input type="text" name="" id="node-545" value=""></div>
+        <div class="node"><input type="text" name="" id="node-555" value=""></div>
+        <div class="node"><input type="text" name="" id="node-565" value=""></div>
+        <div class="node"><input type="text" name="" id="node-576" value=""></div>
+        <div class="node"><input type="text" name="" id="node-586" value=""></div>
+        <div class="node"><input type="text" name="" id="node-596" value=""></div>
+
+        <div class="node"><input type="text" name="" id="node-614" value=""></div>
+        <div class="node"><input type="text" name="" id="node-624" value=""></div>
+        <div class="node"><input type="text" name="" id="node-634" value=""></div>
+        <div class="node"><input type="text" name="" id="node-645" value=""></div>
+        <div class="node"><input type="text" name="" id="node-655" value=""></div>
+        <div class="node"><input type="text" name="" id="node-665" value=""></div>
+        <div class="node"><input type="text" name="" id="node-676" value=""></div>
+        <div class="node"><input type="text" name="" id="node-686" value=""></div>
+        <div class="node"><input type="text" name="" id="node-696" value=""></div>
+
+        <div class="node"><input type="text" name="" id="node-717" value=""></div>
+        <div class="node"><input type="text" name="" id="node-727" value=""></div>
+        <div class="node"><input type="text" name="" id="node-737" value=""></div>
+        <div class="node"><input type="text" name="" id="node-748" value=""></div>
+        <div class="node"><input type="text" name="" id="node-758" value=""></div>
+        <div class="node"><input type="text" name="" id="node-768" value=""></div>
+        <div class="node"><input type="text" name="" id="node-779" value=""></div>
+        <div class="node"><input type="text" name="" id="node-789" value=""></div>
+        <div class="node"><input type="text" name="" id="node-799" value=""></div>
+
+        <div class="node"><input type="text" name="" id="node-817" value=""></div>
+        <div class="node"><input type="text" name="" id="node-827" value=""></div>
+        <div class="node"><input type="text" name="" id="node-837" value=""></div>
+        <div class="node"><input type="text" name="" id="node-848" value=""></div>
+        <div class="node"><input type="text" name="" id="node-858" value=""></div>
+        <div class="node"><input type="text" name="" id="node-868" value=""></div>
+        <div class="node"><input type="text" name="" id="node-879" value=""></div>
+        <div class="node"><input type="text" name="" id="node-889" value=""></div>
+        <div class="node"><input type="text" name="" id="node-899" value=""></div>
+
+        <div class="node"><input type="text" name="" id="node-917" value=""></div>
+        <div class="node"><input type="text" name="" id="node-927" value=""></div>
+        <div class="node"><input type="text" name="" id="node-937" value=""></div>
+        <div class="node"><input type="text" name="" id="node-948" value=""></div>
+        <div class="node"><input type="text" name="" id="node-958" value=""></div>
+        <div class="node"><input type="text" name="" id="node-968" value=""></div>
+        <div class="node"><input type="text" name="" id="node-979" value=""></div>
+        <div class="node"><input type="text" name="" id="node-989" value=""></div>
+        <div class="node"><input type="text" name="" id="node-999" value=""></div>
+
+    </div>
+
+    <!--Action Buttons--> 
+    <div class="new">
+        <button type="button" id="clear">Clear</button>
+        <button type="button" id="reset">Reset</button>
+        <button type="button" id="solve">Solve</button>
+        </div>
+
+    <!--Grid to display available numbers per node--> 
+    <div class="available"><Br />Available number for block:</div>
+    <div class="eligible">
+        <div class="options111">111:<input type="textbox" name="" id="options111" value=""></div>
+        <div class="options121">121:<input type="textbox" name="" id="options121" value=""></div>
+        <div class="options131">131:<input type="textbox" name="" id="options131" value=""></div>
+        <div class="options142">142:<input type="textbox" name="" id="options142" value=""></div>
+        <div class="options152">152:<input type="textbox" name="" id="options152" value=""></div>
+        <div class="options162">162:<input type="textbox" name="" id="options162" value=""></div>
+        <div class="options173">173:<input type="textbox" name="" id="options173" value=""></div>
+        <div class="options183">183:<input type="textbox" name="" id="options183" value=""></div>
+        <div class="options193">193:<input type="textbox" name="" id="options193" value=""></div>
+
+        <div class="options211">211:<input type="textbox" name="" id="options211" value=""></div>
+        <div class="options221">221:<input type="textbox" name="" id="options221" value=""></div>
+        <div class="options231">231:<input type="textbox" name="" id="options231" value=""></div>
+        <div class="options242">242:<input type="textbox" name="" id="options242" value=""></div>
+        <div class="options252">252:<input type="textbox" name="" id="options252" value=""></div>
+        <div class="options262">262:<input type="textbox" name="" id="options262" value=""></div>
+        <div class="options273">273:<input type="textbox" name="" id="options273" value=""></div>
+        <div class="options283">283:<input type="textbox" name="" id="options283" value=""></div>
+        <div class="options293">293:<input type="textbox" name="" id="options293" value=""></div>
+
+        <div class="options311">311:<input type="textbox" name="" id="options311" value=""></div>
+        <div class="options321">321:<input type="textbox" name="" id="options321" value=""></div>
+        <div class="options331">331:<input type="textbox" name="" id="options331" value=""></div>
+        <div class="options342">342:<input type="textbox" name="" id="options342" value=""></div>
+        <div class="options352">352:<input type="textbox" name="" id="options352" value=""></div>
+        <div class="options362">362:<input type="textbox" name="" id="options362" value=""></div>
+        <div class="options373">373:<input type="textbox" name="" id="options373" value=""></div>
+        <div class="options383">383:<input type="textbox" name="" id="options383" value=""></div>
+        <div class="options393">393:<input type="textbox" name="" id="options393" value=""></div>
+
+        <div class="options414">414:<input type="textbox" name="" id="options414" value=""></div>
+        <div class="options424">424:<input type="textbox" name="" id="options424" value=""></div>
+        <div class="options434">434:<input type="textbox" name="" id="options434" value=""></div>
+        <div class="options445">445:<input type="textbox" name="" id="options445" value=""></div>
+        <div class="options455">455:<input type="textbox" name="" id="options455" value=""></div>
+        <div class="options465">465:<input type="textbox" name="" id="options465" value=""></div>
+        <div class="options476">476:<input type="textbox" name="" id="options476" value=""></div>
+        <div class="options486">486:<input type="textbox" name="" id="options486" value=""></div>
+        <div class="options496">496:<input type="textbox" name="" id="options496" value=""></div>
+
+        <div class="options514">514:<input type="textbox" name="" id="options514" value=""></div>
+        <div class="options524">524:<input type="textbox" name="" id="options524" value=""></div>
+        <div class="options534">534:<input type="textbox" name="" id="options534" value=""></div>
+        <div class="options545">545:<input type="textbox" name="" id="options545" value=""></div>
+        <div class="options555">555:<input type="textbox" name="" id="options555" value=""></div>
+        <div class="options565">565:<input type="textbox" name="" id="options565" value=""></div>
+        <div class="options576">576:<input type="textbox" name="" id="options576" value=""></div>
+        <div class="options586">586:<input type="textbox" name="" id="options586" value=""></div>
+        <div class="options596">596:<input type="textbox" name="" id="options596" value=""></div>
+
+        <div class="options614">614:<input type="textbox" name="" id="options614" value=""></div>
+        <div class="options624">624:<input type="textbox" name="" id="options624" value=""></div>
+        <div class="options634">634:<input type="textbox" name="" id="options634" value=""></div>
+        <div class="options645">645:<input type="textbox" name="" id="options645" value=""></div>
+        <div class="options655">655:<input type="textbox" name="" id="options655" value=""></div>
+        <div class="options665">665:<input type="textbox" name="" id="options665" value=""></div>
+        <div class="options676">676:<input type="textbox" name="" id="options676" value=""></div>
+        <div class="options686">686:<input type="textbox" name="" id="options686" value=""></div>
+        <div class="options696">696:<input type="textbox" name="" id="options696" value=""></div>
+
+        <div class="options717">717:<input type="textbox" name="" id="options717" value=""></div>
+        <div class="options727">727:<input type="textbox" name="" id="options727" value=""></div>
+        <div class="options737">737:<input type="textbox" name="" id="options737" value=""></div>
+        <div class="options748">748:<input type="textbox" name="" id="options748" value=""></div>
+        <div class="options758">758:<input type="textbox" name="" id="options758" value=""></div>
+        <div class="options768">768:<input type="textbox" name="" id="options768" value=""></div>
+        <div class="options779">779:<input type="textbox" name="" id="options779" value=""></div>
+        <div class="options789">789:<input type="textbox" name="" id="options789" value=""></div>
+        <div class="options799">799:<input type="textbox" name="" id="options799" value=""></div>
+
+        <div class="options817">817:<input type="textbox" name="" id="options817" value=""></div>
+        <div class="options827">827:<input type="textbox" name="" id="options827" value=""></div>
+        <div class="options837">837:<input type="textbox" name="" id="options837" value=""></div>
+        <div class="options848">848:<input type="textbox" name="" id="options848" value=""></div>
+        <div class="options858">858:<input type="textbox" name="" id="options858" value=""></div>
+        <div class="options868">868:<input type="textbox" name="" id="options868" value=""></div>
+        <div class="options879">879:<input type="textbox" name="" id="options879" value=""></div>
+        <div class="options889">889:<input type="textbox" name="" id="options889" value=""></div>
+        <div class="options899">899:<input type="textbox" name="" id="options899" value=""></div>
+
+        <div class="options917">917:<input type="textbox" name="" id="options917" value=""></div>
+        <div class="options927">927:<input type="textbox" name="" id="options927" value=""></div>
+        <div class="options937">937:<input type="textbox" name="" id="options937" value=""></div>
+        <div class="options948">948:<input type="textbox" name="" id="options948" value=""></div>
+        <div class="options958">958:<input type="textbox" name="" id="options958" value=""></div>
+        <div class="options968">968:<input type="textbox" name="" id="options968" value=""></div>
+        <div class="options979">979:<input type="textbox" name="" id="options979" value=""></div>
+        <div class="options989">989:<input type="textbox" name="" id="options989" value=""></div>
+        <div class="options999">999:<input type="textbox" name="" id="options999" value=""></div>
+
+    </div>
+
+
+    <script type="text/javascript">
+   
+        //On page load functions
+         $(document).ready(function () {
+             $(".node").forceNumeric();
+             $.fn.startGame();
+             $.fn.clearArrays(arrayNames, arrayValues);
+             $.fn.printArrays(optionNames, arrayNames);
+             $.fn.colorArrays(nodeNames);
+         });
+
+        //Variable Decrlarations
+         var nodeNames = ['#node-111', '#node-121', '#node-131', '#node-142', '#node-152', '#node-162', '#node-173', '#node-183', '#node-193', '#node-211', '#node-221', '#node-231', '#node-242', '#node-252', '#node-262', '#node-273', '#node-283', '#node-293', '#node-311', '#node-321', '#node-331', '#node-342', '#node-352', '#node-362', '#node-373', '#node-383', '#node-393', '#node-414', '#node-424', '#node-434', '#node-445', '#node-455', '#node-465', '#node-476', '#node-486', '#node-496', '#node-514', '#node-524', '#node-534', '#node-545', '#node-555', '#node-565', '#node-576', '#node-586', '#node-596', '#node-614', '#node-624', '#node-634', '#node-645', '#node-655', '#node-665', '#node-676', '#node-686', '#node-696', '#node-717', '#node-727', '#node-737', '#node-748', '#node-758', '#node-768', '#node-779', '#node-789', '#node-799', '#node-817', '#node-827', '#node-837', '#node-848', '#node-858', '#node-868', '#node-879', '#node-889', '#node-899', '#node-917', '#node-927', '#node-937', '#node-948', '#node-958', '#node-968', '#node-979', '#node-989', '#node-999',];
+         var arrayNames = ['array111', 'array121', 'array131', 'array142', 'array152', 'array162', 'array173', 'array183', 'array193', 'array211', 'array221', 'array231', 'array242', 'array252', 'array262', 'array273', 'array283', 'array293', 'array311', 'array321', 'array331', 'array342', 'array352', 'array362', 'array373', 'array383', 'array393', 'array414', 'array424', 'array434', 'array445', 'array455', 'array465', 'array476', 'array486', 'array496', 'array514', 'array524', 'array534', 'array545', 'array555', 'array565', 'array576', 'array586', 'array596', 'array614', 'array624', 'array634', 'array645', 'array655', 'array665', 'array676', 'array686', 'array696', 'array717', 'array727', 'array737', 'array748', 'array758', 'array768', 'array779', 'array789', 'array799', 'array817', 'array827', 'array837', 'array848', 'array858', 'array868', 'array879', 'array889', 'array899', 'array917', 'array927', 'array937', 'array948', 'array958', 'array968', 'array979', 'array989', 'array999'];
+         var arrayValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+         var optionNames = ['#options111', '#options121', '#options131', '#options142', '#options152', '#options162', '#options173', '#options183', '#options193', '#options211', '#options221', '#options231', '#options242', '#options252', '#options262', '#options273', '#options283', '#options293', '#options311', '#options321', '#options331', '#options342', '#options352', '#options362', '#options373', '#options383', '#options393', '#options414', '#options424', '#options434', '#options445', '#options455', '#options465', '#options476', '#options486', '#options496', '#options514', '#options524', '#options534', '#options545', '#options555', '#options565', '#options576', '#options586', '#options596', '#options614', '#options624', '#options634', '#options645', '#options655', '#options665', '#options676', '#options686', '#options696', '#options717', '#options727', '#options737', '#options748', '#options758', '#options768', '#options779', '#options789', '#options799', '#options817', '#options827', '#options837', '#options848', '#options858', '#options868', '#options879', '#options889', '#options899', '#options917', '#options927', '#options937', '#options948', '#options958', '#options968', '#options979', '#options989', '#options999'];
+
+         // force numeric values in grid (copied from the web)
+         jQuery.fn.forceNumeric = function () {
+
+             return this.each(function () {
+                 $(this).keydown(function (e) {
+                     var key = e.which || e.keyCode;
+
+                     if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
+                     // numbers
+                         key >= 48 && key <= 57 ||
+                     // Numeric keypad
+                         key >= 96 && key <= 105 ||
+                     // comma, period and minus, . on keypad
+                        key == 190 || key == 188 || key == 109 || key == 110 ||
+                     // Backspace and Tab and Enter
+                        key == 8 || key == 9 || key == 13 ||
+                     // Home and End
+                        key == 35 || key == 36 ||
+                     // left and right arrows
+                        key == 37 || key == 39 ||
+                     // Del and Ins
+                        key == 46 || key == 45)
+                         return true;
+
+                     return false;
+                 });
+             });
+         }
+
+         //Set default grid values (onload & reset)
+         $.fn.startGame = function () {
+             $("#node-111").val("5");
+             $("#node-121").val("");
+             $("#node-131").val("");
+             $("#node-142").val("1");
+             $("#node-152").val("");
+             $("#node-162").val("");
+             $("#node-173").val("");
+             $("#node-183").val("");
+             $("#node-193").val("");
+
+             $("#node-211").val("");
+             $("#node-221").val("9");
+             $("#node-231").val("6");
+             $("#node-242").val("");
+             $("#node-252").val("");
+             $("#node-262").val("");
+             $("#node-273").val("8");
+             $("#node-283").val("2");
+             $("#node-293").val("");
+
+             $("#node-311").val("");
+             $("#node-321").val("");
+             $("#node-331").val("");
+             $("#node-342").val("");
+             $("#node-352").val("");
+             $("#node-362").val("7");
+             $("#node-373").val("");
+             $("#node-383").val("");
+             $("#node-393").val("9");
+           
+            $("#node-414").val("");
+            $("#node-424").val("");
+            $("#node-434").val("");
+            $("#node-445").val("");
+            $("#node-455").val("");
+            $("#node-465").val("3");
+            $("#node-476").val("");
+            $("#node-486").val("");
+            $("#node-496").val("6");
+            
+            $("#node-514").val("");
+            $("#node-524").val("7");
+            $("#node-534").val("4");
+            $("#node-545").val("");
+            $("#node-555").val("");
+            $("#node-565").val("");
+            $("#node-576").val("9");
+            $("#node-586").val("1");
+            $("#node-596").val("");
+
+            $("#node-614").val("2");
+            $("#node-624").val("");
+            $("#node-634").val("");
+            $("#node-645").val("5");
+            $("#node-655").val("");
+            $("#node-665").val("");
+            $("#node-676").val("");
+            $("#node-686").val("");
+            $("#node-696").val("");
+
+            $("#node-717").val("7");
+            $("#node-727").val("");
+            $("#node-737").val("");
+            $("#node-748").val("6");
+            $("#node-758").val("");
+            $("#node-768").val("");
+            $("#node-779").val("");
+            $("#node-789").val("");
+            $("#node-799").val("");
+       
+            $("#node-817").val("");
+            $("#node-827").val("8");
+            $("#node-837").val("3");
+            $("#node-848").val("");
+            $("#node-858").val("");
+            $("#node-868").val("");
+            $("#node-879").val("5");
+            $("#node-889").val("7");
+            $("#node-899").val("");
+            
+            $("#node-917").val("");
+            $("#node-927").val("");
+            $("#node-937").val("");
+            $("#node-948").val("");
+            $("#node-958").val("");
+            $("#node-968").val("4");
+            $("#node-979").val("");
+            $("#node-989").val("");
+            $("#node-999").val("1");
+
+         }
+
+        //Set all nodes to blank
+         $.fn.clearGame = function (nodeNames) {
+             for (var i = 0; i < 82; i += 1) {
+                 $(String(nodeNames[i])).val("");
+             }
+         }
+
+        //Set all array values to the default 1-9
+         $.fn.clearArrays = function (arrayNames, arrayValues) {
+             for (var i = 0; i < arrayNames.length; i += 1) {
+                 window[arrayNames[i]] = arrayValues.slice();
+             }
+         }
+
+        //Print contents of all of the arrays into the boxes
+         $.fn.printArrays = function (optionNames, arrayNames) {
+             for (var i = 0; i < 82; i += 1) {
+                 //window[String] lets you lookup variables in the global memory via String
+                 //without window this would print the array name
+                 $(String(optionNames[i])).val(String(window[arrayNames[i]]));
+                 
+             }
+         }
+                 
+        //assign color to grid if value in node
+         $.fn.colorArrays = function (nodeNames) {
+             for (var i = 0; i < nodeNames.length; i += 1) {
+                  if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
+                       $(nodeNames[i]).addClass("red");
+                 } else { $(nodeNames[i]).removeClass("red"); }
+             }
+         }
+       
+        //onclick of clear button
+        $("#clear").click(function () {
+            $.fn.clearGame(nodeNames);
+            $.fn.clearArrays(arrayNames, arrayValues);
+            $.fn.printArrays(optionNames, arrayNames);
+            $.fn.colorArrays(nodeNames);
+        })
+
+        //onclick of Reset button
+        $("#reset").click(function () {
+            $.fn.startGame();
+            $.fn.clearArrays(arrayNames, arrayValues);
+            $.fn.printArrays(optionNames, arrayNames);
+            $.fn.colorArrays(nodeNames);
+        })
+        
+        //onclick of solve button 
+        $("#solve").click(function () {
+            $.fn.solve();
+        })
+
+        $.fn.solve = function () {
+            //nodeNames array contains the names
+            //Check each node for value and process accordingly
+            for (var i = 0; i < nodeNames.length; i += 1) {
+                //If value is found in a node, proceed:
+                if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
+                    //Determine ROW/COLUMN/SQUARE to process
+                    var currentNode = nodeNames[i].slice(-3); //obtain nodename (3 digits)
+                    var currentRow = currentNode.slice(0,1); //obtain ROW
+                    var currentCol = currentNode.slice(1, 2); //obtain COL
+                    var currentSqu = currentNode.slice(2); //obtain SQUARE
+                    //Store current value to process
+                    var arrayValueIndex = parseInt(String($(String(nodeNames[i])).val()));
+                    
+                    //Process Node Horizontally
+                    for (var x = ((currentRow - 1) * 9) ; x < (currentRow * 9) ; x++) {
+                        
+                        if ((x + 1 != currentCol)) {
+                            //check array for arrayValueIndex (value being checked) for each node in the row
+
+                            //what I *want* to do
+                            console.log(("Checking " + nodeNames[x] + " for value in " + nodeNames[i] + ";" + arrayValueIndex)); //confirm proper reading of value    
+
+                            //Check array named "nodeNames[x]" for arrayValueIndex and determine the  position of that value in the array and save as var arraylookupposition
+                            var arraylookupposition = parseInt(String($(String(array121))));
+                            
+                            //if value found splice that value from array
+                            if (arraylookupposition > 0) {
+                                //Remove index arraylookupposition from array named "nodeNames[x]"
+                                
+                            }
+                        }
+                    }
+                }
+                
+            }
+            $.fn.printArrays(optionNames, arrayNames);
+
+        }
+               
+        
+        
+
+                        //var nodeLookupInteger = parseInt(nodeLookupValue)
+
+                        //Process Node 111 Horizontally
+                        //check node-111 for 'nodeLookupValue' value and remove it if it exists
+                        
+                        /*Working code from VERBOSE function
+                        var arrayValueIndex = array121.indexOf(nodeLookupInteger);
+                        if (arrayValueIndex >= 0) {
+                            array121.splice(arrayValueIndex, 1);
+                            $("#options121").val(array121);
+                        }
+                        */
+
+
+      
+    </script>
+
+
+
+</body>
+
+
+
+</html>
