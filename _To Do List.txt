@@ -1,6 +1,10 @@
 Sudoku challenge work flow:
-	Visually represent the Sudoku game board (HTML/CSS)
-	Allow system for entry of puzzle numbers (HTML/CSS/JQuery)
-	Represent these numbers clearly on the game board (HTML/CSS/JQuery)
-	Display all possible numbers (1-9) for each blank square (HTML/CSS/JQuery)
+	Visually represent the Sudoku game board (HTML/CSS)-Done
+	Allow system for entry of puzzle numbers (HTML/CSS/JQuery)-Done
+	Represent these numbers clearly on the game board (HTML/CSS/JQuery)-Done
+	Display all possible numbers (1-9) for each blank square (HTML/CSS/JQuery)-Done
+	
 	Eliminate all known invalid numbers from each of the blank squares (JQuery)
+	Move any solved number(s) onto the gameboard (JQuery)
+	Improve visual representation of gameboard (HTML/CSS)
+	Develop deeper algorithm to truly solve puzzles (JQuery)
