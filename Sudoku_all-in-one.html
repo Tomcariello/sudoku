@@ -276,7 +276,7 @@
              $.fn.colorArrays(nodeNames);
          });
 
-        //Variable Decrlarations
+        //Variable Declarations
          var nodeNames = ['#node-111', '#node-121', '#node-131', '#node-142', '#node-152', '#node-162', '#node-173', '#node-183', '#node-193', '#node-211', '#node-221', '#node-231', '#node-242', '#node-252', '#node-262', '#node-273', '#node-283', '#node-293', '#node-311', '#node-321', '#node-331', '#node-342', '#node-352', '#node-362', '#node-373', '#node-383', '#node-393', '#node-414', '#node-424', '#node-434', '#node-445', '#node-455', '#node-465', '#node-476', '#node-486', '#node-496', '#node-514', '#node-524', '#node-534', '#node-545', '#node-555', '#node-565', '#node-576', '#node-586', '#node-596', '#node-614', '#node-624', '#node-634', '#node-645', '#node-655', '#node-665', '#node-676', '#node-686', '#node-696', '#node-717', '#node-727', '#node-737', '#node-748', '#node-758', '#node-768', '#node-779', '#node-789', '#node-799', '#node-817', '#node-827', '#node-837', '#node-848', '#node-858', '#node-868', '#node-879', '#node-889', '#node-899', '#node-917', '#node-927', '#node-937', '#node-948', '#node-958', '#node-968', '#node-979', '#node-989', '#node-999',];
          var arrayNames = ['array111', 'array121', 'array131', 'array142', 'array152', 'array162', 'array173', 'array183', 'array193', 'array211', 'array221', 'array231', 'array242', 'array252', 'array262', 'array273', 'array283', 'array293', 'array311', 'array321', 'array331', 'array342', 'array352', 'array362', 'array373', 'array383', 'array393', 'array414', 'array424', 'array434', 'array445', 'array455', 'array465', 'array476', 'array486', 'array496', 'array514', 'array524', 'array534', 'array545', 'array555', 'array565', 'array576', 'array586', 'array596', 'array614', 'array624', 'array634', 'array645', 'array655', 'array665', 'array676', 'array686', 'array696', 'array717', 'array727', 'array737', 'array748', 'array758', 'array768', 'array779', 'array789', 'array799', 'array817', 'array827', 'array837', 'array848', 'array858', 'array868', 'array879', 'array889', 'array899', 'array917', 'array927', 'array937', 'array948', 'array958', 'array968', 'array979', 'array989', 'array999'];
          var arrayValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -462,7 +462,7 @@
         $.fn.solve = function () {
             //nodeNames array contains the names
             //Check each node for value and process accordingly
-            for (var i = 0; i < nodeNames.length; i += 1) {
+            for (var i = 0; i < nodeNames.length - 70; i += 1) {
                 //If value is found in a node, proceed:
                 if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
                     //Determine ROW/COLUMN/SQUARE to process
@@ -471,25 +471,30 @@
                     var currentCol = currentNode.slice(1, 2); //obtain COL
                     var currentSqu = currentNode.slice(2); //obtain SQUARE
                     //Store current value to process
-                    var arrayValueIndex = parseInt(String($(String(nodeNames[i])).val()));
-                    
+                    var lookupValue = parseInt(String($(String(nodeNames[i])).val()));
+                    console.log("lookupValue is " + lookupValue);
+
                     //Process Node Horizontally
-                    for (var x = ((currentRow - 1) * 9) ; x < (currentRow * 9) ; x++) {
-                        
-                        if ((x + 1 != currentCol)) {
-                            //check array for arrayValueIndex (value being checked) for each node in the row
+                    //for (var x = ((currentRow - 1) * 9) ; x < (currentRow * 9) ; x++) {
+                    for (var x = 1; x < 10; x++) {
+                            console.log(currentCol + " is the curcol and x is " + x)
+                            if (x != currentCol) {
+                                var counter = 1;
+                                var nodeToUpdate = nodeNames[i + x -1].slice(-3);
+                                console.log("in the if...currentNode being checked is " + currentNode);
+                            //check array for lookupValue (value being checked) for each node in the row
+                            //nodenames[x] is node being checked || nodeNames[i] is the parent node value being processed 
+                            //lookupValue is the value being processed
+                            //Check array named "nodeNames[x]" for lookupValue and determine the position of that value in the array and save as var arraylookupposition
+                                var arrayToLookup = eval("array" + nodeToUpdate);
+                                console.log("nodeToUpdate is " + nodeToUpdate);
 
-                            //what I *want* to do
-                            console.log(("Checking " + nodeNames[x] + " for value in " + nodeNames[i] + ";" + arrayValueIndex)); //confirm proper reading of value    
+                            var splicePosition = $.inArray(lookupValue, arrayToLookup);
 
-                            //Check array named "nodeNames[x]" for arrayValueIndex and determine the  position of that value in the array and save as var arraylookupposition
-                            var arraylookupposition = parseInt(String($(String(array121))));
-                            
-                            //if value found splice that value from array
-                            if (arraylookupposition > 0) {
-                                //Remove index arraylookupposition from array named "nodeNames[x]"
-                                
+                            if (splicePosition > -1) {
+                                arrayToLookup.splice(splicePosition, 1);
                             }
+
                         }
                     }
                 }
@@ -498,19 +503,14 @@
             $.fn.printArrays(optionNames, arrayNames);
 
         }
-               
-        
-        
-
+              
                         //var nodeLookupInteger = parseInt(nodeLookupValue)
-
-                        //Process Node 111 Horizontally
                         //check node-111 for 'nodeLookupValue' value and remove it if it exists
                         
                         /*Working code from VERBOSE function
-                        var arrayValueIndex = array121.indexOf(nodeLookupInteger);
-                        if (arrayValueIndex >= 0) {
-                            array121.splice(arrayValueIndex, 1);
+                        var lookupValue = array121.indexOf(nodeLookupInteger);
+                        if (lookupValue >= 0) {
+                            array121.splice(lookupValue, 1);
                             $("#options121").val(array121);
                         }
                         */
