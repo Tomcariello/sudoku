@@ -5,6 +5,9 @@ Sudoku challenge work flow:
 	Display all possible numbers (1-9) for each blank square (HTML/CSS/JQuery)-Done
 	
 	Eliminate all known invalid numbers from each of the blank squares (JQuery)
+		Horizontal - Done
+		Vertical - Done
+		Per Box
 	Move any solved number(s) onto the gameboard (JQuery)
 	Improve visual representation of gameboard (HTML/CSS)
 	Develop deeper algorithm to truly solve puzzles (JQuery)
