@@ -460,8 +460,9 @@
         })
 
         $.fn.solve = function () {
+            //nodeNames array contains the names
             //Check each node for value and process accordingly
-            for (var i = 0; i < nodeNames.length; i += 1) {
+            for (var i = 0; i < nodeNames.length - 70; i += 1) {
                 //If value is found in a node, proceed:
                 if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
                     //Determine ROW/COLUMN/SQUARE to process
@@ -473,79 +474,31 @@
                     var lookupValue = parseInt(String($(String(nodeNames[i])).val()));
                     console.log("lookupValue is " + lookupValue);
 
-                    //********************************************
-                    //Remove all numbers except the static numbers is number entered in top grid
-                    //********************************************
-
-                    //Process Nodes Horizontally
+                    //Process Node Horizontally
+                    //for (var x = ((currentRow - 1) * 9) ; x < (currentRow * 9) ; x++) {
                     for (var x = 1; x < 10; x++) {
+                            console.log(currentCol + " is the curcol and x is " + x)
                             if (x != currentCol) {
-                                var nodeToUpdate = nodeNames[(currentRow - 1) * 9 - 1 + x].slice(-3);
-                                //check array for lookupValue (value being checked) for each node in the row
+                                var counter = 1;
+                                var nodeToUpdate = nodeNames[i + x -1].slice(-3);
+                                console.log("in the if...currentNode being checked is " + currentNode);
+                            //check array for lookupValue (value being checked) for each node in the row
                             //nodenames[x] is node being checked || nodeNames[i] is the parent node value being processed 
                             //lookupValue is the value being processed
                             //Check array named "nodeNames[x]" for lookupValue and determine the position of that value in the array and save as var arraylookupposition
                                 var arrayToLookup = eval("array" + nodeToUpdate);
-                               var splicePosition = $.inArray(lookupValue, arrayToLookup);
-
-                            if (splicePosition > -1) {
-                                arrayToLookup.splice(splicePosition, 1);
-                            }
-                            }
-                    }
-
-                    //Process Nodes vertically
-                    for (var x = 1; x < 10; x++) {
-                        if (x != currentRow) {
-                           
-                            var nodeToUpdate = nodeNames[(currentCol -1) + 9 * (x-1)].slice(-3);
-                            //(currentCol - 1) + 9 * (x - 1)
-
-                            console.log("currentNode being checked vertically is " + currentNode);
-                            //check array for lookupValue (value being checked) for each node in the row
-                            //nodenames[x] is node being checked || nodeNames[i] is the parent node value being processed 
-                            //lookupValue is the value being processed
-                            //Check array named "nodeNames[x]" for lookupValue and determine the position of that value in the array and save as var arraylookupposition
-                            var arrayToLookup = eval("array" + nodeToUpdate);
-                            console.log("nodeToUpdate vertically is " + nodeToUpdate);
+                                console.log("nodeToUpdate is " + nodeToUpdate);
 
                             var splicePosition = $.inArray(lookupValue, arrayToLookup);
 
-
                             if (splicePosition > -1) {
                                 arrayToLookup.splice(splicePosition, 1);
                             }
-                        }
-                    }
 
-                    //********************************************
-                    //Process Nodes per box - in progress
-                    //********************************************
-                    for (var x = 1; x < 10; x++) {
-                        if (x != currentRow) {
-
-                            var nodeToUpdate = nodeNames[(currentCol - 1) + 9 * (x - 1)].slice(-3);
-                            //(currentCol - 1) + 9 * (x - 1)
-
-                            console.log("currentNode being checked vertically is " + currentNode);
-                            //check array for lookupValue (value being checked) for each node in the row
-                            //nodenames[x] is node being checked || nodeNames[i] is the parent node value being processed 
-                            //lookupValue is the value being processed
-                            //Check array named "nodeNames[x]" for lookupValue and determine the position of that value in the array and save as var arraylookupposition
-                            var arrayToLookup = eval("array" + nodeToUpdate);
-                            console.log("nodeToUpdate vertically is " + nodeToUpdate);
-
-                            var splicePosition = $.inArray(lookupValue, arrayToLookup);
-
-
-                            if (splicePosition > -1) {
-                                arrayToLookup.splice(splicePosition, 1);
-                            }
                         }
                     }
                 }
                 
-
             }
             $.fn.printArrays(optionNames, arrayNames);
 
