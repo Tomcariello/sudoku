@@ -152,8 +152,6 @@
 //Print contents of all of the arrays into the boxes
  $.fn.printArrays = function (optionNames, arrayNames) {
      for (var i = 0; i < 82; i += 1) {
-         //window[String] lets you lookup variables in the global memory via String
-         //without window this would print the array name
          $(String(optionNames[i])).val(String(window[arrayNames[i]]));
      }
  }
@@ -189,20 +187,18 @@ $("#solve").click(function () {
 })
 
 $.fn.solve = function () {
-    //Check each node for value and process accordingly
-    for (var i = 0; i < nodeNames.length - 70; i += 1) {
+    // Check each node for value and process accordingly
+    //Process Node Horizontally
+    for (var i = 0; i < nodeNames.length; i += 1) {
         //If value is found in a node, proceed:
         if (parseInt($(String(nodeNames[i])).val()) > 0) {
-
             //Determine ROW/COLUMN/SQUARE to process
             var currentNode = nodeNames[i].slice(-3); //obtain nodename (3 digits)
             var currentRow = currentNode.slice(0,1); //obtain ROW
             var currentColumn = currentNode.slice(1, 2); //obtain COL
-            var currentSquare = currentNode.slice(2); //obtain SQUARE
             //Store current value to process
             var lookupValue = parseInt($(String(nodeNames[i])).val());
 
-            //Process Node Horizontally
             //for (var x = ((currentRow - 1) * 9) ; x < (currentRow * 9) ; x++) {
             for (var x = 1; x < 10; x++) {
                 if (x != currentColumn) {
@@ -215,11 +211,22 @@ $.fn.solve = function () {
                     }
                 }
             }
-
+        }
+        
+    }
+    //Process Node Vertically
+    for (var i = 0; i < nodeNames.length; i += 1) {
+        //If value is found in a node, proceed:
+        if (parseInt($(String(nodeNames[i])).val()) > 0) {
+            //Determine ROW/COLUMN/SQUARE to process
+            var currentNode = nodeNames[i].slice(-3); //obtain nodename (3 digits)
+            var currentRow = currentNode.slice(0,1); //obtain ROW
+            var currentColumn = currentNode.slice(1, 2); //obtain COL
+            //Store current value to process
+            var lookupValue = parseInt($(String(nodeNames[i])).val());
             //Process Node Vertically
             for (var x = 1; x < 10; x++) {
                 if (x != currentRow) {
-                    console.log("CC is " + currentColumn + " x is " + x);
                     var nodeToUpdate = nodeNames[(currentColumn - 1) + 9 * (x - 1)].slice(-3);
                     var arrayToLookup = eval("array" + nodeToUpdate);
                     var splicePosition = $.inArray(lookupValue, arrayToLookup);
@@ -230,7 +237,48 @@ $.fn.solve = function () {
                 }
             }
         }
-        
     }
+
+    //Process Boxes
+
+    //create arrays per box
+    var box1 = ['111', '121', '131', '211', '221', '231','311', '321', '331'];
+    var box2 = ['142', '152', '162', '242', '252', '262','342', '352', '362'];
+    var box3 = ['173', '183', '193', '273', '283', '293','373', '383', '393'];
+    var box4 = ['414', '424', '434', '514', '524', '534','614', '624', '634'];
+    var box5 = ['445', '455', '465', '545', '555', '565','645', '655', '665'];
+    var box6 = ['476', '486', '496', '576', '586', '596','676', '686', '696'];
+    var box7 = ['717', '727', '737', '817', '827', '837','917', '927', '937'];
+    var box8 = ['748', '758', '768', '848', '858', '868','948', '958', '968'];
+    var box9 = ['779', '789', '799', '879', '889', '899','979', '989', '999'];
+    
+    for (var i = 0; i < nodeNames.length; i += 1) {
+        //If value is found in a node, proceed:
+        if (parseInt($(String(nodeNames[i])).val()) > 0) {
+            //Determine ROW/COLUMN/SQUARE to process
+            var currentNode = nodeNames[i].slice(-3); //obtain nodename (3 digits)
+            var currentRow = currentNode.slice(0,1); //obtain ROW
+            var currentColumn = currentNode.slice(1, 2); //obtain COL
+            var currentSquare = currentNode.slice(2); //obtain SQUARE
+            //Store current value to process
+            var lookupValue = parseInt($(String(nodeNames[i])).val());
+            //Process Node Vertically
+            for (var x = 0; x < 9; x++) {
+                var boxArrayToLookup = eval("box" + currentSquare);
+
+                if (boxArrayToLookup[x] != currentNode) {
+                    var nodeToUpdate = nodeNames[i].slice(-3);
+                    var arrayToLookup = eval("array" + boxArrayToLookup[x]);
+                    var splicePosition = $.inArray(lookupValue, arrayToLookup);
+
+                    if (splicePosition > -1) {
+                        arrayToLookup.splice(splicePosition, 1);
+                    }
+                }
+            }
+        }
+    }
+
+
     $.fn.printArrays(optionNames, arrayNames);
 }
