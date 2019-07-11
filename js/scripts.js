@@ -1,19 +1,28 @@
 //On page load functions
  $(document).ready(function () {
      $(".node").forceNumeric();
-     $.fn.startGame();
-     $.fn.clearArrays(arrayNames, arrayValues);
-     $.fn.printArrays(optionNames, arrayNames);
-     $.fn.colorArrays(nodeNames);
+     startGame();
+     clearArrays(arrayNames, arrayValues);
+     printArrays(optionNames, arrayNames);
+     colorArrays(nodeNames);
  });
 
 //Variable Declarations
- var nodeNames = ['#node-111', '#node-121', '#node-131', '#node-142', '#node-152', '#node-162', '#node-173', '#node-183', '#node-193', '#node-211', '#node-221', '#node-231', '#node-242', '#node-252', '#node-262', '#node-273', '#node-283', '#node-293', '#node-311', '#node-321', '#node-331', '#node-342', '#node-352', '#node-362', '#node-373', '#node-383', '#node-393', '#node-414', '#node-424', '#node-434', '#node-445', '#node-455', '#node-465', '#node-476', '#node-486', '#node-496', '#node-514', '#node-524', '#node-534', '#node-545', '#node-555', '#node-565', '#node-576', '#node-586', '#node-596', '#node-614', '#node-624', '#node-634', '#node-645', '#node-655', '#node-665', '#node-676', '#node-686', '#node-696', '#node-717', '#node-727', '#node-737', '#node-748', '#node-758', '#node-768', '#node-779', '#node-789', '#node-799', '#node-817', '#node-827', '#node-837', '#node-848', '#node-858', '#node-868', '#node-879', '#node-889', '#node-899', '#node-917', '#node-927', '#node-937', '#node-948', '#node-958', '#node-968', '#node-979', '#node-989', '#node-999',];
- var arrayNames = ['array111', 'array121', 'array131', 'array142', 'array152', 'array162', 'array173', 'array183', 'array193', 'array211', 'array221', 'array231', 'array242', 'array252', 'array262', 'array273', 'array283', 'array293', 'array311', 'array321', 'array331', 'array342', 'array352', 'array362', 'array373', 'array383', 'array393', 'array414', 'array424', 'array434', 'array445', 'array455', 'array465', 'array476', 'array486', 'array496', 'array514', 'array524', 'array534', 'array545', 'array555', 'array565', 'array576', 'array586', 'array596', 'array614', 'array624', 'array634', 'array645', 'array655', 'array665', 'array676', 'array686', 'array696', 'array717', 'array727', 'array737', 'array748', 'array758', 'array768', 'array779', 'array789', 'array799', 'array817', 'array827', 'array837', 'array848', 'array858', 'array868', 'array879', 'array889', 'array899', 'array917', 'array927', 'array937', 'array948', 'array958', 'array968', 'array979', 'array989', 'array999'];
- var arrayValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
- var optionNames = ['#options111', '#options121', '#options131', '#options142', '#options152', '#options162', '#options173', '#options183', '#options193', '#options211', '#options221', '#options231', '#options242', '#options252', '#options262', '#options273', '#options283', '#options293', '#options311', '#options321', '#options331', '#options342', '#options352', '#options362', '#options373', '#options383', '#options393', '#options414', '#options424', '#options434', '#options445', '#options455', '#options465', '#options476', '#options486', '#options496', '#options514', '#options524', '#options534', '#options545', '#options555', '#options565', '#options576', '#options586', '#options596', '#options614', '#options624', '#options634', '#options645', '#options655', '#options665', '#options676', '#options686', '#options696', '#options717', '#options727', '#options737', '#options748', '#options758', '#options768', '#options779', '#options789', '#options799', '#options817', '#options827', '#options837', '#options848', '#options858', '#options868', '#options879', '#options889', '#options899', '#options917', '#options927', '#options937', '#options948', '#options958', '#options968', '#options979', '#options989', '#options999'];
+// IDs for each of the squares on the gameboard
+var nodeNames = ['#node-111', '#node-121', '#node-131', '#node-142', '#node-152', '#node-162', '#node-173', '#node-183', '#node-193', '#node-211', '#node-221', '#node-231', '#node-242', '#node-252', '#node-262', '#node-273', '#node-283', '#node-293', '#node-311', '#node-321', '#node-331', '#node-342', '#node-352', '#node-362', '#node-373', '#node-383', '#node-393', '#node-414', '#node-424', '#node-434', '#node-445', '#node-455', '#node-465', '#node-476', '#node-486', '#node-496', '#node-514', '#node-524', '#node-534', '#node-545', '#node-555', '#node-565', '#node-576', '#node-586', '#node-596', '#node-614', '#node-624', '#node-634', '#node-645', '#node-655', '#node-665', '#node-676', '#node-686', '#node-696', '#node-717', '#node-727', '#node-737', '#node-748', '#node-758', '#node-768', '#node-779', '#node-789', '#node-799', '#node-817', '#node-827', '#node-837', '#node-848', '#node-858', '#node-868', '#node-879', '#node-889', '#node-899', '#node-917', '#node-927', '#node-937', '#node-948', '#node-958', '#node-968', '#node-979', '#node-989', '#node-999',];
+ 
+// IDs for each input on the bottom display
+var optionNames = ['#options111', '#options121', '#options131', '#options142', '#options152', '#options162', '#options173', '#options183', '#options193', '#options211', '#options221', '#options231', '#options242', '#options252', '#options262', '#options273', '#options283', '#options293', '#options311', '#options321', '#options331', '#options342', '#options352', '#options362', '#options373', '#options383', '#options393', '#options414', '#options424', '#options434', '#options445', '#options455', '#options465', '#options476', '#options486', '#options496', '#options514', '#options524', '#options534', '#options545', '#options555', '#options565', '#options576', '#options586', '#options596', '#options614', '#options624', '#options634', '#options645', '#options655', '#options665', '#options676', '#options686', '#options696', '#options717', '#options727', '#options737', '#options748', '#options758', '#options768', '#options779', '#options789', '#options799', '#options817', '#options827', '#options837', '#options848', '#options858', '#options868', '#options879', '#options889', '#options899', '#options917', '#options927', '#options937', '#options948', '#options958', '#options968', '#options979', '#options989', '#options999'];
 
- // force numeric values in grid (copied from the web)
+// Determine color to highlight the helper boxes. Darker means more numbers left for that box. 0 index is null
+var hexcolors = ["","#51ff40","#49e639","#42cf34","#3bba2f","#33a329","#2c8c23","#25751d","#1d5c17","#174712"];
+
+var somethingConfirmedThisRound = false;
+ 
+var arrayNames = ['array111', 'array121', 'array131', 'array142', 'array152', 'array162', 'array173', 'array183', 'array193', 'array211', 'array221', 'array231', 'array242', 'array252', 'array262', 'array273', 'array283', 'array293', 'array311', 'array321', 'array331', 'array342', 'array352', 'array362', 'array373', 'array383', 'array393', 'array414', 'array424', 'array434', 'array445', 'array455', 'array465', 'array476', 'array486', 'array496', 'array514', 'array524', 'array534', 'array545', 'array555', 'array565', 'array576', 'array586', 'array596', 'array614', 'array624', 'array634', 'array645', 'array655', 'array665', 'array676', 'array686', 'array696', 'array717', 'array727', 'array737', 'array748', 'array758', 'array768', 'array779', 'array789', 'array799', 'array817', 'array827', 'array837', 'array848', 'array858', 'array868', 'array879', 'array889', 'array899', 'array917', 'array927', 'array937', 'array948', 'array958', 'array968', 'array979', 'array989', 'array999'];
+var arrayValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+ 
+ // Prevent user from entering invalid characters in the sudoku game grid
  jQuery.fn.forceNumeric = function () {
 
      return this.each(function () {
@@ -43,7 +52,7 @@
  }
 
  //Set default grid values (onload & reset)
- $.fn.startGame = function () {
+ function startGame() {
      $("#node-111").val("5");
      $("#node-121").val("");
      $("#node-131").val("");
@@ -136,28 +145,39 @@
  }
 
 //Set all nodes to blank
- $.fn.clearGame = function (nodeNames) {
+function clearGame(nodeNames) {
      for (var i = 0; i < 82; i += 1) {
          $(String(nodeNames[i])).val("");
      }
  }
 
 //Set all array values to the default 1-9
- $.fn.clearArrays = function (arrayNames, arrayValues) {
+ function clearArrays(arrayNames, arrayValues) {
      for (var i = 0; i < arrayNames.length; i += 1) {
          window[arrayNames[i]] = arrayValues.slice();
      }
  }
 
 //Print contents of all of the arrays into the boxes
- $.fn.printArrays = function (optionNames, arrayNames) {
-     for (var i = 0; i < 82; i += 1) {
-         $(String(optionNames[i])).val(String(window[arrayNames[i]]));
-     }
- }
+function printArrays(optionNames, arrayNames) {
+    // Iterate through each box
+    for (var i = 0; i < 81; i += 1) {
+        // The box being processed
+        var targetInput = optionNames[i];
+
+        // The numbers still possible for this box
+        var availableNumbers = window[arrayNames[i]];
+
+        // Print available numbers into target box
+        $(targetInput).val(availableNumbers);
+
+        var nodeColor = hexcolors[availableNumbers.length];
+        $(targetInput).css('background-color', nodeColor);
+    }
+}
          
 //assign color to grid if value in node
- $.fn.colorArrays = function (nodeNames) {
+ function colorArrays(nodeNames) {
      for (var i = 0; i < nodeNames.length; i += 1) {
           if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
                $(nodeNames[i]).addClass("red");
@@ -167,26 +187,26 @@
 
 //onclick of clear button
 $("#clear").click(function () {
-    $.fn.clearGame(nodeNames);
-    $.fn.clearArrays(arrayNames, arrayValues);
-    $.fn.printArrays(optionNames, arrayNames);
-    $.fn.colorArrays(nodeNames);
+    clearGame(nodeNames);
+    clearArrays(arrayNames, arrayValues);
+    printArrays(optionNames, arrayNames);
+    colorArrays(nodeNames);
 })
 
 //onclick of Reset button
 $("#reset").click(function () {
-    $.fn.startGame();
-    $.fn.clearArrays(arrayNames, arrayValues);
-    $.fn.printArrays(optionNames, arrayNames);
-    $.fn.colorArrays(nodeNames);
+    startGame();
+    clearArrays(arrayNames, arrayValues);
+    printArrays(optionNames, arrayNames);
+    colorArrays(nodeNames);
 })
 
 //onclick of solve button 
 $("#solve").click(function () {
-    $.fn.solve();
+    solve();
 })
 
-$.fn.solve = function () {
+function solve() {
     // Check each node for value and process accordingly
     //Process Node Horizontally
     for (var i = 0; i < nodeNames.length; i += 1) {
@@ -196,10 +216,10 @@ $.fn.solve = function () {
             var currentNode = nodeNames[i].slice(-3); //obtain nodename (3 digits)
             var currentRow = currentNode.slice(0,1); //obtain ROW
             var currentColumn = currentNode.slice(1, 2); //obtain COL
+
             //Store current value to process
             var lookupValue = parseInt($(String(nodeNames[i])).val());
 
-            //for (var x = ((currentRow - 1) * 9) ; x < (currentRow * 9) ; x++) {
             for (var x = 1; x < 10; x++) {
                 if (x != currentColumn) {
                     var nodeToUpdate = nodeNames[(currentRow - 1) * 9 - 1 + x].slice(-3);
@@ -280,5 +300,5 @@ $.fn.solve = function () {
     }
 
 
-    $.fn.printArrays(optionNames, arrayNames);
+    printArrays(optionNames, arrayNames);
 }
