@@ -36,8 +36,11 @@
 }
 
 input[type=text] {
-    font-size: 18;
-    width: 18px;
+    width: 100%;
+    border: none;
+    height: 100%;
+    font-size: 22px;
+    text-align: center;
 }
 
 input:not([type=text]) {
