@@ -17,7 +17,19 @@ var optionNames = ['#options111', '#options121', '#options131', '#options142', '
 // Determine color to highlight the helper boxes. Darker means more numbers left for that box. 0 index is null
 var hexcolors = ["", "#ffffff","#51ff40", "#49e639", "#42cf34", "#3bba2f", "#33a329", "#2c8c23", "#25751d", "#1d5c17"];
 
-var somethingConfirmedThisRound = false;
+// Create arrays per box (for checking the boxed values when solving)
+var box1 = ['111', '121', '131', '211', '221', '231', '311', '321', '331'];
+var box2 = ['142', '152', '162', '242', '252', '262', '342', '352', '362'];
+var box3 = ['173', '183', '193', '273', '283', '293', '373', '383', '393'];
+var box4 = ['414', '424', '434', '514', '524', '534', '614', '624', '634'];
+var box5 = ['445', '455', '465', '545', '555', '565', '645', '655', '665'];
+var box6 = ['476', '486', '496', '576', '586', '596', '676', '686', '696'];
+var box7 = ['717', '727', '737', '817', '827', '837', '917', '927', '937'];
+var box8 = ['748', '758', '768', '848', '858', '868', '948', '958', '968'];
+var box9 = ['779', '789', '799', '879', '889', '899', '979', '989', '999'];
+
+// This will be used to track if the system adjusted the gameboard based on the computation
+//var confirmedValueThisRound = false;
 
 var arrayNames = ['array111', 'array121', 'array131', 'array142', 'array152', 'array162', 'array173', 'array183', 'array193', 'array211', 'array221', 'array231', 'array242', 'array252', 'array262', 'array273', 'array283', 'array293', 'array311', 'array321', 'array331', 'array342', 'array352', 'array362', 'array373', 'array383', 'array393', 'array414', 'array424', 'array434', 'array445', 'array455', 'array465', 'array476', 'array486', 'array496', 'array514', 'array524', 'array534', 'array545', 'array555', 'array565', 'array576', 'array586', 'array596', 'array614', 'array624', 'array634', 'array645', 'array655', 'array665', 'array676', 'array686', 'array696', 'array717', 'array727', 'array737', 'array748', 'array758', 'array768', 'array779', 'array789', 'array799', 'array817', 'array827', 'array837', 'array848', 'array858', 'array868', 'array879', 'array889', 'array899', 'array917', 'array927', 'array937', 'array948', 'array958', 'array968', 'array979', 'array989', 'array999'];
 var arrayValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -226,7 +238,6 @@ $("#solve").click(function () {
 
 function solve() {
     // Check each node of the Gameboard for a value and process associated fields accordingly
-    //Process Node Horizontally
     for (var i = 0; i < nodeNames.length; i += 1) {
 
         //Store current value to process
@@ -235,14 +246,14 @@ function solve() {
         //If value is found in the Gameboard node, proceed:
         if (thisNodeValue > 0) {
 
-            // Determine ROW/COLUMN/SQUARE to process
+            // Determine ROW/COLUMN/SQUARE to process horizontally
             var currentNodeNumber = nodeNames[i].slice(-3); //obtain nodename (3 digits)
             var currentNodeRow = currentNodeNumber.slice(0, 1); //obtain ROW
             var currentNodeColumn = currentNodeNumber.slice(1, 2); //obtain COL
-
+            
             /*
             /* This will update the "hint" section to match the game board. This syncs the pre-loaded values
-            /* and the values entered by the player. Anything on the gameboard is treated as correct
+            /* and the values entered by the player. Anything on the gameboard is treated as correct.
             */
 
             // Target the node being processed (which already has a value entered)
@@ -268,6 +279,9 @@ function solve() {
             /* End of Gameboard to hint section sync procedure
             */
 
+            /*
+            /* Process Node Horizontally
+            */
 
             for (var x = 1; x < 10; x++) {
                 if (x != currentNodeColumn) {
@@ -280,65 +294,44 @@ function solve() {
                     }
                 }
             }
-        }
 
-    }
-    //Process Node Vertically
-    for (var i = 0; i < nodeNames.length; i += 1) {
-        //If value is found in a node, proceed:
-        if (parseInt($(String(nodeNames[i])).val()) > 0) {
-            //Determine ROW/COLUMN/SQUARE to process
-            var currentNode = nodeNames[i].slice(-3); //obtain nodename (3 digits)
-            var currentRow = currentNode.slice(0, 1); //obtain ROW
-            var currentColumn = currentNode.slice(1, 2); //obtain COL
-            //Store current value to process
-            var lookupValue = parseInt($(String(nodeNames[i])).val());
-            //Process Node Vertically
+            /*
+            /* End Process Node Horizontally
+            */
+
+            /*
+            /* Process Node Vertically
+            */
             for (var x = 1; x < 10; x++) {
-                if (x != currentRow) {
-                    var nodeToUpdate = nodeNames[(currentColumn - 1) + 9 * (x - 1)].slice(-3);
+                if (x != currentNodeRow) {
+                    var nodeToUpdate = nodeNames[(currentNodeColumn - 1) + 9 * (x - 1)].slice(-3);
                     var arrayToLookup = eval("array" + nodeToUpdate);
-                    var splicePosition = $.inArray(lookupValue, arrayToLookup);
+                    var splicePosition = $.inArray(thisNodeValue, arrayToLookup);
 
                     if (splicePosition > -1) {
                         arrayToLookup.splice(splicePosition, 1);
                     }
                 }
             }
-        }
-    }
+            /*
+            /* End Process Node Vertically
+            */
 
-    //Process Boxes
+            /*
+            /* Process Boxes
+            */
 
-    //create arrays per box
-    var box1 = ['111', '121', '131', '211', '221', '231', '311', '321', '331'];
-    var box2 = ['142', '152', '162', '242', '252', '262', '342', '352', '362'];
-    var box3 = ['173', '183', '193', '273', '283', '293', '373', '383', '393'];
-    var box4 = ['414', '424', '434', '514', '524', '534', '614', '624', '634'];
-    var box5 = ['445', '455', '465', '545', '555', '565', '645', '655', '665'];
-    var box6 = ['476', '486', '496', '576', '586', '596', '676', '686', '696'];
-    var box7 = ['717', '727', '737', '817', '827', '837', '917', '927', '937'];
-    var box8 = ['748', '758', '768', '848', '858', '868', '948', '958', '968'];
-    var box9 = ['779', '789', '799', '879', '889', '899', '979', '989', '999'];
-
-    for (var i = 0; i < nodeNames.length; i += 1) {
-        //If value is found in a node, proceed:
-        if (parseInt($(String(nodeNames[i])).val()) > 0) {
             //Determine ROW/COLUMN/SQUARE to process
-            var currentNode = nodeNames[i].slice(-3); //obtain nodename (3 digits)
-            var currentRow = currentNode.slice(0, 1); //obtain ROW
-            var currentColumn = currentNode.slice(1, 2); //obtain COL
-            var currentSquare = currentNode.slice(2); //obtain SQUARE
-            //Store current value to process
-            var lookupValue = parseInt($(String(nodeNames[i])).val());
+            var currentSquare = currentNodeNumber.slice(2); //obtain SQUARE
+
             //Process Node Vertically
             for (var x = 0; x < 9; x++) {
                 var boxArrayToLookup = eval("box" + currentSquare);
 
-                if (boxArrayToLookup[x] != currentNode) {
+                if (boxArrayToLookup[x] != currentNodeNumber) {
                     var nodeToUpdate = nodeNames[i].slice(-3);
                     var arrayToLookup = eval("array" + boxArrayToLookup[x]);
-                    var splicePosition = $.inArray(lookupValue, arrayToLookup);
+                    var splicePosition = $.inArray(thisNodeValue, arrayToLookup);
 
                     if (splicePosition > -1) {
                         arrayToLookup.splice(splicePosition, 1);
@@ -347,7 +340,6 @@ function solve() {
             }
         }
     }
-
 
     printArrays(optionNames, arrayNames);
 }
