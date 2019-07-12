@@ -194,8 +194,8 @@ function printArrays(optionNames, arrayNames) {
 function colorArrays(nodeNames) {
     for (var i = 0; i < nodeNames.length; i += 1) {
         if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
-            $(nodeNames[i]).addClass("red");
-        } else { $(nodeNames[i]).removeClass("red"); }
+            $(nodeNames[i]).addClass("preset_value");
+        } else { $(nodeNames[i]).removeClass("preset_value"); }
     }
 }
 

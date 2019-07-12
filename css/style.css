@@ -45,9 +45,11 @@ input:not([type=text]) {
     width: 100px;
 }
 
-.red {
-    background-color: red;
+.preset_value {
+    background-color: #ffc8c8;
 }
-.end-of-row {
+.gameboard_row {
     clear: both;
+    width: 300px;
+    margin: auto;
 }
