@@ -2,10 +2,8 @@
     float: left;
     width: 30px;
     height: 30px;
-    border: 1px solid black;
     text-align: center;
 }
-
 [class*="options"] {
     float: left;
     width: 110px;
@@ -13,16 +11,33 @@
     border: 1px solid black;
     text-align: center;
 }
+/* Put border on the bottom & left of every gameboard node */
+.gameboard-row {
+    border-left: 1px solid black;
+    border-bottom: 3px solid black;
+}
+/* Put border on the top of the 1st row only */
+.row-one {
+    border-top: 1px solid black;
+}
+/* Put border on the right of the column nine only */
+.col-nine {
+    border-right: 1px solid black;
+}
 .game_controls {
     clear: both;
     text-align: center;
 }
 .grid {
-    clear: both;
+    float: left; 
     margin-left: auto;
     margin-right: auto;
+    width: 50%;
 }
-
+.instructions {
+    font-family: verdana;
+    font-size: 17px;
+}
 .eligible {
     min-width: 1100px;
     max-width: 1100px;
@@ -30,12 +45,10 @@
     margin-left: auto;
     margin-right: auto;
 }
-
 .available {
     clear: both;
     text-align: center;
 }
-
 input[type=text] {
     width: 100%;
     border: none;
@@ -43,12 +56,10 @@ input[type=text] {
     font-size: 22px;
     text-align: center;
 }
-
 input:not([type=text]) {
     font-size: 14;
     width: 100px;
 }
-
 .preset_value {
     background-color: #ffc8c8;
 }
@@ -68,3 +79,4 @@ input:not([type=text]) {
     font-family: Verdana;
     padding: 4px;
 }
+
