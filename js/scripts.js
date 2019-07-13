@@ -4,7 +4,7 @@ $(document).ready(function () {
     startGame();
     clearArrays(arrayNames, arrayValues);
     printArrays(optionNames, arrayNames);
-    colorArrays(nodeNames);
+    // colorArrays(nodeNames);
 });
 
 //Variable Declarations
@@ -203,24 +203,24 @@ function printArrays(optionNames, arrayNames) {
 }
 
 //assign color to grid if value in node
-function colorArrays(nodeNames) {
-    for (var i = 0; i < nodeNames.length; i += 1) {
-        if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
-            $(nodeNames[i]).addClass("preset_value");
-            $(nodeNames[i]).parent().addClass("preset_value");
-        } else { 
-            $(nodeNames[i]).removeClass("preset_value"); 
-            $(nodeNames[i]).parent().removeClass("preset_value"); 
-        }
-    }
-}
+// function colorArrays(nodeNames) {
+//     for (var i = 0; i < nodeNames.length; i += 1) {
+//         if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
+//             $(nodeNames[i]).addClass("preset_value");
+//             $(nodeNames[i]).parent().addClass("preset_value");
+//         } else { 
+//             $(nodeNames[i]).removeClass("preset_value"); 
+//             $(nodeNames[i]).parent().removeClass("preset_value"); 
+//         }
+//     }
+// }
 
 //onclick of clear button
 $("#clear").click(function () {
     clearGame(nodeNames);
     clearArrays(arrayNames, arrayValues);
     printArrays(optionNames, arrayNames);
-    colorArrays(nodeNames);
+    // colorArrays(nodeNames);
 })
 
 //onclick of Reset button
@@ -228,7 +228,7 @@ $("#reset").click(function () {
     startGame();
     clearArrays(arrayNames, arrayValues);
     printArrays(optionNames, arrayNames);
-    colorArrays(nodeNames);
+    // colorArrays(nodeNames);
 })
 
 //onclick of solve button 
@@ -343,3 +343,14 @@ function solve() {
 
     printArrays(optionNames, arrayNames);
 }
+
+// Highlight gameboard node when hovering over corresponding hint node
+$(".hint-div").hover( function() {
+        var nodeNumber = $(this).data("node-number");
+        var target = "div > input[id='node-" + nodeNumber + "']";
+        $( target ).css("background-color", "yellow");
+    }, function() {
+        var nodeNumber = $(this).data("node-number");
+        var target = "div > input[id='node-" + nodeNumber + "']";
+        $( target ).css("background-color", "white");
+})
