@@ -236,6 +236,21 @@ $("#solve").click(function () {
     solve();
 })
 
+//onclick of modal close button 
+$("#close-button").click(function () {
+    // Close the hint modal
+    $( ".hint-container").css("display", "none");
+})
+
+//onclick of explain hints button 
+$("#expain-hints").click(function () {
+    // Show the hint modal
+    $( ".hint-container").css("display", "inherit");
+})
+
+
+
+
 function solve() {
     // Check each node of the Gameboard for a value and process associated fields accordingly
     for (var i = 0; i < nodeNames.length; i += 1) {
