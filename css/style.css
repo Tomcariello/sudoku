@@ -71,12 +71,33 @@ input:not([type=text]) {
 .game_controls {
     text-align: center;
     padding-top: 20px;
+    width: 50%;
 }
 .user_button {
-    border-radius: 10px;
-    background-color: #9ce2d4;
+    background-color: #137319;
     width: 100px;
     font-family: Verdana;
     padding: 4px;
+    border-color: #137319;
+    color: #efefef;
+}
+.user_button:hover {
+    background-color: #016107;
+    border-color: #016107;
+    color: #efefef;
+    font-style: italic;
+}
+
+.hint-header {
+    font-family: Verdana;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+.gameboard-header {
+    font-family: Verdana;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
