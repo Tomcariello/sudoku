@@ -255,10 +255,11 @@ function solve() {
     // Check each node of the Gameboard for a value and process associated fields accordingly
     for (var i = 0; i < nodeNames.length; i += 1) {
 
-        //Store current value to process
+        // Store current value to process
         var thisNodeValue = parseInt($(String(nodeNames[i])).val());
 
-        //If value is found in the Gameboard node, proceed:
+        // Level 1 Analysis: Proces all finalized numbers for each blank squares & show user user(JQuery)
+        // If value is found in the Gameboard node, proceed:
         if (thisNodeValue > 0) {
 
             // Determine ROW/COLUMN/SQUARE to process horizontally
@@ -355,6 +356,93 @@ function solve() {
             }
         }
     }
+
+    // Level 2 Analysis: Process 2 digit arrays & process numbers of duplicated arrays
+    
+    // Get each option node
+    var allOptions = $("input[id^='options']");
+    $.each(allOptions, function( key, value) {
+        // console.log('key ' + key + " - value: " + this.value);
+
+        // Store the current node number to process
+        var numberToProcess = allOptions[key].id.split('options')[1];
+
+        var thisNodeArray = eval("array" + numberToProcess);
+
+        var twoDigitArrayCount = 0;
+
+        // Is this array a length of 2? If so, proceed, if not check the next node
+        if (thisNodeArray.length == 2) {
+            twoDigitArrayCount++;
+
+            // Isolate the row number
+            var thisRow = numberToProcess.slice(0,1);
+
+            // Flatten the array
+            var flatArr = JSON.stringify(thisNodeArray);
+
+            // Check this node against the rest of the nodes in this row (moving forward) by incremeneting the col digit
+            var thisRow = numberToProcess.slice(0,1);
+            var thisCol = numberToProcess.slice(1,2);
+
+            for (var i = parseInt(thisCol) + 1; i < 10; i++) {
+                var thisBox = 0;
+
+                // Determine the box number
+                if ( i < 4 && parseInt(thisRow) < 4 ) {
+                    thisBox = 1;
+                } else if ( i < 7 && parseInt(thisRow) < 4 ) {
+                    thisBox = 2;
+                } else if ( parseInt(thisRow) < 4 ) {
+                    thisBox = 3;
+                } else if ( i < 4 && parseInt(thisRow) < 7 ) {
+                    thisBox = 4;
+                } else if ( i < 7 && parseInt(thisRow) < 7 ) {
+                    thisBox = 5;
+                } else if ( parseInt(thisRow) < 7 ) {
+                    thisBox = 6;
+                } else if ( i < 4 && parseInt(thisRow) < 10 ) {
+                    thisBox = 7;
+                } else if ( i < 7 && parseInt(thisRow) < 10 ) {
+                    thisBox = 8;
+                } else if ( parseInt(thisRow) < 10 ) {
+                    thisBox = 9;
+                }
+
+                // Determine next node to check
+                var arrToCheck = eval("array" + thisRow + i + thisBox);
+                
+                // If the array to check is also length == 2, compare the arrays
+                if (arrToCheck.length == 2) {
+                    var flatArrToCheck = JSON.stringify(arrToCheck);
+
+                    // If the arrays match, the 2 digits in the array should be eliminated from all other nodes in this row
+                    if (flatArrToCheck == flatArr) {
+                    // console.log("thisRow is " + thisRow);
+                    // console.log("thisCol is " + thisCol);
+
+                    }
+                }
+
+                
+
+
+            }
+
+        }
+            
+
+    });
+
+
+    // for (var r = 1; r < 10; r++) { // rows
+    //     for (var c = 1; c < 10; c++) { // cols
+    //         for (var b = 1; b < 10; b++) { // boxes
+    //             var thisNodeArray = "array" + r + c + b;
+    //             console.log( thisNodeArray );
+    //         }
+    //     }
+    // }
 
     printArrays(optionNames, arrayNames);
 }
