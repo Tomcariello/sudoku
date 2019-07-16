@@ -340,7 +340,7 @@ function solve() {
             //Determine ROW/COLUMN/SQUARE to process
             var currentSquare = currentNodeNumber.slice(2); //obtain SQUARE
 
-            //Process Node Vertically
+            //Process Boxes
             for (var x = 0; x < 9; x++) {
                 var boxArrayToLookup = eval("box" + currentSquare);
 
@@ -372,26 +372,25 @@ function solve() {
         // Is this array a length of 2? If so, proceed, if not check the next node
         if (thisNodeArray.length == 2) {
 
+            // Isolate the row & Col & Box numbers
+            var thisRow = numberToProcess.toString().slice(0,1);
+            var thisCol = numberToProcess.toString().slice(1,2);
+            var thisBox = numberToProcess.toString().slice(2,3);
+
+            // Flatten the current node array
+            var nodeSourceArrayFlat = JSON.stringify(thisNodeArray);
+
             /*
             /* Process Node Horizontally for Level 2 analysis
             */
 
-            // Isolate the row number
-            var thisRow = numberToProcess.slice(0,1);
-
-            // Flatten the array
-            var flatArr = JSON.stringify(thisNodeArray);
-
             // Check this node against the rest of the nodes in this row (moving forward) by incremeneting the col digit
-            var thisRow = numberToProcess.slice(0,1);
-            var thisCol = numberToProcess.slice(1,2);
-
             for (var i = parseInt(thisCol) + 1; i < 10; i++) {
                 // Get the associated box number for this row/col pair
-                var thisBox = getBoxNumber(i, parseInt(thisRow));
+                var lookupBox = getBoxNumber(i, parseInt(thisRow));
 
                 // Determine next node to check
-                var ArrToCheckLabel = "array" + thisRow + i + thisBox;
+                var ArrToCheckLabel = "array" + thisRow + i + lookupBox;
                 var arrToCheck = eval(ArrToCheckLabel);
                 
                 // If the array to check is also length == 2, compare the arrays
@@ -399,7 +398,7 @@ function solve() {
                     var flatArrToCheck = JSON.stringify(arrToCheck);
 
                     // If the arrays match, the 2 digits in the array should be eliminated from all other nodes in this row
-                    if (flatArrToCheck == flatArr) {
+                    if (flatArrToCheck == nodeSourceArrayFlat) {
                         // Store numbers of arrays that match. These will not be processed
                         var firstArrCol = thisCol;
                         var secondArrCol = i;
@@ -441,7 +440,55 @@ function solve() {
             /* Process Node Vertically for Level 2 analysis
             */
 
-            // To Do 
+            // Check this node against the rest of the nodes in this column (moving down) by incremeneting the row digit
+            // Identify all of the boxes associated with the node being checked
+
+            for (var i = parseInt(thisRow) + 1; i < 10; i++) {
+                // Get the associated box number for this row/col pair
+                var lookupBox = getBoxNumber( parseInt(thisCol), i );
+
+                // Determine next node to check
+                var ArrToCheckLabel = "array" + i + thisCol + lookupBox;
+                var arrToCheck = eval(ArrToCheckLabel);
+                
+                // If the array to check is also length == 2, compare the arrays
+                if (arrToCheck.length == 2) {
+                    var flatArrToCheck = JSON.stringify(arrToCheck);
+
+                    // If the arrays match, the 2 digits in the array should be eliminated from all other nodes in this column
+                    if (flatArrToCheck == nodeSourceArrayFlat) {
+                        // Store numbers of arrays that match. These will not be processed
+                        var firstArrRow = thisRow;
+                        var secondArrRow = i;
+
+                        // Another for loop...
+                        for (var row = 1; row < 10; row ++) {
+                            // Proceed if the current row number is not one of the 2 arrays that matched
+                            if (row != firstArrRow && row  != secondArrRow ) {
+                                var boxToLookup = getBoxNumber( parseInt(thisCol), row );
+
+                                // Determine next node to check
+                                var arrayToLookup = "array" + thisCol + row  + boxToLookup;
+                                var arrToCheckAgainstPair = eval(arrayToLookup);
+
+                                // Loop through the array to be compared to the matching pair
+                                for (var j = 0; j < arrToCheckAgainstPair.length; j++) {
+                                    // console.log("length of " + arrToCheck + " is " + arrToCheck.length);
+
+                                    // For each entry in the array being checked, compare with both numbers in the 2 digit array pair
+                                    for (var l = 0; l < arrToCheck.length; l++) {
+                                        var indexToRemove = arrToCheckAgainstPair.indexOf(arrToCheck[l]);
+
+                                        if (indexToRemove > -1) {
+                                            arrToCheckAgainstPair.splice(indexToRemove, 1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             /*
             /* End Process Node Vertically for Level 2 analysis
@@ -452,23 +499,24 @@ function solve() {
             */
 
             // To Do 
+                    // console.log(firstArrToCheckLabel + " . thisBox is " + thisBox)
+                    var allAssociatedBoxes = $("input[id^='options'][id$='" + thisBox + "']"); // starts with 'options', ends with box number
+                    
+                    $.each(allAssociatedBoxes, function(key, value) {
+                        console.log(this.id);
+                        console.log(numberToProcess)
 
+                        // Iterate through these boxes, skipping **numberToProcess**, looking for a matching array with a length of 2
+
+                        // If there is a matching array with a length of 2, eliminate those numbers from the other associated BOXES
+
+                    })
             /*
             /* End Process Node Box for Level 2 analysis
             */
 
         }
     });
-
-
-    // for (var r = 1; r < 10; r++) { // rows
-    //     for (var c = 1; c < 10; c++) { // cols
-    //         for (var b = 1; b < 10; b++) { // boxes
-    //             var thisNodeArray = "array" + r + c + b;
-    //             console.log( thisNodeArray );
-    //         }
-    //     }
-    // }
 
     printArrays(optionNames, arrayNames);
 }

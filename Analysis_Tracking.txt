@@ -1,0 +1,26 @@
+With the default puzzle:
+
+With Level 1 Analysis only:
+    2x Analyze before stuck
+    Manual: 211 --> 1
+    1x Analyze before stuck
+    Manual: 293 --> 7
+    1x Analyze before stuck
+    Manual: 121 --> 2
+    2x Analyze before stuck
+    Manual: 342 --> 2
+    2x Analyze before stuck
+    Manual: 352 --> 6
+    10x Analyze before finished
+
+With Level 2 Analysis for ROWS only:
+    3x Analyze before stuck
+    Manual: 121 --> 2
+    10x Analyze before finished
+
+With Level 2 Analysis for ROWS & COLUMNS:
+    3x Analyze before stuck
+    Manual: 121 --> 2
+    10x Analyze before finished
+
+With Level 2 Analysis for ROWS & COLUMNS & BOXES:
