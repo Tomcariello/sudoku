@@ -359,21 +359,22 @@ function solve() {
 
     // Level 2 Analysis: Process 2 digit arrays & process numbers of duplicated arrays
     
-    // Get each option node
+    // Get all nodes from gameboard
     var allOptions = $("input[id^='options']");
-    $.each(allOptions, function( key, value) {
-        // console.log('key ' + key + " - value: " + this.value);
 
+    $.each(allOptions, function( key, value) {
         // Store the current node number to process
         var numberToProcess = allOptions[key].id.split('options')[1];
+        var firstArrToCheckLabel = "array" + numberToProcess;
 
-        var thisNodeArray = eval("array" + numberToProcess);
-
-        var twoDigitArrayCount = 0;
-
+        var thisNodeArray = eval(firstArrToCheckLabel);
+        
         // Is this array a length of 2? If so, proceed, if not check the next node
         if (thisNodeArray.length == 2) {
-            twoDigitArrayCount++;
+
+            /*
+            /* Process Node Horizontally for Level 2 analysis
+            */
 
             // Isolate the row number
             var thisRow = numberToProcess.slice(0,1);
@@ -386,31 +387,12 @@ function solve() {
             var thisCol = numberToProcess.slice(1,2);
 
             for (var i = parseInt(thisCol) + 1; i < 10; i++) {
-                var thisBox = 0;
-
-                // Determine the box number
-                if ( i < 4 && parseInt(thisRow) < 4 ) {
-                    thisBox = 1;
-                } else if ( i < 7 && parseInt(thisRow) < 4 ) {
-                    thisBox = 2;
-                } else if ( parseInt(thisRow) < 4 ) {
-                    thisBox = 3;
-                } else if ( i < 4 && parseInt(thisRow) < 7 ) {
-                    thisBox = 4;
-                } else if ( i < 7 && parseInt(thisRow) < 7 ) {
-                    thisBox = 5;
-                } else if ( parseInt(thisRow) < 7 ) {
-                    thisBox = 6;
-                } else if ( i < 4 && parseInt(thisRow) < 10 ) {
-                    thisBox = 7;
-                } else if ( i < 7 && parseInt(thisRow) < 10 ) {
-                    thisBox = 8;
-                } else if ( parseInt(thisRow) < 10 ) {
-                    thisBox = 9;
-                }
+                // Get the associated box number for this row/col pair
+                var thisBox = getBoxNumber(i, parseInt(thisRow));
 
                 // Determine next node to check
-                var arrToCheck = eval("array" + thisRow + i + thisBox);
+                var ArrToCheckLabel = "array" + thisRow + i + thisBox;
+                var arrToCheck = eval(ArrToCheckLabel);
                 
                 // If the array to check is also length == 2, compare the arrays
                 if (arrToCheck.length == 2) {
@@ -418,20 +400,64 @@ function solve() {
 
                     // If the arrays match, the 2 digits in the array should be eliminated from all other nodes in this row
                     if (flatArrToCheck == flatArr) {
-                    // console.log("thisRow is " + thisRow);
-                    // console.log("thisCol is " + thisCol);
+                        // Store numbers of arrays that match. These will not be processed
+                        var firstArrCol = thisCol;
+                        var secondArrCol = i;
 
+                        // Another for loop...
+                        for (var col = 1; col< 10; col++) {
+                            // Proceed if the current column number is not one of the 2 arrays that matched
+                            if (col != firstArrCol && col != secondArrCol ) {
+                                var boxToLookup = getBoxNumber(col, parseInt(thisRow));
+
+                                // Determine next node to check
+                                var arrayToLookup = "array" + thisRow + col + boxToLookup;
+                                var arrToCheckAgainstPair = eval(arrayToLookup);
+
+                                // Loop through the array to be compared to the matching pair
+                                for (var j = 0; j < arrToCheckAgainstPair.length; j++) {
+                                    // console.log("length of " + arrToCheck + " is " + arrToCheck.length);
+
+                                    // For each entry in the array being checked, compare with both numbers in the 2 digit array pair
+                                    for (var l = 0; l < arrToCheck.length; l++) {
+                                        var indexToRemove = arrToCheckAgainstPair.indexOf(arrToCheck[l]);
+
+                                        if (indexToRemove > -1) {
+                                            arrToCheckAgainstPair.splice(indexToRemove, 1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-
-                
-
-
             }
 
-        }
-            
+            /*
+            /* End Process Node Horizontally for Level 2 analysis
+            */
 
+            /*
+            /* Process Node Vertically for Level 2 analysis
+            */
+
+            // To Do 
+
+            /*
+            /* End Process Node Vertically for Level 2 analysis
+            */
+
+            /*
+            /* Process Node Box for Level 2 analysis
+            */
+
+            // To Do 
+
+            /*
+            /* End Process Node Box for Level 2 analysis
+            */
+
+        }
     });
 
 
@@ -447,6 +473,28 @@ function solve() {
     printArrays(optionNames, arrayNames);
 }
 
+function getBoxNumber(col, row) {
+    // Determine the box number
+    if ( col < 4 && row < 4 ) {
+        return 1;
+    } else if ( col < 7 && row < 4 ) {
+        return 2;
+    } else if ( row < 4 ) {
+        return 3;
+    } else if ( col < 4 && row < 7 ) {
+        return 4;
+    } else if ( col < 7 && row < 7 ) {
+        return 5;
+    } else if ( row < 7 ) {
+        return 6;
+    } else if ( col < 4 && row < 10 ) {
+        return 7;
+    } else if ( col < 7 && row < 10 ) {
+        return 8;
+    } else if ( row < 10 ) {
+        return 9;
+    }
+}
 // Highlight gameboard node when hovering over corresponding hint node
 $(".hint-div").hover( function() {
         var nodeNumber = $(this).data("node-number");
