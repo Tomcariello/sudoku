@@ -5,7 +5,7 @@ Sudoku challenge work flow:
 	[*] Display all possible numbers (1-9) for each blank square (HTML/CSS/JQuery)
 	[*] Level 1 Analysis: Proces all finalized numbers for each  blank squares & show user user(JQuery)
 	[*] Level 2 Analysis: Process 2 digit arrays & process numbers of duplicated arrays (Row, Col, & Box)
-	[ ] Create collection of sudoku games to allow users a variety of initial boards
+	[*] Create collection of sudoku games to allow users a variety of initial boards (Just 5 for now)
 	[ ] Create "Hint" and "Solve" buttons. 
 		[ ] Hint should give the user 1 new correct number at random
 		[ ] Solve should work recursively (1 click solve)

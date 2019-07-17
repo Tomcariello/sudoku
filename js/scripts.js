@@ -34,6 +34,16 @@ var box9 = ['779', '789', '799', '879', '889', '899', '979', '989', '999'];
 var arrayNames = ['array111', 'array121', 'array131', 'array142', 'array152', 'array162', 'array173', 'array183', 'array193', 'array211', 'array221', 'array231', 'array242', 'array252', 'array262', 'array273', 'array283', 'array293', 'array311', 'array321', 'array331', 'array342', 'array352', 'array362', 'array373', 'array383', 'array393', 'array414', 'array424', 'array434', 'array445', 'array455', 'array465', 'array476', 'array486', 'array496', 'array514', 'array524', 'array534', 'array545', 'array555', 'array565', 'array576', 'array586', 'array596', 'array614', 'array624', 'array634', 'array645', 'array655', 'array665', 'array676', 'array686', 'array696', 'array717', 'array727', 'array737', 'array748', 'array758', 'array768', 'array779', 'array789', 'array799', 'array817', 'array827', 'array837', 'array848', 'array858', 'array868', 'array879', 'array889', 'array899', 'array917', 'array927', 'array937', 'array948', 'array958', 'array968', 'array979', 'array989', 'array999'];
 var arrayValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+// Save games for pre-loading
+var game = [
+    [5,0,0,1,0,0,0,0,0,0,9,6,0,0,0,8,2,0,0,0,0,0,0,7,0,0,9,0,0,0,0,0,3,0,0,6,0,7,4,0,0,0,9,1,0,2,0,0,5,0,0,0,0,0,7,0,0,6,0,0,0,0,0,0,8,3,0,0,0,5,7,0,0,0,0,0,0,4,0,0,1],
+    [7,6,3,0,0,5,0,0,9,0,1,5,0,0,2,3,7,0,9,2,8,0,0,4,0,0,1,0,0,0,5,3,0,9,8,0,0,3,0,6,0,9,2,5,0,0,0,9,0,2,0,0,1,0,0,0,0,2,1,0,7,4,0,0,5,0,4,0,0,0,3,0,0,8,0,0,5,3,1,0,0], // easy
+    [0,0,0,9,0,0,4,2,7,2,4,0,0,8,7,9,0,5,0,9,1,2,0,0,0,0,0,0,0,0,7,2,0,3,4,0,0,0,0,0,4,0,0,0,1,3,0,0,0,0,0,0,0,0,0,8,6,4,7,0,0,0,0,0,0,0,0,0,2,5,0,0,0,1,0,0,3,8,0,6,0], // medium
+    [2,0,4,0,0,0,0,0,0,0,0,0,0,0,4,5,9,1,0,1,0,5,0,6,0,0,2,0,7,0,0,0,0,0,0,0,1,0,0,0,0,0,8,5,0,0,0,0,0,9,1,0,7,0,0,4,5,0,0,0,0,0,7,0,0,6,8,0,0,0,0,4,0,0,0,0,3,0,0,2,0], //hard
+    [0,4,0,8,0,0,0,0,6,0,0,1,0,0,6,0,0,3,0,0,6,3,0,9,8,0,0,2,5,0,6,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,8,7,0,0,0,0,4,0,0,0,0,0,9,0,7,0,0,0,0,0,0,0,4,0,1,0,0,0,0,0,0,2,0,0,5], // expert
+];
+
+
 // Prevent user from entering invalid characters in the sudoku game grid
 jQuery.fn.forceNumeric = function () {
 
@@ -65,95 +75,16 @@ jQuery.fn.forceNumeric = function () {
 
 //Set default grid values (onload & reset)
 function startGame() {
-    $("#node-111").val("5");
-    $("#node-121").val("");
-    $("#node-131").val("");
-    $("#node-142").val("1");
-    $("#node-152").val("");
-    $("#node-162").val("");
-    $("#node-173").val("");
-    $("#node-183").val("");
-    $("#node-193").val("");
-
-    $("#node-211").val("");
-    $("#node-221").val("9");
-    $("#node-231").val("6");
-    $("#node-242").val("");
-    $("#node-252").val("");
-    $("#node-262").val("");
-    $("#node-273").val("8");
-    $("#node-283").val("2");
-    $("#node-293").val("");
-
-    $("#node-311").val("");
-    $("#node-321").val("");
-    $("#node-331").val("");
-    $("#node-342").val("");
-    $("#node-352").val("");
-    $("#node-362").val("7");
-    $("#node-373").val("");
-    $("#node-383").val("");
-    $("#node-393").val("9");
-
-    $("#node-414").val("");
-    $("#node-424").val("");
-    $("#node-434").val("");
-    $("#node-445").val("");
-    $("#node-455").val("");
-    $("#node-465").val("3");
-    $("#node-476").val("");
-    $("#node-486").val("");
-    $("#node-496").val("6");
-
-    $("#node-514").val("");
-    $("#node-524").val("7");
-    $("#node-534").val("4");
-    $("#node-545").val("");
-    $("#node-555").val("");
-    $("#node-565").val("");
-    $("#node-576").val("9");
-    $("#node-586").val("1");
-    $("#node-596").val("");
-
-    $("#node-614").val("2");
-    $("#node-624").val("");
-    $("#node-634").val("");
-    $("#node-645").val("5");
-    $("#node-655").val("");
-    $("#node-665").val("");
-    $("#node-676").val("");
-    $("#node-686").val("");
-    $("#node-696").val("");
-
-    $("#node-717").val("7");
-    $("#node-727").val("");
-    $("#node-737").val("");
-    $("#node-748").val("6");
-    $("#node-758").val("");
-    $("#node-768").val("");
-    $("#node-779").val("");
-    $("#node-789").val("");
-    $("#node-799").val("");
-
-    $("#node-817").val("");
-    $("#node-827").val("8");
-    $("#node-837").val("3");
-    $("#node-848").val("");
-    $("#node-858").val("");
-    $("#node-868").val("");
-    $("#node-879").val("5");
-    $("#node-889").val("7");
-    $("#node-899").val("");
-
-    $("#node-917").val("");
-    $("#node-927").val("");
-    $("#node-937").val("");
-    $("#node-948").val("");
-    $("#node-958").val("");
-    $("#node-968").val("4");
-    $("#node-979").val("");
-    $("#node-989").val("");
-    $("#node-999").val("1");
+    for (var i = 0; i < nodeNames.length; i++) {
+        // Enter values greater than 0
+        if (game[3][i] > 0) {
+            $(nodeNames[i]).val(game[3][i]);
+        } else {
+            // Clear the node
+            $(nodeNames[i]).val("");
+        }
+        
+    }
 }
 
 //Set all nodes to blank
@@ -628,10 +559,8 @@ $(".gb-input").hover( function() {
     })
 }, function() {
     // Remove Highlight from all nodes
-    console.log("remove");
     $(".gb-input").each(function() {
         $(this).css("background-color", "white");
-        console.log(this);
     })
 
 })
