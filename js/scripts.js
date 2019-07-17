@@ -77,8 +77,8 @@ jQuery.fn.forceNumeric = function () {
 function startGame() {
     for (var i = 0; i < nodeNames.length; i++) {
         // Enter values greater than 0
-        if (game[3][i] > 0) {
-            $(nodeNames[i]).val(game[3][i]);
+        if (game[2][i] > 0) {
+            $(nodeNames[i]).val(game[2][i]);
         } else {
             // Clear the node
             $(nodeNames[i]).val("");
@@ -160,6 +160,11 @@ $("#reset").click(function () {
     clearArrays(arrayNames, arrayValues);
     printArrays(optionNames, arrayNames);
     // colorArrays(nodeNames);
+})
+
+//onclick of solve button 
+$("#hint").click(function () {
+    solve();
 })
 
 //onclick of solve button 
