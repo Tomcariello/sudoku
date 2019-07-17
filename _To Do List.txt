@@ -9,6 +9,7 @@ Sudoku challenge work flow:
 	[ ] Create "Hint" and "Solve" buttons. 
 		[ ] Hint should give the user 1 new correct number at random
 		[ ] Solve should work recursively (1 click solve)
+	[*] Prevent user from entering number greater than 9
 	[ ] Prevent user from entering conflicting numbers on the grid
 	[ ] Allow easier entry of numbers on the grid
 	[ ] Set hover highlight on gameboard to show all of the gridpoints that are associated with the field being hovered

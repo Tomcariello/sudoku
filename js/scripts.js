@@ -597,3 +597,28 @@ $(".hint-div").hover( function() {
         var target = "div > input[id='node-" + nodeNumber + "']";
         $( target ).css("background-color", "white");
 })
+
+// Highlight associated gameboard nodes when hovering gameboard
+$(".gb-input").hover( function() {
+    // Highlight the node in focus
+    var nodeNumber = $(this).data("node-number");
+    var target = "#node-" + nodeNumber;
+    $( target ).css("background-color", "yellow");
+
+    // Highlight associated row
+
+    // Highlight associated col
+
+    // Highlight associated box
+}, function() {
+    // Remove Highlight from the node in focus
+    var nodeNumber = $(this).data("node-number");
+    var target = "#node-" + nodeNumber;
+    $( target ).css("background-color", "white");
+
+    // Remove Highlight from associated row
+
+    // Remove Highlight from associated col
+
+    // Remove Highlight from associated box
+})
