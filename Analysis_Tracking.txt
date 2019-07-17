@@ -23,4 +23,8 @@ With Level 2 Analysis for ROWS & COLUMNS:
     Manual: 121 --> 2
     10x Analyze before finished
 
-With Level 2 Analysis for ROWS & COLUMNS & BOXES:
+With Level 2 Analysis for ROWS & BOXES:
+    13x analyze before finished
+
+With Level 2 Analysis for ROWS & COLS & BOXES:
+    9x analyze before finished

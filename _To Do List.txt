@@ -4,11 +4,11 @@ Sudoku challenge work flow:
 	[*] Represent these numbers clearly on the game board (HTML/CSS/JQuery)
 	[*] Display all possible numbers (1-9) for each blank square (HTML/CSS/JQuery)
 	[*] Level 1 Analysis: Proces all finalized numbers for each  blank squares & show user user(JQuery)
-	[ ] Level 2 Analysis: Process 2 digit arrays & process numbers of duplicated arrays
+	[*] Level 2 Analysis: Process 2 digit arrays & process numbers of duplicated arrays (Row, Col, & Box)
 	[ ] Create collection of sudoku games to allow users a variety of initial boards
 	[ ] Create "Hint" and "Solve" buttons. 
 		[ ] Hint should give the user 1 new correct number at random
-		[ ] Solve should work recursively
+		[ ] Solve should work recursively (1 click solve)
 	[ ] Prevent user from entering conflicting numbers on the grid
 	[ ] Allow easier entry of numbers on the grid
 	[ ] Set hover highlight on gameboard to show all of the gridpoints that are associated with the field being hovered

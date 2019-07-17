@@ -385,12 +385,12 @@ function solve() {
             */
 
             // Check this node against the rest of the nodes in this row (moving forward) by incremeneting the col digit
-            for (var i = parseInt(thisCol) + 1; i < 10; i++) {
+            for (var p = parseInt(thisCol) + 1; p < 10; p++) {
                 // Get the associated box number for this row/col pair
-                var lookupBox = getBoxNumber(i, parseInt(thisRow));
+                var lookupBox = getBoxNumber(p, parseInt(thisRow));
 
                 // Determine next node to check
-                var ArrToCheckLabel = "array" + thisRow + i + lookupBox;
+                var ArrToCheckLabel = "array" + thisRow + p + lookupBox;
                 var arrToCheck = eval(ArrToCheckLabel);
                 
                 // If the array to check is also length == 2, compare the arrays
@@ -401,7 +401,7 @@ function solve() {
                     if (flatArrToCheck == nodeSourceArrayFlat) {
                         // Store numbers of arrays that match. These will not be processed
                         var firstArrCol = thisCol;
-                        var secondArrCol = i;
+                        var secondArrCol = p;
 
                         // Another for loop...
                         for (var col = 1; col< 10; col++) {
@@ -448,36 +448,36 @@ function solve() {
                 var lookupBox = getBoxNumber( parseInt(thisCol), i );
 
                 // Determine next node to check
-                var ArrToCheckLabel = "array" + i + thisCol + lookupBox;
-                var arrToCheck = eval(ArrToCheckLabel);
+                var levelTwoVertArrLabel = "array" + i + thisCol + lookupBox;
+                var levelTwoVertArr = eval(levelTwoVertArrLabel);
                 
                 // If the array to check is also length == 2, compare the arrays
-                if (arrToCheck.length == 2) {
-                    var flatArrToCheck = JSON.stringify(arrToCheck);
+                if (levelTwoVertArr.length == 2) {
+                    var levelTwoVertFlatArrToCheck = JSON.stringify(levelTwoVertArr);
 
                     // If the arrays match, the 2 digits in the array should be eliminated from all other nodes in this column
-                    if (flatArrToCheck == nodeSourceArrayFlat) {
+                    if (levelTwoVertFlatArrToCheck == nodeSourceArrayFlat) {
                         // Store numbers of arrays that match. These will not be processed
-                        var firstArrRow = thisRow;
                         var secondArrRow = i;
 
                         // Another for loop...
                         for (var row = 1; row < 10; row ++) {
                             // Proceed if the current row number is not one of the 2 arrays that matched
-                            if (row != firstArrRow && row  != secondArrRow ) {
+                            if (row != thisRow && row != secondArrRow ) {
+
                                 var boxToLookup = getBoxNumber( parseInt(thisCol), row );
 
                                 // Determine next node to check
-                                var arrayToLookup = "array" + thisCol + row  + boxToLookup;
+                                var arrayToLookup = "array" + row + thisCol + boxToLookup;
+                                
                                 var arrToCheckAgainstPair = eval(arrayToLookup);
 
                                 // Loop through the array to be compared to the matching pair
                                 for (var j = 0; j < arrToCheckAgainstPair.length; j++) {
-                                    // console.log("length of " + arrToCheck + " is " + arrToCheck.length);
 
                                     // For each entry in the array being checked, compare with both numbers in the 2 digit array pair
-                                    for (var l = 0; l < arrToCheck.length; l++) {
-                                        var indexToRemove = arrToCheckAgainstPair.indexOf(arrToCheck[l]);
+                                    for (var l = 0; l < levelTwoVertArr.length; l++) {
+                                        var indexToRemove = arrToCheckAgainstPair.indexOf(levelTwoVertArr[l]);
 
                                         if (indexToRemove > -1) {
                                             arrToCheckAgainstPair.splice(indexToRemove, 1);
@@ -499,18 +499,59 @@ function solve() {
             */
 
             // To Do 
-                    // console.log(firstArrToCheckLabel + " . thisBox is " + thisBox)
-                    var allAssociatedBoxes = $("input[id^='options'][id$='" + thisBox + "']"); // starts with 'options', ends with box number
-                    
-                    $.each(allAssociatedBoxes, function(key, value) {
-                        console.log(this.id);
-                        console.log(numberToProcess)
+            var allAssociatedBoxes = $("input[id^='options'][id$='" + thisBox + "']"); // starts with 'options', ends with box number
+            
+            // Iterate through each of the box nodes
+            $.each(allAssociatedBoxes, function (k, v) {
+                var thisId = this.id;
 
-                        // Iterate through these boxes, skipping **numberToProcess**, looking for a matching array with a length of 2
+                // Iterate through these boxes, skipping **numberToProcess**, looking for a matching array with a length of 2
+                if (thisId.slice(7) != numberToProcess) {
+                    // Store value of the *parent* node being checked
+                    var parentArrLabel = "array" + numberToProcess;
+                    var parentArrToCheck = eval(parentArrLabel);
 
-                        // If there is a matching array with a length of 2, eliminate those numbers from the other associated BOXES
+                    var childArrLabel = "array" + thisId.slice(7);
+                    var childArrToCheck = eval(childArrLabel);
 
-                    })
+                    // Only process *other* arrays when the childArrToCheck.length = 2
+                    if (thisId.slice(7) != numberToProcess && childArrToCheck.length == 2) {
+
+                        var parentArrFlat = JSON.stringify(parentArrToCheck);
+                        var arrToCheckFlat = JSON.stringify(childArrToCheck);
+
+                        // If the arrays match, the 2 digits in the arrays should be eliminated from all *other* nodes in this column
+                        if (parentArrFlat == arrToCheckFlat) {
+
+                            // Loop through the boxes to process these values
+                            $.each(allAssociatedBoxes, function (subkey, subvalue) {
+                                // Only proceed for boxes that are not among the matching arrays
+                                if (this.id.slice(7) != numberToProcess && this.id.slice(7) != thisId.slice(7)) {
+
+                                    // Determine next node to check
+                                    var arrayToProcessLabel = "array" + this.id.slice(7);
+                                    var arrayToProcess = eval(arrayToProcessLabel);
+
+                                    // Loop through the array to process
+                                    for (var m = 0; m < arrayToProcess.length; m++) {
+
+                                        // For each entry in the array being processed, compare with both numbers in the 2 digit array pair
+                                        for (var n = 0; n < parentArrToCheck.length; n++) {
+                                            var indexForRemoval = arrayToProcess.indexOf(parentArrToCheck[n]);
+
+                                            if (indexForRemoval > -1) {
+                                                arrayToProcess.splice(indexForRemoval, 1);
+                                            }
+                                        }
+                                    }
+
+                                }
+                            })
+                        }
+
+                    }
+                }
+            })
             /*
             /* End Process Node Box for Level 2 analysis
             */
@@ -521,27 +562,30 @@ function solve() {
     printArrays(optionNames, arrayNames);
 }
 
+// Determine the box number based on the row/column pair
 function getBoxNumber(col, row) {
-    // Determine the box number
-    if ( col < 4 && row < 4 ) {
-        return 1;
-    } else if ( col < 7 && row < 4 ) {
-        return 2;
+    var box = 0;
+    
+    if ( row < 4 && col < 4) {
+        box = 1;
+    } else if ( row < 4 && col < 7) {
+        box = 2;
     } else if ( row < 4 ) {
-        return 3;
-    } else if ( col < 4 && row < 7 ) {
-        return 4;
-    } else if ( col < 7 && row < 7 ) {
-        return 5;
+        box = 3;
+    } else if ( row < 7 && col < 4) {
+        box = 4;
+    } else if ( row < 7 && col < 7) {
+        box = 5;
     } else if ( row < 7 ) {
-        return 6;
-    } else if ( col < 4 && row < 10 ) {
-        return 7;
-    } else if ( col < 7 && row < 10 ) {
-        return 8;
+        box = 6;
+    } else if ( row < 10 && col < 4) {
+        box = 7;
+    } else if ( row < 10 && col < 7) {
+        box = 8;
     } else if ( row < 10 ) {
-        return 9;
+        box = 9;
     }
+    return box;
 }
 // Highlight gameboard node when hovering over corresponding hint node
 $(".hint-div").hover( function() {
