@@ -602,23 +602,36 @@ $(".hint-div").hover( function() {
 $(".gb-input").hover( function() {
     // Highlight the node in focus
     var nodeNumber = $(this).data("node-number");
-    var target = "#node-" + nodeNumber;
-    $( target ).css("background-color", "yellow");
+    var mainTarget = "#node-" + nodeNumber;
+    $( mainTarget ).css("background-color", "blue");
+
+    // Isolate the digits to determine the row/col/box
+    var row = nodeNumber.toString().slice(0,1);
+    var col = nodeNumber.toString().slice(1,2);
+    var box = nodeNumber.toString().slice(2);
 
     // Highlight associated row
+    var rowTarget = ".r" + row;
+    $(rowTarget).each(function() {
+        $(this).css("background-color", "aquamarine");
+    })
 
     // Highlight associated col
-
+    var colTarget = ".c" + col;
+    $(colTarget).each(function() {
+        $(this).css("background-color", "aquamarine");
+    })
     // Highlight associated box
+    var boxTarget = ".b" + box;
+    $(boxTarget).each(function() {
+        $(this).css("background-color", "aquamarine");
+    })
 }, function() {
-    // Remove Highlight from the node in focus
-    var nodeNumber = $(this).data("node-number");
-    var target = "#node-" + nodeNumber;
-    $( target ).css("background-color", "white");
+    // Remove Highlight from all nodes
+    console.log("remove");
+    $(".gb-input").each(function() {
+        $(this).css("background-color", "white");
+        console.log(this);
+    })
 
-    // Remove Highlight from associated row
-
-    // Remove Highlight from associated col
-
-    // Remove Highlight from associated box
 })

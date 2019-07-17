@@ -12,5 +12,5 @@ Sudoku challenge work flow:
 	[*] Prevent user from entering number greater than 9
 	[ ] Prevent user from entering conflicting numbers on the grid
 	[ ] Allow easier entry of numbers on the grid
-	[ ] Set hover highlight on gameboard to show all of the gridpoints that are associated with the field being hovered
+	[*] Set hover highlight on gameboard to show all of the gridpoints that are associated with the field being hovered
 	

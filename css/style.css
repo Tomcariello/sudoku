@@ -87,6 +87,9 @@ input:not([type=text]) {
     color: #efefef;
     font-style: italic;
 }
+.gb-input:hover {
+    background-color: #bff7e4 !important;
+}
 #expain-hints {
     width: 150px;
     display: block;
