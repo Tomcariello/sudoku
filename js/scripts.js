@@ -77,8 +77,8 @@ jQuery.fn.forceNumeric = function () {
 function startGame() {
     for (var i = 0; i < nodeNames.length; i++) {
         // Enter values greater than 0
-        if (game[2][i] > 0) {
-            $(nodeNames[i]).val(game[2][i]);
+        if (game[3][i] > 0) {
+            $(nodeNames[i]).val(game[3][i]);
         } else {
             // Clear the node
             $(nodeNames[i]).val("");
@@ -133,25 +133,11 @@ function printArrays(optionNames, arrayNames) {
     }
 }
 
-//assign color to grid if value in node
-// function colorArrays(nodeNames) {
-//     for (var i = 0; i < nodeNames.length; i += 1) {
-//         if (parseInt(String($(String(nodeNames[i])).val())) > 0) {
-//             $(nodeNames[i]).addClass("preset_value");
-//             $(nodeNames[i]).parent().addClass("preset_value");
-//         } else { 
-//             $(nodeNames[i]).removeClass("preset_value"); 
-//             $(nodeNames[i]).parent().removeClass("preset_value"); 
-//         }
-//     }
-// }
-
 //onclick of clear button
 $("#clear").click(function () {
     clearGame(nodeNames);
     clearArrays(arrayNames, arrayValues);
     printArrays(optionNames, arrayNames);
-    // colorArrays(nodeNames);
 })
 
 //onclick of Reset button
@@ -159,7 +145,6 @@ $("#reset").click(function () {
     startGame();
     clearArrays(arrayNames, arrayValues);
     printArrays(optionNames, arrayNames);
-    // colorArrays(nodeNames);
 })
 
 //onclick of solve button 
@@ -188,6 +173,14 @@ $("#expain-hints").click(function () {
 
 
 function solve() {
+    // Take a snapshot of hint arrays before running procedure. This will be checked to know if anything changed
+    var startingSnapshot;
+    var joinedStartingArrays = [];
+    for (var i = 0; i < arrayNames.length; i++) {
+        joinedStartingArrays = joinedStartingArrays.concat(eval(arrayNames[i]));
+    }
+    startingSnapshot = JSON.stringify(joinedStartingArrays);
+
     // Check each node of the Gameboard for a value and process associated fields accordingly
     for (var i = 0; i < nodeNames.length; i += 1) {
 
@@ -496,6 +489,19 @@ function solve() {
     });
 
     printArrays(optionNames, arrayNames);
+
+    // Has anything changed?
+    var endingSnapshot;
+    var joinedEndingArrays = [];
+    for (var i = 0; i < arrayNames.length; i++) {
+        joinedEndingArrays = joinedEndingArrays.concat(eval(arrayNames[i]));
+    }
+    endingSnapshot = JSON.stringify(joinedEndingArrays);
+
+    // If anything has changed, call recursively
+    if ( startingSnapshot != endingSnapshot ) {
+        solve();
+    }
 }
 
 // Determine the box number based on the row/column pair

@@ -8,7 +8,7 @@ Sudoku challenge work flow:
 	[*] Create collection of sudoku games to allow users a variety of initial boards (Just 5 for now)
 	[*] Create "Hint" and "Solve" buttons. 
 		[ ] Hint should give the user 1 new correct number at random
-		[ ] Solve should work recursively until the puzzle is solved or no more moves are known
+		[*] Solve should work recursively until the puzzle is solved or no more moves are known
 	[*] Prevent user from entering number greater than 9
 	[ ] Prevent user from entering conflicting numbers on the grid
 	[ ] Allow easier entry of numbers on the grid
