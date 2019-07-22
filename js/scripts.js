@@ -74,11 +74,25 @@ jQuery.fn.forceNumeric = function () {
 }
 
 //Set default grid values (onload & reset)
-function startGame() {
+function startGame(gameNumber) {
+    var newGameNumber = "";
+
+    if ( parseInt(gameNumber) > -1) {
+        // Reference the previous game number to reset the board
+        newGameNumber = gameNumber;
+    } else {
+        // Randomly select a number from the game array
+        newGameNumber = Math.floor(Math.random() * game.length); 
+    }
+
+    // Assign the selected game number to the reset button to facilitate reseting moving forward
+    $("#reset").data("game-number", newGameNumber)
+
+    // Loop through the selected game array
     for (var i = 0; i < nodeNames.length; i++) {
         // Enter values greater than 0
-        if (game[3][i] > 0) {
-            $(nodeNames[i]).val(game[3][i]);
+        if (game[newGameNumber][i] > 0) {
+            $(nodeNames[i]).val(game[newGameNumber][i]);
         } else {
             // Clear the node
             $(nodeNames[i]).val("");
@@ -142,6 +156,15 @@ $("#clear").click(function () {
 
 //onclick of Reset button
 $("#reset").click(function () {
+    var currentGame = $("#reset").data("game-number");
+
+    startGame(currentGame);
+    clearArrays(arrayNames, arrayValues);
+    printArrays(optionNames, arrayNames);
+})
+
+//onclick of New button
+$("#new").click(function () {
     startGame();
     clearArrays(arrayNames, arrayValues);
     printArrays(optionNames, arrayNames);
