@@ -116,35 +116,47 @@ function clearArrays(arrayNames, arrayValues) {
 }
 
 //Print contents of all of the arrays into the boxes
-function printArrays(optionNames, arrayNames) {
-    // Iterate through each box
-    for (var i = 0; i < 81; i += 1) {
-        // The box being processed
-        var targetInput = optionNames[i];
+function printArrays(optionNames, arrayNames, source) {
 
-        // The numbers still possible for this box
-        var availableNumbers = window[arrayNames[i]];
+    // Count the number of answers provided. This facilitates the HINT button
+    var numbersGiven = 0;
 
-        // Print available numbers into each hint box
-        $(targetInput).val(availableNumbers);
+    if (source != "hint" || numbersGiven == 0) {
+        // Iterate through each box
+        for (var i = 0; i < 81; i += 1) {
+            // The box being processed
+            var targetInput = optionNames[i];
 
-        // If there is only 1 number in the hint box, move it into the gameboard
-        if (availableNumbers.length == 1) {
-            
-            // Isolate on the number
-            var nodeNumber = targetInput.split("#options")[1];
+            // The numbers still possible for this box
+            var availableNumbers = window[arrayNames[i]];
 
-            // Create targeter to update the gameboard
-            var gameBoardTarget = "#node-" + nodeNumber;
+            // Print available numbers into each hint box
+            $(targetInput).val(availableNumbers);
 
-            // Update the gameboard
-            $(gameBoardTarget).val(availableNumbers[0]);
+            // If there is only 1 number in the hint box, move it into the gameboard
+            // if (source != "hint" || numbersGiven == 0) {
+                if (availableNumbers.length == 1) {
+                    // Isolate on the number
+                    var nodeNumber = targetInput.split("#options")[1];
+
+                    // Create targeter to update the gameboard
+                    var gameBoardTarget = "#node-" + nodeNumber;
+
+                    // Update the gameboard
+                    $(gameBoardTarget).val(availableNumbers[0]);
+
+                    // Count the numbers
+                    numbersGiven++;
+                }
+            // }
+
+            // Set the color of the tip field accordingly.
+            var nodeColor = hexcolors[availableNumbers.length];
+            $(targetInput).css('background-color', nodeColor);
         }
-
-        // Set the color of the tip field accordingly.
-        var nodeColor = hexcolors[availableNumbers.length];
-        $(targetInput).css('background-color', nodeColor);
     }
+    
+    
 }
 
 //onclick of clear button
@@ -170,9 +182,9 @@ $("#new").click(function () {
     printArrays(optionNames, arrayNames);
 })
 
-//onclick of solve button 
+//onclick of hint button 
 $("#hint").click(function () {
-    solve();
+    solve("hint");
 })
 
 //onclick of solve button 
@@ -195,7 +207,7 @@ $("#expain-hints").click(function () {
 
 
 
-function solve() {
+function solve(source) {
     // Take a snapshot of hint arrays before running procedure. This will be checked to know if anything changed
     var startingSnapshot;
     var joinedStartingArrays = [];
@@ -227,10 +239,10 @@ function solve() {
             // Target the node being processed (which already has a value entered)
             var gameBoardTarget = "#options" + currentNodeNumber;
 
-            // Enter that value in the "hint" section
+            // Enter the value in the "hint" section
             $(gameBoardTarget).val(thisNodeValue);
 
-            // Target array for the current node
+            // Target gameboard array for the current node
             var thisNodeArray = eval("array" + currentNodeNumber);
 
             // Remove invalid numbers from the current node
@@ -286,19 +298,19 @@ function solve() {
             */
 
             /*
-            /* Process Boxes
+            /* Process Blocks
             */
 
-            //Determine ROW/COLUMN/SQUARE to process
-            var currentSquare = currentNodeNumber.slice(2); //obtain SQUARE
+            //Determine Block to process
+            var currentBlock = currentNodeNumber.slice(2); 
 
-            //Process Boxes
+            //Process Blocks
             for (var x = 0; x < 9; x++) {
-                var boxArrayToLookup = eval("box" + currentSquare);
+                var blockArrayToLookup = eval("box" + currentBlock);
 
-                if (boxArrayToLookup[x] != currentNodeNumber) {
+                if (blockArrayToLookup[x] != currentNodeNumber) {
                     var nodeToUpdate = nodeNames[i].slice(-3);
-                    var arrayToLookup = eval("array" + boxArrayToLookup[x]);
+                    var arrayToLookup = eval("array" + blockArrayToLookup[x]);
                     var splicePosition = $.inArray(thisNodeValue, arrayToLookup);
 
                     if (splicePosition > -1) {
@@ -511,7 +523,7 @@ function solve() {
         }
     });
 
-    printArrays(optionNames, arrayNames);
+    printArrays(optionNames, arrayNames, source);
 
     // Has anything changed?
     var endingSnapshot;
@@ -521,8 +533,8 @@ function solve() {
     }
     endingSnapshot = JSON.stringify(joinedEndingArrays);
 
-    // If anything has changed, call recursively
-    if ( startingSnapshot != endingSnapshot ) {
+    // If anything has changed and we're trying to solve, call recursively
+    if ( startingSnapshot != endingSnapshot && source !="hint") {
         solve();
     }
 }
