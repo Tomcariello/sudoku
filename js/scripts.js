@@ -125,34 +125,34 @@ function printArrays(optionNames, arrayNames, source) {
         // Iterate through each box
         for (var i = 0; i < 81; i += 1) {
             // The box being processed
-            var targetInput = optionNames[i];
+            var thisNodeName = optionNames[i];
 
             // The numbers still possible for this box
-            var availableNumbers = window[arrayNames[i]];
+            var thisNodePossibilities = window[arrayNames[i]];
 
-            // Print available numbers into each hint box
-            $(targetInput).val(availableNumbers);
+            // Print available numbers into each **hint** box
+            $(thisNodeName).val(thisNodePossibilities);
 
-            // If there is only 1 number in the hint box, move it into the gameboard
-            // if (source != "hint" || numbersGiven == 0) {
-                if (availableNumbers.length == 1) {
-                    // Isolate on the number
-                    var nodeNumber = targetInput.split("#options")[1];
+            // Isolate on the number identifier
+            var nodeNumber = thisNodeName.split("#options")[1];
 
-                    // Create targeter to update the gameboard
-                    var gameBoardTarget = "#node-" + nodeNumber;
+            // Create targeter for the node **on the gameboard**
+            var gameBoardTarget = "#node-" + nodeNumber;
 
+            // If there is only 1 number left in the hint array & it is not already on the gameboard insert it onto the gameboard
+            if (thisNodePossibilities.length == 1 && $(gameBoardTarget).val() == "") {
+                if (source != "hint" || numbersGiven==0) {
                     // Update the gameboard
-                    $(gameBoardTarget).val(availableNumbers[0]);
+                    $(gameBoardTarget).val(thisNodePossibilities[0]);
 
-                    // Count the numbers
+                    // Count the number of nodes "solved" for the player.
                     numbersGiven++;
                 }
-            // }
+            }
 
             // Set the color of the tip field accordingly.
-            var nodeColor = hexcolors[availableNumbers.length];
-            $(targetInput).css('background-color', nodeColor);
+            var nodeColor = hexcolors[thisNodePossibilities.length];
+            $(thisNodeName).css('background-color', nodeColor);
         }
     }
     

@@ -10,10 +10,9 @@ Sudoku challenge work flow:
 	[*] Prevent user from entering number greater than 9
 	[*] Set hover highlight on gameboard to show all of the gridpoints that are associated with the field being hovered
 	[*] Create "Hint" and "Solve" buttons. 
-		[ ] Hint should give the user 1 new correct number at random
+		[*] Hint should give the user 1 new correct number
 		[*] Solve should work recursively until the puzzle is solved or no more moves are known
-	[ ] Prevent user from entering conflicting numbers on the grid *This needs to be defined prior to work
-	[ ] Allow easier entry of numbers on the grid
+	[ ] Prevent user from entering conflicting numbers on the grid. (Validate button?)
 	[ ] Refactor all analysis code for brevity & clarity
 	[ ] Level 3 Analysis: Process 2 & 3 digit arrays & process numbers of duplicated arrays (Row, Col, & Box)
 	
