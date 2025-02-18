@@ -1,1 +1,0 @@
-Level 2 analysis is sufficient to solve Easy & Medium Puzzles. Hard puzzles still require human intervention.
