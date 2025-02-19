@@ -12,7 +12,7 @@ Sudoku challenge work flow:
 	[*] Create "Hint" and "Solve" buttons. 
 		[*] Hint should give the user 1 new correct number
 		[*] Solve should work recursively until the puzzle is solved or no more moves are known
-	[ ] Integrate Sudoku API for unlimited games
+	[x] Create Sudoku game generator
 	[ ] Validate numbers entered by user against solved puzzle (i.e. user can't enter incorrect numbers)
 	[ ] Game board improvements:
 		[ ] Make game board bigger
@@ -20,7 +20,8 @@ Sudoku challenge work flow:
 		[ ] Number Entry can be down with HTML buttons (no keyboard required). Will improve iPad experience.
 		[ ] Hint Board:
 			[ ] Integrate into the main game board as notes?
-	[ ] Refactor codebase for modern JS & just decent coding standards:
+	[ ] Add "confirm" button. This will validate no duplicates & that all rows/columns/boxes add to 45
+	[ ] Refactor codebase to make this a node app to current standards:
 		[ ] Remove JQuery
 		[ ] Remove all 'eval' statements
 	[ ] Refactor current analysis code:

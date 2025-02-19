@@ -1,11 +1,13 @@
 //On page load functions
 $(document).ready(function () {
     $(".node").forceNumeric();
+    currentSudokuGame = getNewGame("easy");
     startGame();
     clearArrays(gameBoardNameArray, eligibleNumbersArray);
     printArrays(hintBoardNameArray, gameBoardNameArray);
 });
 
+let currentSudokuGame = {}
 const gameNodeNames = []; // IDs for each of the squares on the gameboard
 const gameBoardNameArray = []; // Names of the arrays associated with each game board node
 const hintBoardNameArray = []; // Names of the arrays associated with each hint board node
@@ -36,55 +38,13 @@ const box9 = ['779', '789', '799', '879', '889', '899', '979', '989', '999'];
 // Determine color to highlight the helper boxes. Darker means more numbers left for that box. 0 index is null
 const hexcolors = ["", "#ffffff","#E7FFBA", "#D2FF76", "#C9F374", "#B8DC70", "#B8DC6F", "#A4D146", "#A6C26E", "#A3D144"];
 
-// Saved a couple games for pre-loading
-// This will be replaced with an API call
-const sudokuGameArray = [
-    [5,0,0,1,0,0,0,0,0,0,9,6,0,0,0,8,2,0,0,0,0,0,0,7,0,0,9,0,0,0,0,0,3,0,0,6,0,7,4,0,0,0,9,1,0,2,0,0,5,0,0,0,0,0,7,0,0,6,0,0,0,0,0,0,8,3,0,0,0,5,7,0,0,0,0,0,0,4,0,0,1],
-    [7,6,3,0,0,5,0,0,9,0,1,5,0,0,2,3,7,0,9,2,8,0,0,4,0,0,1,0,0,0,5,3,0,9,8,0,0,3,0,6,0,9,2,5,0,0,0,9,0,2,0,0,1,0,0,0,0,2,1,0,7,4,0,0,5,0,4,0,0,0,3,0,0,8,0,0,5,3,1,0,0], // easy
-    [0,0,0,9,0,0,4,2,7,2,4,0,0,8,7,9,0,5,0,9,1,2,0,0,0,0,0,0,0,0,7,2,0,3,4,0,0,0,0,0,4,0,0,0,1,3,0,0,0,0,0,0,0,0,0,8,6,4,7,0,0,0,0,0,0,0,0,0,2,5,0,0,0,1,0,0,3,8,0,6,0], // medium
-    [2,0,4,0,0,0,0,0,0,0,0,0,0,0,4,5,9,1,0,1,0,5,0,6,0,0,2,0,7,0,0,0,0,0,0,0,1,0,0,0,0,0,8,5,0,0,0,0,0,9,1,0,7,0,0,4,5,0,0,0,0,0,7,0,0,6,8,0,0,0,0,4,0,0,0,0,3,0,0,2,0], //hard
-    [0,4,0,8,0,0,0,0,6,0,0,1,0,0,6,0,0,3,0,0,6,3,0,9,8,0,0,2,5,0,6,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,8,7,0,0,0,0,4,0,0,0,0,0,9,0,7,0,0,0,0,0,0,0,4,0,1,0,0,0,0,0,0,2,0,0,5], // expert
-];
-
 /**
- * Fetch {{desiredDifficulty}} game from youdosudoku
- * @param {string} desiredDifficulty - "easy", "medium", or "hard" (defaults to "easy")
+ * Request {{desiredDifficulty}} game
+ * @param {string} desiredDifficulty - "easy", "medium", "hard" or "challenging"
  * @returns {array} Formatted sudoku puzzle
  */
 const getNewGame = function(desiredDifficulty) {
-    fetch("https://youdosudoku.com/api/", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            difficulty: desiredDifficulty, // 
-            solution: true,
-            array: false // true or false (defaults to false)
-        })
-    })
-    .then(res => res.json())
-    .then(data => console.log(data));
-
-    // Mock puzzle response
-    const response = {
-        "difficulty":"easy",
-        "puzzle":"624000009310500060005102407800400001002685090069301070546070102000850003738000000",
-        "solution":"624738519317549268985162437853497621172685394469321875546973182291856743738214956"
-    }
-    // Modify puzzle to desired format
-    // Might be able to just request in array form? Need to test API...
-    const formattedPuzzle = formatPuzzle(response.puzzle)
-    const formattedPuzzleSolution = formatPuzzle(response.solution)
-    console.log(formattedPuzzle)
-    return formattedPuzzle
-}
-
-/**
- * Take puzzle string and convert to array
- * @param {string} puzzleStr
- * @returns {array} Array formatted sudoku puzzle
- */
-const formatPuzzle = function(puzzleStr) {
-    return puzzleStr.split('')
+    return createGame(desiredDifficulty)
 }
 
 // Prevent user from entering invalid characters in the sudoku game grid
@@ -121,23 +81,23 @@ jQuery.fn.forceNumeric = function () {
  * @returns {array} Array formatted sudoku puzzle
  */
 function startGame(gameNumber) {
-    let newGameNumber = "";
-    if ( parseInt(gameNumber) > -1) {
-        // Reference the previous game number to reset the board
-        newGameNumber = gameNumber;
-    } else {
-        // Randomly select a number from the game array
-        newGameNumber = Math.floor(Math.random() * sudokuGameArray.length); 
-    }
+    // let newGameNumber = "";
+    // if ( parseInt(gameNumber) > -1) {
+    //     // Reference the previous game number to reset the board
+    //     newGameNumber = gameNumber;
+    // } else {
+    //     // Randomly select a number from the game array
+    //     newGameNumber = Math.floor(Math.random() * currentSudokuGame.length); 
+    // }
 
-    // Assign the selected game number to the reset button to facilitate reseting moving forward
-    $("#reset").data("game-number", newGameNumber)
+    // // Assign the selected game number to the reset button to facilitate reseting moving forward
+    // $("#reset").data("game-number", newGameNumber)
 
     // Loop through the selected game array
     for (let i = 0; i < gameNodeNames.length; i++) {
         // Enter values greater than 0
-        if (sudokuGameArray[newGameNumber][i] > 0) {
-            $(gameNodeNames[i]).val(sudokuGameArray[newGameNumber][i]);
+        if (currentSudokuGame.game[i] > 0) {
+            $(gameNodeNames[i]).val(currentSudokuGame.game[i]);
         } else {
             $(gameNodeNames[i]).val("");
         }
@@ -548,7 +508,7 @@ $("#reset").click(function () {
 })
 
 $("#new").click(function () {
-    getNewGame("medium")
+    currentSudokuGame = getNewGame("medium")
     startGame();
     clearArrays(gameBoardNameArray, eligibleNumbersArray);
     printArrays(hintBoardNameArray, gameBoardNameArray);
