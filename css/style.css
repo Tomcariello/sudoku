@@ -1,6 +1,6 @@
 [class*="node"] {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     text-align: center;
 }
 [class*="options"] {
@@ -37,8 +37,8 @@
     border-left: 1px solid rgba(121, 120, 120, 0.5);
     border-right: 1px solid rgba(121, 120, 120, 0.5);
     flex: 1;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     display: inline-block;
 }
 /* Put border on the top of the 1st row only */
@@ -57,7 +57,7 @@
     float: left; 
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 65%;
 }
 .instructions {
     font-family: verdana;
@@ -92,7 +92,7 @@ input:not([type=text]) {
 }
 .gameboard_row {
     clear: both;
-    width: 300px;
+    width: 360px;
     margin: auto;
     display: flex;
 }

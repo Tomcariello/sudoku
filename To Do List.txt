@@ -15,7 +15,7 @@ Sudoku challenge work flow:
 	[*] Create Sudoku game generator
 	[*] Validate numbers entered by user against solved puzzle
 	[ ] Game board improvements:
-		[ ] Make game board bigger
+		[*] Make game board bigger
 		[ ] Hovering over an entered number highlights all instances of that number on the grid
 		[ ] Number Entry can be down with HTML buttons (no keyboard required). Will improve iPad experience.
 		[ ] Lock inputs for provided values on game start (also color code?)
