@@ -559,9 +559,20 @@ $(".hint-div").hover( function() {
 
 // Highlight associated gameboard nodes when hovering gameboard
 $(".gb-input").hover( function() {
+    console.log('hover')
     const nodeNumber = $(this).data("node-number");
     const mainTarget = "#node-" + nodeNumber;
-    $( mainTarget ).css("background-color", "blue");
+    const hoverValue = $(mainTarget).val() 
+    
+    if (hoverValue !== '') {
+        // Highlight the value being hovered anywhere in the board
+        for (let i = 0; i < gameNodeNames.length; i++) {
+            const thisValue = $(gameNodeNames[i]).val()
+            if (thisValue == hoverValue) {
+                $( gameNodeNames[i] ).css("background-color", "aquamarine");
+            }
+        }
+    }
 
     // Isolate the digits to determine the row/col/box
     const row = nodeNumber.toString().slice(0,1);
