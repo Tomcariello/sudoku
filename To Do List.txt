@@ -12,12 +12,13 @@ Sudoku challenge work flow:
 	[*] Create "Hint" and "Solve" buttons. 
 		[*] Hint should give the user 1 new correct number
 		[*] Solve should work recursively until the puzzle is solved or no more moves are known
-	[x] Create Sudoku game generator
-	[ ] Validate numbers entered by user against solved puzzle (i.e. user can't enter incorrect numbers)
+	[*] Create Sudoku game generator
+	[*] Validate numbers entered by user against solved puzzle
 	[ ] Game board improvements:
 		[ ] Make game board bigger
-		[ ] Hovering over a entered number highlights all instances of that number on the grid
+		[ ] Hovering over an entered number highlights all instances of that number on the grid
 		[ ] Number Entry can be down with HTML buttons (no keyboard required). Will improve iPad experience.
+		[ ] Lock inputs for provided values on game start (also color code?)
 		[ ] Hint Board:
 			[ ] Integrate into the main game board as notes?
 	[ ] Add "confirm" button. This will validate no duplicates & that all rows/columns/boxes add to 45

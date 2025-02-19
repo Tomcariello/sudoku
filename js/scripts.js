@@ -76,26 +76,12 @@ jQuery.fn.forceNumeric = function () {
 }
 
 /**
- * Set default game & hint grid values
+ * Populate current game into grid
  * @param {Integer} gameNumber
  * @returns {array} Array formatted sudoku puzzle
  */
-function startGame(gameNumber) {
-    // let newGameNumber = "";
-    // if ( parseInt(gameNumber) > -1) {
-    //     // Reference the previous game number to reset the board
-    //     newGameNumber = gameNumber;
-    // } else {
-    //     // Randomly select a number from the game array
-    //     newGameNumber = Math.floor(Math.random() * currentSudokuGame.length); 
-    // }
-
-    // // Assign the selected game number to the reset button to facilitate reseting moving forward
-    // $("#reset").data("game-number", newGameNumber)
-
-    // Loop through the selected game array
+function startGame() {
     for (let i = 0; i < gameNodeNames.length; i++) {
-        // Enter values greater than 0
         if (currentSudokuGame.game[i] > 0) {
             $(gameNodeNames[i]).val(currentSudokuGame.game[i]);
         } else {
@@ -109,9 +95,9 @@ function startGame(gameNumber) {
  * @returns null
  */
 function clearGameBoard() {
-    for (let i = 0; i < 82; i += 1) {
-        $(String(gameNodeNames[i])).val("");
-    }
+    document.querySelectorAll('.node > input') .forEach(element => {
+        $(element).val('')
+    }); 
 }
 
 /**
@@ -491,6 +477,37 @@ function getBoxNumber(col, row) {
     return box;
 }
 
+/* Add listeners for game node inputs */
+const inputs = document.querySelectorAll('.gb-input');
+
+inputs.forEach(input => {
+    input.addEventListener('input', function(event) {
+        checkValueEntered(event)
+    });
+});
+
+const checkValueEntered = function(event) {
+    const inputId = `#${event.target.id}`
+    $(inputId).css('color', 'black');
+    let inputWrong = false
+    const enteredValue = Number(event.target.value)
+    if (enteredValue != '') {
+        // Extract the node number & use the row/col to find the index in the solution array
+        const nodeNumber = event.target.getAttribute('data-node-number');
+        const rowNumber = Number(nodeNumber[0])
+        const colNumber = Number(nodeNumber[1])
+        const gameArrayPosition = (rowNumber -1) * 9 + colNumber -1
+        const expectedValue = currentSudokuGame.solution[gameArrayPosition]
+
+        if (enteredValue !== expectedValue) {
+            inputWrong = true
+        }
+    }
+           
+    if (inputWrong) {
+        $(inputId).css('color', 'red');
+    }
+}
 /* Handle button clicks */
 $("#clear").click(function () {
     clearGameBoard(gameNodeNames);
