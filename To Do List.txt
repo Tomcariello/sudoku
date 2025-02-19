@@ -17,10 +17,12 @@ Sudoku challenge work flow:
 	[ ] Game board improvements:
 		[*] Make game board bigger
 		[*] Hovering over an entered number highlights all instances of that number on the grid
+			[ ] Hover might be a but much...
 		[ ] Number Entry can be down with HTML buttons (no keyboard required). Will improve iPad experience.
 		[ ] Lock inputs for provided values on game start (also color code?)
 		[ ] Hint Board:
 			[ ] Integrate into the main game board as notes?
+			[ ] Hint value entry doesn't override the error styling?
 	[ ] Add "confirm" button. This will validate no duplicates & that all rows/columns/boxes add to 45
 	[ ] Refactor codebase to make this a node app to current standards:
 		[ ] Remove JQuery
