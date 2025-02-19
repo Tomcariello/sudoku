@@ -321,8 +321,6 @@ function solve(source) {
 
                                 // Loop through the array to be compared to the matching pair
                                 for (let j = 0; j < arrToCheckAgainstPair.length; j++) {
-                                    // console.log("length of " + arrToCheck + " is " + arrToCheck.length);
-
                                     // For each entry in the array being checked, compare with both numbers in the 2 digit array pair
                                     for (let l = 0; l < arrToCheck.length; l++) {
                                         const indexToRemove = arrToCheckAgainstPair.indexOf(arrToCheck[l]);

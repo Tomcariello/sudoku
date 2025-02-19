@@ -1,4 +1,7 @@
-// Created entirely by ChatGPT. Thanks ChatGPT.
+// Couldn't find a reliable, freee Sudoku generating API so I took the cowards way out.
+// Created entirely by ChatGPT. Thanks ChatGPT. 
+// I'm not sure this solution won't generate unsolvable puzzles.
+// Good enough for now...
 function createGame(difficulty) {
   // Step 1: Generate a solved Sudoku board
   const solvedBoard = generateSudoku();
