@@ -1,281 +1,2042 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Sudoku</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
 
-    <head>
-        <title>Sudoku</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-
-    <body>
-        <div class="container">
-            <!--Sudoko game board-->
-            <div class="grid">
-                <div class="gameboard-header">
-                        Gameboard
-                </div>
-                <div class="gameboard_row row_one">
-                    <div class="node" ><input type="text" class="gb-input r1 c1 b1" data-node-number="111" id="node-111" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r1 c2 b1" data-node-number="121" id="node-121" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r1 c3 b1" data-node-number="131" id="node-131" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r1 c4 b2" data-node-number="142" id="node-142" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r1 c5 b2" data-node-number="152" id="node-152" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r1 c6 b2" data-node-number="162" id="node-162" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r1 c7 b3" data-node-number="173" id="node-173" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r1 c8 b3" data-node-number="183" id="node-183" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r1 c9 b3" data-node-number="193" id="node-193" value="" />
-                    </div>
-                </div>
-
-                <div class="gameboard_row row_two">
-                    <div class="node" ><input type="text" class="gb-input r2 c1 b1" data-node-number="211" id="node-211" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r2 c2 b1" data-node-number="221" id="node-221" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r2 c3 b1" data-node-number="231" id="node-231" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r2 c4 b2" data-node-number="242" id="node-242" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r2 c5 b2" data-node-number="252" id="node-252" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r2 c6 b2" data-node-number="262" id="node-262" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r2 c7 b3" data-node-number="273" id="node-273" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r2 c8 b3" data-node-number="283" id="node-283" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r2 c9 b3" data-node-number="293" id="node-293" value="" maxlength="1" />
-                    </div>
-                </div>
-
-                <div class="gameboard_row row_three">
-                    <div class="node" ><input type="text" class="gb-input r3 c1 b1" data-node-number="311" id="node-311" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r3 c2 b1" data-node-number="321" id="node-321" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r3 c3 b1" data-node-number="331" id="node-331" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r3 c4 b2" data-node-number="342" id="node-342" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r3 c5 b2" data-node-number="352" id="node-352" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r3 c6 b2" data-node-number="362" id="node-362" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r3 c7 b3" data-node-number="373" id="node-373" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r3 c8 b3" data-node-number="383" id="node-383" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r3 c9 b3" data-node-number="393" id="node-393" value="" maxlength="1" />
-                    </div>
-                </div>
-
-                <div class="gameboard_row row_four">
-                    <div class="node" ><input type="text" class="gb-input r4 c1 b4" data-node-number="414" id="node-414" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r4 c2 b4" data-node-number="424" id="node-424" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r4 c3 b4" data-node-number="434" id="node-434" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r4 c4 b5" data-node-number="445" id="node-445" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r4 c5 b5" data-node-number="455" id="node-455" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r4 c6 b5" data-node-number="465" id="node-465" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r4 c7 b6" data-node-number="476" id="node-476" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r4 c8 b6" data-node-number="486" id="node-486" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r4 c9 b6" data-node-number="496" id="node-496" value="" maxlength="1" />
-                    </div>
-                </div>
-
-                <div class="gameboard_row row_five">
-                    <div class="node" ><input type="text" class="gb-input r5 c1 b4" data-node-number="514" id="node-514" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r5 c2 b4" data-node-number="524" id="node-524" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r5 c3 b4" data-node-number="534" id="node-534" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r5 c4 b5" data-node-number="545" id="node-545" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r5 c5 b5" data-node-number="555" id="node-555" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r5 c6 b5" data-node-number="565" id="node-565" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r5 c7 b6" data-node-number="576" id="node-576" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r5 c8 b6" data-node-number="586" id="node-586" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r5 c9 b6" data-node-number="596" id="node-596" value="" maxlength="1" />
-                    </div>
-                </div>
-
-                <div class="gameboard_row row_six">
-                    <div class="node" ><input type="text" class="gb-input r6 c1 b4" data-node-number="614" id="node-614" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r6 c2 b4" data-node-number="624" id="node-624" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r6 c3 b4" data-node-number="634" id="node-634" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r6 c4 b5" data-node-number="645" id="node-645" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r6 c5 b5" data-node-number="655" id="node-655" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r6 c6 b5" data-node-number="665" id="node-665" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r6 c7 b6" data-node-number="676" id="node-676" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r6 c8 b6" data-node-number="686" id="node-686" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r6 c9 b6" data-node-number="696" id="node-696" value="" maxlength="1" />
-                    </div>
-                </div>
-
-                <div class="gameboard_row row_seven">
-                    <div class="node" ><input type="text" class="gb-input r7 c1 b7" data-node-number="717" id="node-717" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r7 c2 b7" data-node-number="727" id="node-727" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r7 c3 b7" data-node-number="737" id="node-737" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r7 c4 b8" data-node-number="748" id="node-748" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r7 c5 b8" data-node-number="758" id="node-758" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r7 c6 b8" data-node-number="768" id="node-768" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r7 c7 b9" data-node-number="779" id="node-779" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r7 c8 b9" data-node-number="789" id="node-789" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r7 c9 b9" data-node-number="799" id="node-799" value="" maxlength="1" />
-                    </div>
-                </div>
-
-                <div class="gameboard_row row_eight">
-                    <div class="node" ><input type="text" class="gb-input r8 c1 b7" data-node-number="817" id="node-817" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r8 c2 b7" data-node-number="827" id="node-827" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r8 c3 b7" data-node-number="837" id="node-837" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r8 c4 b8" data-node-number="848" id="node-848" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r8 c5 b8" data-node-number="858" id="node-858" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r8 c6 b8" data-node-number="868" id="node-868" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r8 c7 b9" data-node-number="879" id="node-879" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r8 c8 b9" data-node-number="889" id="node-889" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r8 c9 b9" data-node-number="899" id="node-899" value="" maxlength="1" />
-                    </div>
-                </div>
-
-                <div class="gameboard_row row_nine">
-                    <div class="node" ><input type="text" class="gb-input r9 c1 b7" data-node-number="917" id="node-917" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r9 c2 b7" data-node-number="927" id="node-927" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r9 c3 b7" data-node-number="937" id="node-937" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r9 c4 b8" data-node-number="948" id="node-948" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r9 c5 b8" data-node-number="958" id="node-958" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r9 c6 b8" data-node-number="968" id="node-968" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r9 c7 b9" data-node-number="979" id="node-979" value="" maxlength="1"></div>
-                    <div class="node" ><input type="text" class="gb-input r9 c8 b9" data-node-number="989" id="node-989" value="" maxlength="1"></div>
-                    <div class="node col-nine" >
-                        <input type="text" class="gb-input r9 c9 b9" data-node-number="999" id="node-999" value="" maxlength="1" />
-                    </div>
-                </div>
+  <body>
+    <div class="container">
+      <!--Sudoko game board-->
+      <div class="grid" id="grid">
+        <div class="gameboard-header">Gameboard</div>
+        <div class="gameboard_row row_one">
+          <div class="node"  id="node-div-111">
+            <input
+              type="text"
+              class="gb-input r1 c1 b1"
+              data-node-number="111"
+              id="node-111"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-111" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
             </div>
-
-            <div class="instructions">
-                <p>This tool is designed to enhance your Sudoku experience. By pressing the "Analyze" button, the current game board will be analyzed and the hint area at the bottom of the screen will be updated.</p>
-
-                <p>If a position in the hint area is WHITE, that means there is only 1 option left for that item & it is automatically reflected on the gameboard.</p>
-                <p>If a position has multiple possibilities remaining, it will be highlighted in GREEN. The lighter the green, the fewer possibilities remain for that position.</p>
+          </div>
+          <div class="node" id="node-div-121">
+            <input
+              type="text"
+              class="gb-input r1 c2 b1"
+              data-node-number="121"
+              id="node-121"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-121" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
             </div>
-        </div>
-            
-        <!--Action Buttons-->
-        <div class="game_controls">
-            <button type="button" class="user_button" id="clear">Clear</button>
-            <button type="button" class="user_button" id="new">New Game</button>
-            <button type="button" class="user_button" id="reset" data-game-number="1">Reset Game</button>
-            <button type="button" class="user_button" id="hint">Hint</button>
-            <button type="button" class="user_button" id="solve">Solve</button>
-        </div>
-
-        <!--Grid to display available numbers per node-->
-        <div class="hint-header">
-            Gameboard Hints:
-            <div class="hint-button-div">
-                <button type="button" class="user_button" id="expain-hints">How do hints work?</button>
+          </div>
+          <div class="node" id="node-div-131">
+            <input
+              type="text"
+              class="gb-input r1 c3 b1"
+              data-node-number="131"
+              id="node-131"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-131" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
             </div>
-        </div>
-
-        <div class="eligible">
-            <div class="hint-div options111" data-node-number="111"><input type="textbox" name="" id="options111" value=""></div>
-            <div class="hint-div options121" data-node-number="121"><input type="textbox" name="" id="options121" value=""></div>
-            <div class="hint-div options131" data-node-number="131"><input type="textbox" name="" id="options131" value=""></div>
-            <div class="hint-div options142" data-node-number="142"><input type="textbox" name="" id="options142" value=""></div>
-            <div class="hint-div options152" data-node-number="152"><input type="textbox" name="" id="options152" value=""></div>
-            <div class="hint-div options162" data-node-number="162"><input type="textbox" name="" id="options162" value=""></div>
-            <div class="hint-div options173" data-node-number="173"><input type="textbox" name="" id="options173" value=""></div>
-            <div class="hint-div options183" data-node-number="183"><input type="textbox" name="" id="options183" value=""></div>
-            <div class="hint-div options193" data-node-number="193"><input type="textbox" name="" id="options193" value=""></div>
-
-            <div class="hint-div options211" data-node-number="211"><input type="textbox" name="" id="options211" value=""></div>
-            <div class="hint-div options221" data-node-number="221"><input type="textbox" name="" id="options221" value=""></div>
-            <div class="hint-div options231" data-node-number="231"><input type="textbox" name="" id="options231" value=""></div>
-            <div class="hint-div options242" data-node-number="242"><input type="textbox" name="" id="options242" value=""></div>
-            <div class="hint-div options252" data-node-number="252"><input type="textbox" name="" id="options252" value=""></div>
-            <div class="hint-div options262" data-node-number="262"><input type="textbox" name="" id="options262" value=""></div>
-            <div class="hint-div options273" data-node-number="273"><input type="textbox" name="" id="options273" value=""></div>
-            <div class="hint-div options283" data-node-number="283"><input type="textbox" name="" id="options283" value=""></div>
-            <div class="hint-div options293" data-node-number="293"><input type="textbox" name="" id="options293" value=""></div>
-
-            <div class="hint-div options311" data-node-number="311"><input type="textbox" name="" id="options311" value=""></div>
-            <div class="hint-div options321" data-node-number="321"><input type="textbox" name="" id="options321" value=""></div>
-            <div class="hint-div options331" data-node-number="331"><input type="textbox" name="" id="options331" value=""></div>
-            <div class="hint-div options342" data-node-number="342"><input type="textbox" name="" id="options342" value=""></div>
-            <div class="hint-div options352" data-node-number="352"><input type="textbox" name="" id="options352" value=""></div>
-            <div class="hint-div options362" data-node-number="362"><input type="textbox" name="" id="options362" value=""></div>
-            <div class="hint-div options373" data-node-number="373"><input type="textbox" name="" id="options373" value=""></div>
-            <div class="hint-div options383" data-node-number="383"><input type="textbox" name="" id="options383" value=""></div>
-            <div class="hint-div options393" data-node-number="393"><input type="textbox" name="" id="options393" value=""></div>
-
-            <div class="hint-div options414" data-node-number="414"><input type="textbox" name="" id="options414" value=""></div>
-            <div class="hint-div options424" data-node-number="424"><input type="textbox" name="" id="options424" value=""></div>
-            <div class="hint-div options434" data-node-number="434"><input type="textbox" name="" id="options434" value=""></div>
-            <div class="hint-div options445" data-node-number="445"><input type="textbox" name="" id="options445" value=""></div>
-            <div class="hint-div options455" data-node-number="455"><input type="textbox" name="" id="options455" value=""></div>
-            <div class="hint-div options465" data-node-number="465"><input type="textbox" name="" id="options465" value=""></div>
-            <div class="hint-div options476" data-node-number="476"><input type="textbox" name="" id="options476" value=""></div>
-            <div class="hint-div options486" data-node-number="486"><input type="textbox" name="" id="options486" value=""></div>
-            <div class="hint-div options496" data-node-number="496"><input type="textbox" name="" id="options496" value=""></div>
-
-            <div class="hint-div options514" data-node-number="514"><input type="textbox" name="" id="options514" value=""></div>
-            <div class="hint-div options524" data-node-number="524"><input type="textbox" name="" id="options524" value=""></div>
-            <div class="hint-div options534" data-node-number="534"><input type="textbox" name="" id="options534" value=""></div>
-            <div class="hint-div options545" data-node-number="545"><input type="textbox" name="" id="options545" value=""></div>
-            <div class="hint-div options555" data-node-number="555"><input type="textbox" name="" id="options555" value=""></div>
-            <div class="hint-div options565" data-node-number="565"><input type="textbox" name="" id="options565" value=""></div>
-            <div class="hint-div options576" data-node-number="576"><input type="textbox" name="" id="options576" value=""></div>
-            <div class="hint-div options586" data-node-number="586"><input type="textbox" name="" id="options586" value=""></div>
-            <div class="hint-div options596" data-node-number="596"><input type="textbox" name="" id="options596" value=""></div>
-
-            <div class="hint-div options614" data-node-number="614"><input type="textbox" name="" id="options614" value=""></div>
-            <div class="hint-div options624" data-node-number="624"><input type="textbox" name="" id="options624" value=""></div>
-            <div class="hint-div options634" data-node-number="634"><input type="textbox" name="" id="options634" value=""></div>
-            <div class="hint-div options645" data-node-number="645"><input type="textbox" name="" id="options645" value=""></div>
-            <div class="hint-div options655" data-node-number="655"><input type="textbox" name="" id="options655" value=""></div>
-            <div class="hint-div options665" data-node-number="665"><input type="textbox" name="" id="options665" value=""></div>
-            <div class="hint-div options676" data-node-number="676"><input type="textbox" name="" id="options676" value=""></div>
-            <div class="hint-div options686" data-node-number="686"><input type="textbox" name="" id="options686" value=""></div>
-            <div class="hint-div options696" data-node-number="696"><input type="textbox" name="" id="options696" value=""></div>
-
-            <div class="hint-div options717" data-node-number="717"><input type="textbox" name="" id="options717" value=""></div>
-            <div class="hint-div options727" data-node-number="727"><input type="textbox" name="" id="options727" value=""></div>
-            <div class="hint-div options737" data-node-number="737"><input type="textbox" name="" id="options737" value=""></div>
-            <div class="hint-div options748" data-node-number="748"><input type="textbox" name="" id="options748" value=""></div>
-            <div class="hint-div options758" data-node-number="758"><input type="textbox" name="" id="options758" value=""></div>
-            <div class="hint-div options768" data-node-number="768"><input type="textbox" name="" id="options768" value=""></div>
-            <div class="hint-div options779" data-node-number="779"><input type="textbox" name="" id="options779" value=""></div>
-            <div class="hint-div options789" data-node-number="789"><input type="textbox" name="" id="options789" value=""></div>
-            <div class="hint-div options799" data-node-number="799"><input type="textbox" name="" id="options799" value=""></div>
-
-            <div class="hint-div options817" data-node-number="817"><input type="textbox" name="" id="options817" value=""></div>
-            <div class="hint-div options827" data-node-number="827"><input type="textbox" name="" id="options827" value=""></div>
-            <div class="hint-div options837" data-node-number="837"><input type="textbox" name="" id="options837" value=""></div>
-            <div class="hint-div options848" data-node-number="848"><input type="textbox" name="" id="options848" value=""></div>
-            <div class="hint-div options858" data-node-number="858"><input type="textbox" name="" id="options858" value=""></div>
-            <div class="hint-div options868" data-node-number="868"><input type="textbox" name="" id="options868" value=""></div>
-            <div class="hint-div options879" data-node-number="879"><input type="textbox" name="" id="options879" value=""></div>
-            <div class="hint-div options889" data-node-number="889"><input type="textbox" name="" id="options889" value=""></div>
-            <div class="hint-div options899" data-node-number="899"><input type="textbox" name="" id="options899" value=""></div>
-
-            <div class="hint-div options917" data-node-number="917"><input type="textbox" name="" id="options917" value=""></div>
-            <div class="hint-div options927" data-node-number="927"><input type="textbox" name="" id="options927" value=""></div>
-            <div class="hint-div options937" data-node-number="937"><input type="textbox" name="" id="options937" value=""></div>
-            <div class="hint-div options948" data-node-number="948"><input type="textbox" name="" id="options948" value=""></div>
-            <div class="hint-div options958" data-node-number="958"><input type="textbox" name="" id="options958" value=""></div>
-            <div class="hint-div options968" data-node-number="968"><input type="textbox" name="" id="options968" value=""></div>
-            <div class="hint-div options979" data-node-number="979"><input type="textbox" name="" id="options979" value=""></div>
-            <div class="hint-div options989" data-node-number="989"><input type="textbox" name="" id="options989" value=""></div>
-            <div class="hint-div options999" data-node-number="999"><input type="textbox" name="" id="options999" value=""></div>
-
-        </div>
-
-        <div class="hint-container">
-            <div class="hint-background"></div>
-            <div class="hint-details">
-                <p>How to use the hints to improve your game:</p>
-                <p>In a game of Sudoku, each box must contain a digit between 1 and 9. When starting a new game, each gameboard box is represented in the hint area with all of the possible options; all digits from 1 to 9.</p>
-                <p>When number(s) are entered into the gameboard & the Analyze button is pressed, the possible options per box will be assessed and the values in each box will be adjusted.</p>
-                <p>The hint area will quickly alert the human player to areas of interest (boxes with a low number of possible options remaining) for further advancement in the game.</p>
-                <div id="close-button-div">
-                    <button type="button" class="user_button" id="close-button">Close</button>
-                </div>
+          </div>
+          <div class="node" id="node-div-142">
+            <input
+              type="text"
+              class="gb-input r1 c4 b2"
+              data-node-number="142"
+              id="node-142"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-142" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
             </div>
+          </div>
+          <div class="node" id="node-div-152">
+            <input
+              type="text"
+              class="gb-input r1 c5 b2"
+              data-node-number="152"
+              id="node-152"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-152" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-162">
+            <input
+              type="text"
+              class="gb-input r1 c6 b2"
+              data-node-number="162"
+              id="node-162"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-162" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-173">
+            <input
+              type="text"
+              class="gb-input r1 c7 b3"
+              data-node-number="173"
+              id="node-173"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-173" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-183">
+            <input
+              type="text"
+              class="gb-input r1 c8 b3"
+              data-node-number="183"
+              id="node-183"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-183" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-193">
+            <input
+              type="text"
+              class="gb-input r1 c9 b3"
+              data-node-number="193"
+              id="node-193"
+              value=""
+            />
+            <div id="notes-node-193" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.1.0.min.js"
-            integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="js/createSudokuGame.js"></script>
-        <script type="text/javascript" src="js/scripts.js"></script>
+        <div class="gameboard_row row_two">
+          <div class="node" id="node-div-211">
+            <input
+              type="text"
+              class="gb-input r2 c1 b1"
+              data-node-number="211"
+              id="node-211"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-211" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-221">
+            <input
+              type="text"
+              class="gb-input r2 c2 b1"
+              data-node-number="221"
+              id="node-221"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-221" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-231">
+            <input
+              type="text"
+              class="gb-input r2 c3 b1"
+              data-node-number="231"
+              id="node-231"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-231" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-242">
+            <input
+              type="text"
+              class="gb-input r2 c4 b2"
+              data-node-number="242"
+              id="node-242"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-242" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-252">
+            <input
+              type="text"
+              class="gb-input r2 c5 b2"
+              data-node-number="252"
+              id="node-252"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-252" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-262">
+            <input
+              type="text"
+              class="gb-input r2 c6 b2"
+              data-node-number="262"
+              id="node-262"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-262" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-273">
+            <input
+              type="text"
+              class="gb-input r2 c7 b3"
+              data-node-number="273"
+              id="node-273"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-273" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-283">
+            <input
+              type="text"
+              class="gb-input r2 c8 b3"
+              data-node-number="283"
+              id="node-283"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-283" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-293">
+            <input
+              type="text"
+              class="gb-input r2 c9 b3"
+              data-node-number="293"
+              id="node-293"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-293" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+        </div>
 
-    </body>
+        <div class="gameboard_row row_three">
+          <div class="node" id="node-div-311">
+            <input
+              type="text"
+              class="gb-input r3 c1 b1"
+              data-node-number="311"
+              id="node-311"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-311" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-321">
+            <input
+              type="text"
+              class="gb-input r3 c2 b1"
+              data-node-number="321"
+              id="node-321"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-321" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-331">
+            <input
+              type="text"
+              class="gb-input r3 c3 b1"
+              data-node-number="331"
+              id="node-331"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-331" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-342">
+            <input
+              type="text"
+              class="gb-input r3 c4 b2"
+              data-node-number="342"
+              id="node-342"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-342" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-352">
+            <input
+              type="text"
+              class="gb-input r3 c5 b2"
+              data-node-number="352"
+              id="node-352"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-352" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-362">
+            <input
+              type="text"
+              class="gb-input r3 c6 b2"
+              data-node-number="362"
+              id="node-362"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-362" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-373">
+            <input
+              type="text"
+              class="gb-input r3 c7 b3"
+              data-node-number="373"
+              id="node-373"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-373" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-383">
+            <input
+              type="text"
+              class="gb-input r3 c8 b3"
+              data-node-number="383"
+              id="node-383"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-383" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-393">
+            <input
+              type="text"
+              class="gb-input r3 c9 b3"
+              data-node-number="393"
+              id="node-393"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-393" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+        </div>
 
+        <div class="gameboard_row row_four">
+          <div class="node" id="node-div-414">
+            <input
+              type="text"
+              class="gb-input r4 c1 b4"
+              data-node-number="414"
+              id="node-414"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-414" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-424">
+            <input
+              type="text"
+              class="gb-input r4 c2 b4"
+              data-node-number="424"
+              id="node-424"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-424" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-434">
+            <input
+              type="text"
+              class="gb-input r4 c3 b4"
+              data-node-number="434"
+              id="node-434"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-434" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-445">
+            <input
+              type="text"
+              class="gb-input r4 c4 b5"
+              data-node-number="445"
+              id="node-445"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-445" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-455">
+            <input
+              type="text"
+              class="gb-input r4 c5 b5"
+              data-node-number="455"
+              id="node-455"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-455" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-465">
+            <input
+              type="text"
+              class="gb-input r4 c6 b5"
+              data-node-number="465"
+              id="node-465"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-465" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-476">
+            <input
+              type="text"
+              class="gb-input r4 c7 b6"
+              data-node-number="476"
+              id="node-476"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-476" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-486">
+            <input
+              type="text"
+              class="gb-input r4 c8 b6"
+              data-node-number="486"
+              id="node-486"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-486" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-496">
+            <input
+              type="text"
+              class="gb-input r4 c9 b6"
+              data-node-number="496"
+              id="node-496"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-496" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gameboard_row row_five">
+          <div class="node" id="node-div-514">
+            <input
+              type="text"
+              class="gb-input r5 c1 b4"
+              data-node-number="514"
+              id="node-514"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-514" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-524">
+            <input
+              type="text"
+              class="gb-input r5 c2 b4"
+              data-node-number="524"
+              id="node-524"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-524" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-534">
+            <input
+              type="text"
+              class="gb-input r5 c3 b4"
+              data-node-number="534"
+              id="node-534"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-534" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-545">
+            <input
+              type="text"
+              class="gb-input r5 c4 b5"
+              data-node-number="545"
+              id="node-545"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-545" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-555">
+            <input
+              type="text"
+              class="gb-input r5 c5 b5"
+              data-node-number="555"
+              id="node-555"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-555" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-565">
+            <input
+              type="text"
+              class="gb-input r5 c6 b5"
+              data-node-number="565"
+              id="node-565"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-565" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-576">
+            <input
+              type="text"
+              class="gb-input r5 c7 b6"
+              data-node-number="576"
+              id="node-576"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-576" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-586">
+            <input
+              type="text"
+              class="gb-input r5 c8 b6"
+              data-node-number="586"
+              id="node-586"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-586" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-596">
+            <input
+              type="text"
+              class="gb-input r5 c9 b6"
+              data-node-number="596"
+              id="node-596"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-596" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gameboard_row row_six">
+          <div class="node" id="node-div-614">
+            <input
+              type="text"
+              class="gb-input r6 c1 b4"
+              data-node-number="614"
+              id="node-614"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-614" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-624">
+            <input
+              type="text"
+              class="gb-input r6 c2 b4"
+              data-node-number="624"
+              id="node-624"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-624" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-634">
+            <input
+              type="text"
+              class="gb-input r6 c3 b4"
+              data-node-number="634"
+              id="node-634"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-634" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-645">
+            <input
+              type="text"
+              class="gb-input r6 c4 b5"
+              data-node-number="645"
+              id="node-645"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-645" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-655">
+            <input
+              type="text"
+              class="gb-input r6 c5 b5"
+              data-node-number="655"
+              id="node-655"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-655" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-665">
+            <input
+              type="text"
+              class="gb-input r6 c6 b5"
+              data-node-number="665"
+              id="node-665"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-665" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-676">
+            <input
+              type="text"
+              class="gb-input r6 c7 b6"
+              data-node-number="676"
+              id="node-676"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-676" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-686">
+            <input
+              type="text"
+              class="gb-input r6 c8 b6"
+              data-node-number="686"
+              id="node-686"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-686" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-696">
+            <input
+              type="text"
+              class="gb-input r6 c9 b6"
+              data-node-number="696"
+              id="node-696"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-696" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gameboard_row row_seven">
+          <div class="node" id="node-div-717">
+            <input
+              type="text"
+              class="gb-input r7 c1 b7"
+              data-node-number="717"
+              id="node-717"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-717" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-727">
+            <input
+              type="text"
+              class="gb-input r7 c2 b7"
+              data-node-number="727"
+              id="node-727"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-727" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-737">
+            <input
+              type="text"
+              class="gb-input r7 c3 b7"
+              data-node-number="737"
+              id="node-737"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-737" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-748">
+            <input
+              type="text"
+              class="gb-input r7 c4 b8"
+              data-node-number="748"
+              id="node-748"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-748" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-758">
+            <input
+              type="text"
+              class="gb-input r7 c5 b8"
+              data-node-number="758"
+              id="node-758"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-758" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-768">
+            <input
+              type="text"
+              class="gb-input r7 c6 b8"
+              data-node-number="768"
+              id="node-768"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-768" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-779">
+            <input
+              type="text"
+              class="gb-input r7 c7 b9"
+              data-node-number="779"
+              id="node-779"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-779" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-789">
+            <input
+              type="text"
+              class="gb-input r7 c8 b9"
+              data-node-number="789"
+              id="node-789"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-789" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-799">
+            <input
+              type="text"
+              class="gb-input r7 c9 b9"
+              data-node-number="799"
+              id="node-799"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-799" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gameboard_row row_eight">
+          <div class="node" id="node-div-817">
+            <input
+              type="text"
+              class="gb-input r8 c1 b7"
+              data-node-number="817"
+              id="node-817"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-817" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-827">
+            <input
+              type="text"
+              class="gb-input r8 c2 b7"
+              data-node-number="827"
+              id="node-827"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-827" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-837">
+            <input
+              type="text"
+              class="gb-input r8 c3 b7"
+              data-node-number="837"
+              id="node-837"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-837" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-848">
+            <input
+              type="text"
+              class="gb-input r8 c4 b8"
+              data-node-number="848"
+              id="node-848"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-848" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-858">
+            <input
+              type="text"
+              class="gb-input r8 c5 b8"
+              data-node-number="858"
+              id="node-858"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-858" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-868">
+            <input
+              type="text"
+              class="gb-input r8 c6 b8"
+              data-node-number="868"
+              id="node-868"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-868" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-879">
+            <input
+              type="text"
+              class="gb-input r8 c7 b9"
+              data-node-number="879"
+              id="node-879"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-879" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-889">
+            <input
+              type="text"
+              class="gb-input r8 c8 b9"
+              data-node-number="889"
+              id="node-889"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-889" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-899">
+            <input
+              type="text"
+              class="gb-input r8 c9 b9"
+              data-node-number="899"
+              id="node-899"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-899" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gameboard_row row_nine">
+          <div class="node" id="node-div-917">
+            <input
+              type="text"
+              class="gb-input r9 c1 b7"
+              data-node-number="917"
+              id="node-917"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-917" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-927">
+            <input
+              type="text"
+              class="gb-input r9 c2 b7"
+              data-node-number="927"
+              id="node-927"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-927" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-937">
+            <input
+              type="text"
+              class="gb-input r9 c3 b7"
+              data-node-number="937"
+              id="node-937"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-937" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-948">
+            <input
+              type="text"
+              class="gb-input r9 c4 b8"
+              data-node-number="948"
+              id="node-948"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-948" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-958">
+            <input
+              type="text"
+              class="gb-input r9 c5 b8"
+              data-node-number="958"
+              id="node-958"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-958" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-968">
+            <input
+              type="text"
+              class="gb-input r9 c6 b8"
+              data-node-number="968"
+              id="node-968"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-968" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-979">
+            <input
+              type="text"
+              class="gb-input r9 c7 b9"
+              data-node-number="979"
+              id="node-979"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-979" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node" id="node-div-989">
+            <input
+              type="text"
+              class="gb-input r9 c8 b9"
+              data-node-number="989"
+              id="node-989"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-989" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+          <div class="node col-nine" id="node-div-999">
+            <input
+              type="text"
+              class="gb-input r9 c9 b9"
+              data-node-number="999"
+              id="node-999"
+              value=""
+              maxlength="1"
+            />
+            <div id="notes-node-999" class="notes">
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+              <div class="note"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sudoku-keypad">
+        <button id="toggle-notes">Toggle Notes</button>
+      
+        <div class="keypad-grid">
+          <button class="key" id="keypad1">1</button>
+          <button class="key" id="keypad2">2</button>
+          <button class="key" id="keypad3">3</button>
+          <button class="key" id="keypad4">4</button>
+          <button class="key" id="keypad5">5</button>
+          <button class="key" id="keypad6">6</button>
+          <button class="key" id="keypad7">7</button>
+          <button class="key" id="keypad8">8</button>
+          <button class="key" id="keypad9">9</button>
+        </div>
+      
+        <button id="new">New Game</button>
+      </div>
+      
+    </div>
+
+    <!--Action Buttons-->
+    <div class="game_controls">
+      <button type="button" class="user_button" id="clear">Clear</button>
+      <!-- <button type="button" class="user_button" id="new">New Game</button> -->
+      <button type="button" class="user_button" id="reset" data-game-number="1">
+        Reset Game
+      </button>
+      <button type="button" class="user_button" id="hint">Hint</button>
+      <button type="button" class="user_button" id="solve">Solve</button>
+    </div>
+
+
+
+    <!-- <div class="eligible">
+      <div class="hint-div options111" data-node-number="111">
+        <input type="textbox" name="" id="options111" value="" />
+      </div>
+      <div class="hint-div options121" data-node-number="121">
+        <input type="textbox" name="" id="options121" value="" />
+      </div>
+      <div class="hint-div options131" data-node-number="131">
+        <input type="textbox" name="" id="options131" value="" />
+      </div>
+      <div class="hint-div options142" data-node-number="142">
+        <input type="textbox" name="" id="options142" value="" />
+      </div>
+      <div class="hint-div options152" data-node-number="152">
+        <input type="textbox" name="" id="options152" value="" />
+      </div>
+      <div class="hint-div options162" data-node-number="162">
+        <input type="textbox" name="" id="options162" value="" />
+      </div>
+      <div class="hint-div options173" data-node-number="173">
+        <input type="textbox" name="" id="options173" value="" />
+      </div>
+      <div class="hint-div options183" data-node-number="183">
+        <input type="textbox" name="" id="options183" value="" />
+      </div>
+      <div class="hint-div options193" data-node-number="193">
+        <input type="textbox" name="" id="options193" value="" />
+      </div>
+
+      <div class="hint-div options211" data-node-number="211">
+        <input type="textbox" name="" id="options211" value="" />
+      </div>
+      <div class="hint-div options221" data-node-number="221">
+        <input type="textbox" name="" id="options221" value="" />
+      </div>
+      <div class="hint-div options231" data-node-number="231">
+        <input type="textbox" name="" id="options231" value="" />
+      </div>
+      <div class="hint-div options242" data-node-number="242">
+        <input type="textbox" name="" id="options242" value="" />
+      </div>
+      <div class="hint-div options252" data-node-number="252">
+        <input type="textbox" name="" id="options252" value="" />
+      </div>
+      <div class="hint-div options262" data-node-number="262">
+        <input type="textbox" name="" id="options262" value="" />
+      </div>
+      <div class="hint-div options273" data-node-number="273">
+        <input type="textbox" name="" id="options273" value="" />
+      </div>
+      <div class="hint-div options283" data-node-number="283">
+        <input type="textbox" name="" id="options283" value="" />
+      </div>
+      <div class="hint-div options293" data-node-number="293">
+        <input type="textbox" name="" id="options293" value="" />
+      </div>
+
+      <div class="hint-div options311" data-node-number="311">
+        <input type="textbox" name="" id="options311" value="" />
+      </div>
+      <div class="hint-div options321" data-node-number="321">
+        <input type="textbox" name="" id="options321" value="" />
+      </div>
+      <div class="hint-div options331" data-node-number="331">
+        <input type="textbox" name="" id="options331" value="" />
+      </div>
+      <div class="hint-div options342" data-node-number="342">
+        <input type="textbox" name="" id="options342" value="" />
+      </div>
+      <div class="hint-div options352" data-node-number="352">
+        <input type="textbox" name="" id="options352" value="" />
+      </div>
+      <div class="hint-div options362" data-node-number="362">
+        <input type="textbox" name="" id="options362" value="" />
+      </div>
+      <div class="hint-div options373" data-node-number="373">
+        <input type="textbox" name="" id="options373" value="" />
+      </div>
+      <div class="hint-div options383" data-node-number="383">
+        <input type="textbox" name="" id="options383" value="" />
+      </div>
+      <div class="hint-div options393" data-node-number="393">
+        <input type="textbox" name="" id="options393" value="" />
+      </div>
+
+      <div class="hint-div options414" data-node-number="414">
+        <input type="textbox" name="" id="options414" value="" />
+      </div>
+      <div class="hint-div options424" data-node-number="424">
+        <input type="textbox" name="" id="options424" value="" />
+      </div>
+      <div class="hint-div options434" data-node-number="434">
+        <input type="textbox" name="" id="options434" value="" />
+      </div>
+      <div class="hint-div options445" data-node-number="445">
+        <input type="textbox" name="" id="options445" value="" />
+      </div>
+      <div class="hint-div options455" data-node-number="455">
+        <input type="textbox" name="" id="options455" value="" />
+      </div>
+      <div class="hint-div options465" data-node-number="465">
+        <input type="textbox" name="" id="options465" value="" />
+      </div>
+      <div class="hint-div options476" data-node-number="476">
+        <input type="textbox" name="" id="options476" value="" />
+      </div>
+      <div class="hint-div options486" data-node-number="486">
+        <input type="textbox" name="" id="options486" value="" />
+      </div>
+      <div class="hint-div options496" data-node-number="496">
+        <input type="textbox" name="" id="options496" value="" />
+      </div>
+
+      <div class="hint-div options514" data-node-number="514">
+        <input type="textbox" name="" id="options514" value="" />
+      </div>
+      <div class="hint-div options524" data-node-number="524">
+        <input type="textbox" name="" id="options524" value="" />
+      </div>
+      <div class="hint-div options534" data-node-number="534">
+        <input type="textbox" name="" id="options534" value="" />
+      </div>
+      <div class="hint-div options545" data-node-number="545">
+        <input type="textbox" name="" id="options545" value="" />
+      </div>
+      <div class="hint-div options555" data-node-number="555">
+        <input type="textbox" name="" id="options555" value="" />
+      </div>
+      <div class="hint-div options565" data-node-number="565">
+        <input type="textbox" name="" id="options565" value="" />
+      </div>
+      <div class="hint-div options576" data-node-number="576">
+        <input type="textbox" name="" id="options576" value="" />
+      </div>
+      <div class="hint-div options586" data-node-number="586">
+        <input type="textbox" name="" id="options586" value="" />
+      </div>
+      <div class="hint-div options596" data-node-number="596">
+        <input type="textbox" name="" id="options596" value="" />
+      </div>
+
+      <div class="hint-div options614" data-node-number="614">
+        <input type="textbox" name="" id="options614" value="" />
+      </div>
+      <div class="hint-div options624" data-node-number="624">
+        <input type="textbox" name="" id="options624" value="" />
+      </div>
+      <div class="hint-div options634" data-node-number="634">
+        <input type="textbox" name="" id="options634" value="" />
+      </div>
+      <div class="hint-div options645" data-node-number="645">
+        <input type="textbox" name="" id="options645" value="" />
+      </div>
+      <div class="hint-div options655" data-node-number="655">
+        <input type="textbox" name="" id="options655" value="" />
+      </div>
+      <div class="hint-div options665" data-node-number="665">
+        <input type="textbox" name="" id="options665" value="" />
+      </div>
+      <div class="hint-div options676" data-node-number="676">
+        <input type="textbox" name="" id="options676" value="" />
+      </div>
+      <div class="hint-div options686" data-node-number="686">
+        <input type="textbox" name="" id="options686" value="" />
+      </div>
+      <div class="hint-div options696" data-node-number="696">
+        <input type="textbox" name="" id="options696" value="" />
+      </div>
+
+      <div class="hint-div options717" data-node-number="717">
+        <input type="textbox" name="" id="options717" value="" />
+      </div>
+      <div class="hint-div options727" data-node-number="727">
+        <input type="textbox" name="" id="options727" value="" />
+      </div>
+      <div class="hint-div options737" data-node-number="737">
+        <input type="textbox" name="" id="options737" value="" />
+      </div>
+      <div class="hint-div options748" data-node-number="748">
+        <input type="textbox" name="" id="options748" value="" />
+      </div>
+      <div class="hint-div options758" data-node-number="758">
+        <input type="textbox" name="" id="options758" value="" />
+      </div>
+      <div class="hint-div options768" data-node-number="768">
+        <input type="textbox" name="" id="options768" value="" />
+      </div>
+      <div class="hint-div options779" data-node-number="779">
+        <input type="textbox" name="" id="options779" value="" />
+      </div>
+      <div class="hint-div options789" data-node-number="789">
+        <input type="textbox" name="" id="options789" value="" />
+      </div>
+      <div class="hint-div options799" data-node-number="799">
+        <input type="textbox" name="" id="options799" value="" />
+      </div>
+
+      <div class="hint-div options817" data-node-number="817">
+        <input type="textbox" name="" id="options817" value="" />
+      </div>
+      <div class="hint-div options827" data-node-number="827">
+        <input type="textbox" name="" id="options827" value="" />
+      </div>
+      <div class="hint-div options837" data-node-number="837">
+        <input type="textbox" name="" id="options837" value="" />
+      </div>
+      <div class="hint-div options848" data-node-number="848">
+        <input type="textbox" name="" id="options848" value="" />
+      </div>
+      <div class="hint-div options858" data-node-number="858">
+        <input type="textbox" name="" id="options858" value="" />
+      </div>
+      <div class="hint-div options868" data-node-number="868">
+        <input type="textbox" name="" id="options868" value="" />
+      </div>
+      <div class="hint-div options879" data-node-number="879">
+        <input type="textbox" name="" id="options879" value="" />
+      </div>
+      <div class="hint-div options889" data-node-number="889">
+        <input type="textbox" name="" id="options889" value="" />
+      </div>
+      <div class="hint-div options899" data-node-number="899">
+        <input type="textbox" name="" id="options899" value="" />
+      </div>
+
+      <div class="hint-div options917" data-node-number="917">
+        <input type="textbox" name="" id="options917" value="" />
+      </div>
+      <div class="hint-div options927" data-node-number="927">
+        <input type="textbox" name="" id="options927" value="" />
+      </div>
+      <div class="hint-div options937" data-node-number="937">
+        <input type="textbox" name="" id="options937" value="" />
+      </div>
+      <div class="hint-div options948" data-node-number="948">
+        <input type="textbox" name="" id="options948" value="" />
+      </div>
+      <div class="hint-div options958" data-node-number="958">
+        <input type="textbox" name="" id="options958" value="" />
+      </div>
+      <div class="hint-div options968" data-node-number="968">
+        <input type="textbox" name="" id="options968" value="" />
+      </div>
+      <div class="hint-div options979" data-node-number="979">
+        <input type="textbox" name="" id="options979" value="" />
+      </div>
+      <div class="hint-div options989" data-node-number="989">
+        <input type="textbox" name="" id="options989" value="" />
+      </div>
+      <div class="hint-div options999" data-node-number="999">
+        <input type="textbox" name="" id="options999" value="" />
+      </div>
+    </div>
+
+    <div class="hint-container">
+      
+    </div> -->
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.0.min.js"
+      integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/createSudokuGame.js"></script>
+    <script type="text/javascript" src="js/solve.js"></script>
+    <script type="text/javascript" src="js/click_listeners.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+  </body>
 </html>

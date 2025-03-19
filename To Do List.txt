@@ -14,22 +14,27 @@ Sudoku challenge work flow:
 		[*] Solve should work recursively until the puzzle is solved or no more moves are known
 	[*] Create Sudoku game generator
 	[*] Validate numbers entered by user against solved puzzle
-	[ ] Game board improvements:
+	[*] Game board improvements:
 		[*] Make game board bigger
 		[*] Hovering over an entered number highlights all instances of that number on the grid
-			[ ] Hover might be a but much...
-		[ ] Number Entry can be down with HTML buttons (no keyboard required). Will improve iPad experience.
-		[ ] Lock inputs for provided values on game start (also color code?)
-		[ ] Hint Board:
-			[ ] Integrate into the main game board as notes?
-			[ ] Hint value entry doesn't override the error styling?
+			[*] Change hover to active node highlighting
+			[*] Fix hover of Snyder Notes
+		[*] Integrate "hints" into the main game board as Snyder notes
+		[*] Number Entry can be done with HTML buttons (no keyboard required)
+	[*] Color Code provided values
+	[ ] Lock inputs for provided values on game start
 	[ ] Add "confirm" button. This will validate no duplicates & that all rows/columns/boxes add to 45
-	[ ] Refactor codebase to make this a node app to current standards:
+	
+	As we go about the refactor, keep in mind modernizing the codebase:
 		[ ] Remove JQuery
 		[ ] Remove all 'eval' statements
+		[ ] Replace hard-coded HTML
+	
+	Hints & solve are broken currently. Get UI stable & then bring this back.
 	[ ] Refactor current analysis code:
-		[ ] Seperate analysis code to seperate file(s)
-		[ ] Adjust brevity & clarity
+		[*] Separate analysis code to seperate file(s)
+		[ ] Adjust for brevity & clarity
 		[ ] Explain the process
+		[ ] Split to smaller, focused functions
 	[ ] Level 3 Analysis: Process 2 & 3 digit arrays & process numbers of duplicated arrays (Row, Col, & Box)
 	
