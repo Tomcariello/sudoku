@@ -123,7 +123,7 @@ function printHintArrays(hintBoardNameArray, gameBoardNameArray, callSource) {
  * @returns {Integer} Box containing the specified column & row
  */
 function getBoxNumber(col, row) {
-    var box = 0;
+    let box = 0;
     
     if ( row < 4 && col < 4) {
         box = 1;
@@ -165,6 +165,7 @@ inputs.forEach(input => {
 });
 
 const processGuess = function(value) {
+    if (!activeNode) return
     $(`#${activeNode}`).css('color', 'black');
     let inputWrong = false
     if (value != '') {
@@ -173,12 +174,14 @@ const processGuess = function(value) {
         const nodeNumber = activeNode.split('-')[1]; // row, column, box
         const rowNumber = Number(nodeNumber[0])
         const colNumber = Number(nodeNumber[1])
+        const boxNumber = Number(nodeNumber[2])
         const gameArrayPosition = (rowNumber - 1) * 9 + colNumber -1
         const expectedValue = currentSudokuGame.solution[gameArrayPosition]
         document.getElementById(activeNode).textContent = value
         if (value !== expectedValue) {
             inputWrong = true
         }
+        clearSnyderNotes(colNumber, rowNumber, boxNumber, value)
     }
            
     if (inputWrong) {
@@ -187,6 +190,68 @@ const processGuess = function(value) {
     toggleSnyderNotes(`#${activeNode}`, 'off')
 }
 
+/**
+ * Clear Snyder notes of a given value for a given direction and directionId
+ * @param {string} colNumber - Column identifier, 1-9
+ * @param {string} rowNumber - Row identifier, 1-9
+ * @param {string} boxNumber - Box identifier, 1-9
+ * @param {number} value - the number to remove from the Snyder notes
+ */
+const clearSnyderNotes = function(colNumber, rowNumber, boxNumber, value) {
+    const affectedNodes = []
+
+    // Identify effected nodes by column
+    for (let i = 1; i <= 9; i++) {
+        const boxNumber = getBoxNumber(colNumber, i)
+        const targetNode = `notes-node-${i}${colNumber}${boxNumber}`
+        affectedNodes.push(targetNode)
+    }
+    
+    // Identify effected nodes by column
+    for (let i = 1; i <= 9; i++) {
+        const boxNumber = getBoxNumber(i, rowNumber)
+        const targetNode = `notes-node-${rowNumber}${i}${boxNumber}`
+        if (!affectedNodes.includes(targetNode)) {
+            affectedNodes.push(targetNode)
+        }
+    }
+
+    let startRow = 0
+    let startCol = 0
+    if (boxNumber < 4) {
+        startRow = 1
+    } else if (boxNumber < 7) {
+        startRow = 4
+    } else {
+        startRow = 7
+    }
+    if (boxNumber == 1 || boxNumber == 4 || boxNumber == 7) {
+        startCol = 1
+    } else if (boxNumber == 2 || boxNumber == 5 || boxNumber == 8) {
+        startCol = 4
+    } else {
+        startCol = 7
+    }
+
+    // Identify effected nodes by box
+    for (let i = 0; i <= 2; i++) {
+       for (let j = 0; j <= 2; j++) {
+            const targetNode = `notes-node-${startRow + j}${startCol + i}${boxNumber}`
+            if (!affectedNodes.includes(targetNode)) {
+                affectedNodes.push(targetNode)
+            }
+        }
+    }
+
+    affectedNodes.forEach(function(node) {
+        const thisNode = document.getElementById(node)
+        thisNode.style.backgroundColor = "pink";
+        console.log('Make sure this is targeting correctly')
+        console.log('Then toggle the value off for the snyder notes')
+    });
+
+    
+}
 
 const processSnyderNote = function(value) {
     if (!activeNode) return
