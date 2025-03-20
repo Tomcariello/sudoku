@@ -19,11 +19,17 @@ Sudoku challenge work flow:
 		[*] Hovering over an entered number highlights all instances of that number on the grid
 			[*] Change hover to active node highlighting
 			[*] Fix hover of Snyder Notes
-		[*] Integrate "hints" into the main game board as Snyder notes
+		[*] Allow Snyder notes
 		[*] Number Entry can be done with HTML buttons (no keyboard required)
 	[*] Color Code provided values
-	[ ] Lock inputs for provided values on game start
-	[ ] Add "confirm" button. This will validate no duplicates & that all rows/columns/boxes add to 45
+	[*] Lock inputs for provided values on game start
+	[ ] Do a Highlight process on number guess (currently have to reselect for highlights)
+	[ ] Indicate if a number is completely solved
+	[ ] Work on sudoku generation to prevent unsolvable boards
+	[ ] Add "Clear" button to clear a node
+	[ ] Add "confirm" button to validate board
+		[ ] No duplicates
+		[ ] All rows/columns/boxes add to 45
 	
 	As we go about the refactor, keep in mind modernizing the codebase:
 		[ ] Remove JQuery

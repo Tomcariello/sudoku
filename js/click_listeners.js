@@ -1,3 +1,30 @@
+/* Add listeners for game node inputs */
+const inputs = document.querySelectorAll('[id^="node-div-"]');
+
+// Listen for clicks on a node to set that node ACTIVE
+inputs.forEach(input => {
+    input.addEventListener('click',(event) => {
+        if (event?.target?.id) {
+            activeNode = event.target.id;
+        } else {
+            const parentId = event.target.parentElement.id;
+            activeNode = parentId.split('notes-')[1]
+        }
+        highlightBoard()
+    },
+    );
+});
+
+// Listen for user input from the keyboard
+$(document).on('keypress', function (e) {
+    var charCode = e.which || e.keyCode;
+    
+    // Check if the key is between 1 and 9
+    if (charCode >= 49 && charCode <= 57) {
+      var numberPressed = parseInt(String.fromCharCode(charCode), 10);
+      processNumberInput(numberPressed);
+    }
+});
 
 /* Handle button clicks */
 $("#clear").click(function () {
@@ -42,31 +69,31 @@ $("#toggle-notes").click(function () {
 
 // Set keypad digit input
 $("#keypad1").click(function () {
-    processKeypadInput(1)
+    processNumberInput(1)
 })
 $("#keypad2").click(function () {
-    processKeypadInput(2)
+    processNumberInput(2)
 })
 $("#keypad3").click(function () {
-    processKeypadInput(3)
+    processNumberInput(3)
 })
 $("#keypad4").click(function () {
-    processKeypadInput(4)
+    processNumberInput(4)
 })
 $("#keypad5").click(function () {
-    processKeypadInput(5)
+    processNumberInput(5)
 })
 $("#keypad6").click(function () {
-    processKeypadInput(6)
+    processNumberInput(6)
 })
 $("#keypad7").click(function () {
-    processKeypadInput(7)
+    processNumberInput(7)
 })
 $("#keypad8").click(function () {
-    processKeypadInput(8)
+    processNumberInput(8)
 })
 $("#keypad9").click(function () {
-    processKeypadInput(9)
+    processNumberInput(9)
 })
 
 

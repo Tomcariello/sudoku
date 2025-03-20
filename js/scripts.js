@@ -1,9 +1,9 @@
 //On page load functions
 $(document).ready(function () {
-    currentSudokuGame = getNewGame("easy");
+    currentSudokuGame = getNewGame("medium");
     startGame();
     clearArrays(gameBoardNameArray, eligibleNumbersArray);
-    printHintArrays(hintBoardNameArray, gameBoardNameArray);
+    // printHintArrays(hintBoardNameArray, gameBoardNameArray);
 });
 
 let activeNode = null
@@ -18,17 +18,6 @@ let notesModeActive = false
 const getNewGame = function(desiredDifficulty) {
     return createGame(desiredDifficulty)
 }
-
-// Listen for user input from the keyboard
-$(document).on('keypress', function (e) {
-    var charCode = e.which || e.keyCode;
-    
-    // Check if the key is between 1 and 9
-    if (charCode >= 49 && charCode <= 57) {
-      var numberPressed = parseInt(String.fromCharCode(charCode), 10);
-      processKeypadInput(numberPressed);
-    }
-  });
 
 /**
  * Populate current game into grid
@@ -78,43 +67,42 @@ function clearArrays(gameBoardNameArray, eligibleNumbersArray) {
  * @param {String} callSource (hint or solve)
  * @returns null
  */
-function printHintArrays(hintBoardNameArray, gameBoardNameArray, callSource) {
-    return
-    // Count the number of answers provided. This facilitates the HINT button
-    let numbersGiven = 0;
+// function printHintArrays(hintBoardNameArray, gameBoardNameArray, callSource) {
+//     // Count the number of answers provided. This facilitates the HINT button
+//     let numbersGiven = 0;
 
-    if (callSource != "hint" || numbersGiven == 0) {
-        for (let i = 0; i < 81; i += 1) {
-            console.log(hintBoardNameArray)
-            const thisNodeName = hintBoardNameArray[i];
+//     if (callSource != "hint" || numbersGiven == 0) {
+//         for (let i = 0; i < 81; i += 1) {
+//             console.log(hintBoardNameArray)
+//             const thisNodeName = hintBoardNameArray[i];
 
-            // The number(s) still possible for this box
-            const thisNodePossibilities = window[gameBoardNameArray[i]];
+//             // The number(s) still possible for this box
+//             const thisNodePossibilities = window[gameBoardNameArray[i]];
 
-            // Print available numbers into each **hint** box
-            $(thisNodeName).val(thisNodePossibilities);
+//             // Print available numbers into each **hint** box
+//             $(thisNodeName).val(thisNodePossibilities);
 
-            // Isolate the number identifier
-            console.log(`thisNodeName: ${thisNodeName}`)
-            const nodeNumber = thisNodeName.split("#options")[1];
+//             // Isolate the number identifier
+//             console.log(`thisNodeName: ${thisNodeName}`)
+//             const nodeNumber = thisNodeName.split("#options")[1];
 
-            // Create targeter for the node **on the gameboard**
-            const gameBoardTarget = "#node-" + nodeNumber;
+//             // Create targeter for the node **on the gameboard**
+//             const gameBoardTarget = "#node-" + nodeNumber;
 
-            // If there is only 1 number left in the hint array & it is not already on the gameboard insert it onto the gameboard
-            if (thisNodePossibilities.length == 1 && $(gameBoardTarget).val() == "") {
-                if (callSource != "hint" || numbersGiven==0) {
-                    $(gameBoardTarget).textContent = (thisNodePossibilities[0]);
-                    numbersGiven++;
-                }
-            }
+//             // If there is only 1 number left in the hint array & it is not already on the gameboard insert it onto the gameboard
+//             if (thisNodePossibilities.length == 1 && $(gameBoardTarget).val() == "") {
+//                 if (callSource != "hint" || numbersGiven==0) {
+//                     $(gameBoardTarget).textContent = (thisNodePossibilities[0]);
+//                     numbersGiven++;
+//                 }
+//             }
 
-            // Set the color of the tip field accordingly.
-            const nodeColor = hexcolors[thisNodePossibilities.length];
-            $(thisNodeName).css('background-color', nodeColor);
-        }
-    }
-}
+//             // Set the color of the tip field accordingly.
+//             const nodeColor = hexcolors[thisNodePossibilities.length];
+//             $(thisNodeName).css('background-color', nodeColor);
+//         }
+//     }
+// }
 
 /**
  * Determine the box number based on the row/column pair
@@ -147,23 +135,14 @@ function getBoxNumber(col, row) {
     return box;
 }
 
-/* Add listeners for game node inputs */
-const inputs = document.querySelectorAll('[id^="node-div-"]');
-
-// Listen for clicks on a node to set that node ACTIVE
-inputs.forEach(input => {
-    input.addEventListener('click',(event) => {
-        if (event?.target?.id) {
-            activeNode = event.target.id;
-        } else {
-            const parentId = event.target.parentElement.id;
-            activeNode = parentId.split('notes-')[1]
-        }
-        highlightBoard()
-    },
-    );
-});
-
+/**
+ * Process a user guess
+ * 
+ * If the currently active node was provided by the puzzle, the input is ignored.
+ * Otherwise, the value is processed as a guess.
+ * If the guess is incorrect, the text color of that node is set to red.
+ * @param {String} value - the user's guess
+ */
 const processGuess = function(value) {
     if (!activeNode) return
     $(`#${activeNode}`).css('color', 'black');
@@ -200,14 +179,14 @@ const processGuess = function(value) {
 const clearSnyderNotes = function(colNumber, rowNumber, boxNumber, value) {
     const affectedNodes = []
 
-    // Identify effected nodes by column
+    // Identify affected nodes by column
     for (let i = 1; i <= 9; i++) {
         const boxNumber = getBoxNumber(colNumber, i)
         const targetNode = `notes-node-${i}${colNumber}${boxNumber}`
         affectedNodes.push(targetNode)
     }
     
-    // Identify effected nodes by column
+    // Identify affected nodes by column
     for (let i = 1; i <= 9; i++) {
         const boxNumber = getBoxNumber(i, rowNumber)
         const targetNode = `notes-node-${rowNumber}${i}${boxNumber}`
@@ -215,25 +194,11 @@ const clearSnyderNotes = function(colNumber, rowNumber, boxNumber, value) {
             affectedNodes.push(targetNode)
         }
     }
+    
+    // Identify affected nodes by box
+    let startRow = getFirstRowFromBox(boxNumber)
+    let startCol = getFirstColFromBox(boxNumber)
 
-    let startRow = 0
-    let startCol = 0
-    if (boxNumber < 4) {
-        startRow = 1
-    } else if (boxNumber < 7) {
-        startRow = 4
-    } else {
-        startRow = 7
-    }
-    if (boxNumber == 1 || boxNumber == 4 || boxNumber == 7) {
-        startCol = 1
-    } else if (boxNumber == 2 || boxNumber == 5 || boxNumber == 8) {
-        startCol = 4
-    } else {
-        startCol = 7
-    }
-
-    // Identify effected nodes by box
     for (let i = 0; i <= 2; i++) {
        for (let j = 0; j <= 2; j++) {
             const targetNode = `notes-node-${startRow + j}${startCol + i}${boxNumber}`
@@ -243,32 +208,71 @@ const clearSnyderNotes = function(colNumber, rowNumber, boxNumber, value) {
         }
     }
 
+    // Loop through the possibly affected nodes and clear Snyder notes of the value provided
     affectedNodes.forEach(function(node) {
         const thisNode = document.getElementById(node)
-        thisNode.style.backgroundColor = "pink";
-        console.log('Make sure this is targeting correctly')
-        console.log('Then toggle the value off for the snyder notes')
-    });
+        const childDivs = thisNode.children
+        const targetDiv = childDivs[value - 1]
 
-    
+        if (targetDiv) {
+            if (targetDiv.innerHTML.trim() == value) {
+                targetDiv.innerHTML = ''
+            }
+        }
+    });
 }
+
+/**
+ * Given a box number, return the first row in that box
+ * @param {number} boxNumber - the box number, 1-9
+ * @returns {number} - the first row number in the box, 1-9
+ */
+const getFirstRowFromBox = function(boxNumber) {
+    let firstRow
+    if (boxNumber < 4) {
+        firstRow = 1
+    } else if (boxNumber < 7) {
+        firstRow = 4
+    } else {
+        firstRow = 7
+    }
+    return firstRow
+}
+
+/**
+ * Given a box number, return the first column in that box
+ * @param {number} boxNumber - the box number, 1-9
+ * @returns {number} - the first column number in the box, 1-9
+ */
+
+const getFirstColFromBox = function(boxNumber) {
+    let firstCol
+    if (boxNumber == 1 || boxNumber == 4 || boxNumber == 7) {
+        firstCol = 1
+    } else if (boxNumber == 2 || boxNumber == 5 || boxNumber == 8) {
+        firstCol = 4
+    } else {
+        firstCol = 7
+    }
+    return firstCol
+}
+
+/**
+ * Processes a Snyder note input for the currently active node. If the active
+ * node is not set, the function returns immediately. For a given value, it
+ * toggles the note in the corresponding position: if the note is empty, it
+ * sets the note to the value; if the note already contains the value, it
+ * clears the note.
+ * @param {number} value - The note value to toggle, expected to be between 1 and 9.
+ */
 
 const processSnyderNote = function(value) {
     if (!activeNode) return
     if (value != '') {
-        console.log(`activeNode is ${activeNode}`)
-        console.log(`#notes-${activeNode} .notes .note`)
-        console.log(`value is ${value}`)
-        // Get the note elements associated with the active node
-        // const notes = document.querySelectorAll(`#${activeNode} .notes .note`);
         const notes = document.querySelectorAll(`#notes-${activeNode} .note`);
-        console.log(notes)
 
-        // Count the iterations
-        // node/div are not toggling correctly
         let i = 1
         notes.forEach(function(note) {
-            console.log(note.innerHTML == '')
             if (i == value) {
                 if (note.innerHTML.trim() === '') {
                     note.innerHTML = value;
@@ -312,7 +316,16 @@ const toggleNotesMode = function() {
     }
 }
 
-const processKeypadInput = function(value) {
+/**
+ * Processes a value from the user. If the currently active node was
+ * provided by the puzzle, the input is ignored. If the game is in notes mode, 
+ * the value is processed as a snyder note. Otherwise, the value is processed as
+ * a guess.
+ * @param {String} value - the value from the user
+ */
+const processNumberInput = function(value) {
+    const activeNodeElem = document.getElementById(activeNode)
+    if (activeNodeElem.classList.contains('providedValue')) return
     if (notesModeActive) {
         processSnyderNote(value)
     } else {
@@ -320,7 +333,12 @@ const processKeypadInput = function(value) {
     }
 }
 
-// Highlight nodes associated with activeNode
+
+/**
+ * Highlights the currently active node on the board, as well as all other nodes 
+ * that contain the same value. Additionally, highlights the row, column, and box
+ * associated with the active node in a different color.
+ */
 const highlightBoard = function() {
     removeHighlighting()
     const activeValue = document.getElementById(activeNode).innerHTML
@@ -331,8 +349,8 @@ const highlightBoard = function() {
             const nodeBeingChecked = gameNodeNames[i].split('#')[1]
             const thisValue = document.getElementById(nodeBeingChecked).innerHTML
             if (thisValue == activeValue) {
-                document.getElementById(nodeBeingChecked).style.backgroundColor = 'aquamarine';
-                document.getElementById(nodeBeingChecked).parentElement.style.backgroundColor = 'aquamarine';
+                document.getElementById(nodeBeingChecked).style.backgroundColor = '#5ec19f';
+                document.getElementById(nodeBeingChecked).parentElement.style.backgroundColor = '#5ec19f';
             }
         }
     }
