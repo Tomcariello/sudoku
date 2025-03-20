@@ -273,7 +273,7 @@ function solve(source) {
         }
     });
 
-    printArrays(hintBoardNameArray, gameBoardNameArray, source);
+    printHintArrays(hintBoardNameArray, gameBoardNameArray, source);
 
     // Has anything changed?
     let endingSnapshot;

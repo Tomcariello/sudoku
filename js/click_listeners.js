@@ -3,21 +3,21 @@
 $("#clear").click(function () {
     clearGameBoard(gameNodeNames);
     clearArrays(gameBoardNameArray, eligibleNumbersArray);
-    printArrays(hintBoardNameArray, gameBoardNameArray);
+    printHintArrays(hintBoardNameArray, gameBoardNameArray);
 })
 
 $("#reset").click(function () {
     const currentGame = $("#reset").data("game-number");
     startGame(currentGame);
     clearArrays(gameBoardNameArray, eligibleNumbersArray);
-    printArrays(hintBoardNameArray, gameBoardNameArray);
+    printHintArrays(hintBoardNameArray, gameBoardNameArray);
 })
 
 $("#new").click(function () {
     currentSudokuGame = getNewGame("medium")
     startGame();
     clearArrays(gameBoardNameArray, eligibleNumbersArray);
-    printArrays(hintBoardNameArray, gameBoardNameArray);
+    printHintArrays(hintBoardNameArray, gameBoardNameArray);
 })
 
 $("#hint").click(function () {

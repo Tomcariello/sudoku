@@ -1,10 +1,9 @@
 //On page load functions
 $(document).ready(function () {
-    $(".node").forceNumeric();
     currentSudokuGame = getNewGame("easy");
     startGame();
     clearArrays(gameBoardNameArray, eligibleNumbersArray);
-    printArrays(hintBoardNameArray, gameBoardNameArray);
+    printHintArrays(hintBoardNameArray, gameBoardNameArray);
 });
 
 let activeNode = null
@@ -20,33 +19,16 @@ const getNewGame = function(desiredDifficulty) {
     return createGame(desiredDifficulty)
 }
 
-// Prevent user from entering invalid characters in the sudoku game grid
-jQuery.fn.forceNumeric = function () {
-    return this.each(function () {
-        $(this).keydown(function (e) {
-            const key = e.which || e.keyCode;
-
-            if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
-                // numbers
-                key >= 48 && key <= 57 ||
-                // Numeric keypad
-                key >= 96 && key <= 105 ||
-                // comma, period and minus, . on keypad
-                key == 190 || key == 188 || key == 109 || key == 110 ||
-                // Backspace and Tab and Enter
-                key == 8 || key == 9 || key == 13 ||
-                // Home and End
-                key == 35 || key == 36 ||
-                // left and right arrows
-                key == 37 || key == 39 ||
-                // Del and Ins
-                key == 46 || key == 45)
-                return true;
-
-            return false;
-        });
-    });
-}
+// Listen for user input from the keyboard
+$(document).on('keypress', function (e) {
+    var charCode = e.which || e.keyCode;
+    
+    // Check if the key is between 1 and 9
+    if (charCode >= 49 && charCode <= 57) {
+      var numberPressed = parseInt(String.fromCharCode(charCode), 10);
+      processKeypadInput(numberPressed);
+    }
+  });
 
 /**
  * Populate current game into grid
@@ -59,11 +41,9 @@ function startGame() {
             const targetId = gameNodeNames[i].split('#')[1]
             const targetElem = document.getElementById(targetId)
             targetElem.classList.add('providedValue');
-
-            $(gameNodeNames[i]).val(currentSudokuGame.game[i]);
+            targetElem.textContent = currentSudokuGame.game[i];
             toggleSnyderNotes(gameNodeNames[i], 'off')
         } else {
-            $(gameNodeNames[i]).val("");
             toggleSnyderNotes(gameNodeNames[i], 'on')
         }
     }
@@ -98,12 +78,14 @@ function clearArrays(gameBoardNameArray, eligibleNumbersArray) {
  * @param {String} callSource (hint or solve)
  * @returns null
  */
-function printArrays(hintBoardNameArray, gameBoardNameArray, callSource) {
+function printHintArrays(hintBoardNameArray, gameBoardNameArray, callSource) {
+    return
     // Count the number of answers provided. This facilitates the HINT button
     let numbersGiven = 0;
 
     if (callSource != "hint" || numbersGiven == 0) {
         for (let i = 0; i < 81; i += 1) {
+            console.log(hintBoardNameArray)
             const thisNodeName = hintBoardNameArray[i];
 
             // The number(s) still possible for this box
@@ -113,6 +95,7 @@ function printArrays(hintBoardNameArray, gameBoardNameArray, callSource) {
             $(thisNodeName).val(thisNodePossibilities);
 
             // Isolate the number identifier
+            console.log(`thisNodeName: ${thisNodeName}`)
             const nodeNumber = thisNodeName.split("#options")[1];
 
             // Create targeter for the node **on the gameboard**
@@ -121,7 +104,7 @@ function printArrays(hintBoardNameArray, gameBoardNameArray, callSource) {
             // If there is only 1 number left in the hint array & it is not already on the gameboard insert it onto the gameboard
             if (thisNodePossibilities.length == 1 && $(gameBoardTarget).val() == "") {
                 if (callSource != "hint" || numbersGiven==0) {
-                    $(gameBoardTarget).val(thisNodePossibilities[0]);
+                    $(gameBoardTarget).textContent = (thisNodePossibilities[0]);
                     numbersGiven++;
                 }
             }
@@ -165,17 +148,7 @@ function getBoxNumber(col, row) {
 }
 
 /* Add listeners for game node inputs */
-// const inputs = document.querySelectorAll('.gb-input');
-
-// inputs.forEach(input => {
-//     input.addEventListener('input', function(event) {
-//         processGuess(event)
-//     });
-// });
-
-/* Add listeners for game node inputs */
 const inputs = document.querySelectorAll('[id^="node-div-"]');
-
 
 // Listen for clicks on a node to set that node ACTIVE
 inputs.forEach(input => {
@@ -196,14 +169,13 @@ const processGuess = function(value) {
     let inputWrong = false
     if (value != '') {
         // Extract the node number & use the row/col to find the index in the solution array
-        console.log(`activeNode is ${activeNode}`)
         // const nodeNumber = target.getAttribute('data-node-number'); // row, column, box
         const nodeNumber = activeNode.split('-')[1]; // row, column, box
         const rowNumber = Number(nodeNumber[0])
         const colNumber = Number(nodeNumber[1])
         const gameArrayPosition = (rowNumber - 1) * 9 + colNumber -1
         const expectedValue = currentSudokuGame.solution[gameArrayPosition]
-        document.getElementById(activeNode).value = value
+        document.getElementById(activeNode).textContent = value
         if (value !== expectedValue) {
             inputWrong = true
         }
@@ -217,23 +189,35 @@ const processGuess = function(value) {
 
 
 const processSnyderNote = function(value) {
+    if (!activeNode) return
     if (value != '') {
-        console.log(`notesNode is notes-${activeNode}`)
-        const parent = document.getElementById(`notes-${activeNode}`);
-        const noteDiv = parent.children[value - 1]; 
+        console.log(`activeNode is ${activeNode}`)
+        console.log(`#notes-${activeNode} .notes .note`)
+        console.log(`value is ${value}`)
+        // Get the note elements associated with the active node
+        // const notes = document.querySelectorAll(`#${activeNode} .notes .note`);
+        const notes = document.querySelectorAll(`#notes-${activeNode} .note`);
+        console.log(notes)
 
-        if (noteDiv) {
-            if (noteDiv.textContent === '') {
-                noteDiv.textContent = value;
-            } else {
-                noteDiv.textContent = '';
+        // Count the iterations
+        // node/div are not toggling correctly
+        let i = 1
+        notes.forEach(function(note) {
+            console.log(note.innerHTML == '')
+            if (i == value) {
+                if (note.innerHTML.trim() === '') {
+                    note.innerHTML = value;
+                } else {
+                    note.innerHTML = '';
+                }
             }
-        }
+            i += 1
+        });
     }
 }
 
 /**
- * Toggle the Snyder Notes & inputs (one is off, 1 is on)
+ * Toggle the Snyder Notes & inputs for a given node (one is off, 1 is on)
  * @param {String} inputId
  * @param {String} desiredState - "on" or "off"
  */
@@ -274,13 +258,16 @@ const processKeypadInput = function(value) {
 // Highlight nodes associated with activeNode
 const highlightBoard = function() {
     removeHighlighting()
-    const hoverValue = document.getElementById(activeNode).value
-    console.log(hoverValue)
-    if (hoverValue !== '') {
+    const activeValue = document.getElementById(activeNode).innerHTML
+
+    // If the active node has a value, highlight all other instances of that value on the board
+    if (activeValue !== '') {
         for (let i = 0; i < gameNodeNames.length; i++) {
-            const thisValue = $(gameNodeNames[i]).val()
-            if (thisValue == hoverValue) {
-                $( gameNodeNames[i] ).css("background-color", "aquamarine");
+            const nodeBeingChecked = gameNodeNames[i].split('#')[1]
+            const thisValue = document.getElementById(nodeBeingChecked).innerHTML
+            if (thisValue == activeValue) {
+                document.getElementById(nodeBeingChecked).style.backgroundColor = 'aquamarine';
+                document.getElementById(nodeBeingChecked).parentElement.style.backgroundColor = 'aquamarine';
             }
         }
     }
@@ -294,10 +281,12 @@ const highlightBoard = function() {
     const rowTargetElements = document.querySelectorAll(`.r${row}`);
     rowTargetElements.forEach((row) => {
         row.style.backgroundColor = "aquamarine";
+        row.parentElement.style.backgroundColor = 'aquamarine';
         // Get all siblings and apply the same CSS
         Array.from(row.parentElement.children).forEach((sibling) => {
             if (sibling !== row) {
                 sibling.style.backgroundColor = "aquamarine";
+
             }
         });
     });
@@ -306,6 +295,7 @@ const highlightBoard = function() {
     const colTargetElements = document.querySelectorAll(`.c${col}`);
     colTargetElements.forEach((col) => {
         col.style.backgroundColor = "aquamarine";
+        col.parentElement.style.backgroundColor = 'aquamarine';
         // Get all siblings and apply the same CSS
         Array.from(col.parentElement.children).forEach((sibling) => {
             if (sibling !== col) {
@@ -318,6 +308,7 @@ const highlightBoard = function() {
     const boxTargetElements = document.querySelectorAll(`.b${box}`);
     boxTargetElements.forEach((box) => {
         box.style.backgroundColor = "aquamarine";
+        box.parentElement.style.backgroundColor = 'aquamarine';
         // Get all siblings and apply the same CSS
         Array.from(box.parentElement.children).forEach((sibling) => {
             if (sibling !== box) {
@@ -326,6 +317,10 @@ const highlightBoard = function() {
         });
     });
 
+    //Highlight the active node in a different color
+    document.getElementById(activeNode).style.backgroundColor = '#ffe15a';
+    document.getElementById(activeNode).parentElement.style.backgroundColor = '#ffe15a';
+
 }
 const removeHighlighting = function() {
     // Remove Highlight from all nodes
@@ -333,6 +328,9 @@ const removeHighlighting = function() {
         $(this).css("background-color", "white");
     })
     $(".notes").each(function() {
+        $(this).css("background-color", "white");
+    })
+    $(".node").each(function() {
         $(this).css("background-color", "white");
     })
 }
